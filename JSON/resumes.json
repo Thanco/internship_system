@@ -1,0 +1,33 @@
+[
+    {
+        "UUID":"0690b59c-7460-4759-b7e6-c8684643f06d",
+        "userUUID":"c17f9f3f-3dd3-4175-9d80-bcf00e3a0ffa",
+        "education":
+            {
+                "schoolTitle":"Canada University",
+                "enrollmentLength":"3 years",
+                "schoolClass":"junior",
+                "major":"computer science"
+            },
+        "workExperience":
+            [
+                {
+                    "employer":"Chick-Fil-A",
+                    "startDate":"10-09-2020",
+                    "endDate":"10-18-2021"
+                },{
+                    "employer":"Cracker Barrel",
+                    "startDate":"10-09-2016",
+                    "endDate":"10-18-2019"
+                }
+            ],
+        "skills":
+            [
+                "java",
+                "data management",
+                "project management"
+            ],
+        "extraCurricular":"Code-a-thons",
+        "currentEmployment":"Chick-Fil-A"
+    }
+]
