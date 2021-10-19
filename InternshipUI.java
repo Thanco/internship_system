@@ -6,6 +6,23 @@ import java.util.Scanner;
  */
 public class InternshipUI {
     private Scanner read = new Scanner(System.in);
+    private String[] Options;
+
+    /**
+     * Prints an options menu and returns a char
+     * @param A list of options to be printed (1,7,20,27)
+     * @return The users entry
+     */
+    private char UIOptionsLine(String options) {
+        return 'X';
+    }
+
+    /**
+     * Reads the list of options from a text file
+     */
+    private void FillOptions() {
+
+    }
 //    private InternshipApplication application;
 
     public void run() {

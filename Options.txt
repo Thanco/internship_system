@@ -1,0 +1,47 @@
+(L)ogin
+(C)reate Account
+(E)xit
+(S)tudent
+(E)mployer
+(B)ack
+(C)reate Resume
+(O)ptions
+(A)dd Rating
+(V)iew Internships
+(L)ogout
+(S)chool
+(W)ork Experience
+(E)xtra-Curricular
+(D)one
+(P)rofile Options
+(R)esume Options
+(E)mail
+(P)assword
+(C)urrent Employer
+(S)kills
+(F)ull List
+(S)earch
+(#) of Listing
+(N)ext Page
+(P)revious Page
+(C)ompany
+(P)osition
+(S)alary
+(A)pply
+(C)reate Internship
+(V)iew Internships
+(E)mployees
+(W)ork Schedule
+(P)ay Rate
+(R)emove
+(E)dit
+(V)iew Applicants
+(C)ompany
+(T)itle
+(E)xperation Date
+(A)ccept
+(D)ecline
+(P)romote
+(V)iew Rating
+(#) to Remove
+(R)eset
