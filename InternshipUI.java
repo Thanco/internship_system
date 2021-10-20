@@ -1,3 +1,5 @@
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -5,26 +7,116 @@ import java.util.Scanner;
  * @author Wyatt Wilgus
  */
 public class InternshipUI {
-    private Scanner read = new Scanner(System.in);
-//    private InternshipApplication application;
+    private final int LINE_LENGTH = 80;
+    private final int PAGE_LENGTH = 25;
+    private final String OPTIONS = "Options.txt";
+    private User currentUser;
+    private Scanner in = new Scanner(System.in);
+    private String[] Options;
+    private int size;
 
+    /**
+     * Runs initialization for UI
+     */
     public void run() {
-
+        FillOptions();
+        StartUI();
     }
+
+    /**
+     * Prints an options menu and returns a char
+     * @param A list of options to be printed (01072027)
+     * @return The users entry
+     */
+    private char UIOptionsLine(String options) {
+        Scanner read = new Scanner(options);
+        String[] ops = read.nextLine().split(",");
+        PrintDivider();
+        System.out.println();
+        for (int i = 0; i < size; i += 2) {
+            int index = Integer.parseInt(options.substring(i, i + 2));
+            System.out.print(Options[index] + "   ");
+        }
+        PrintDivider();
+        System.out.println("Options: ");
+        return in.nextLine().charAt(0);
+    }
+
+    /**
+     * Prints a line of "="
+     */
+    private void PrintDivider() {
+        for(int i = 0; i < LINE_LENGTH; i++) {
+            System.out.print("=");
+        }
+    }
+
+    /**
+     * Prints blank lines to "clear" the output
+     */
+    private void ClearPage() {
+        for (int i = 0; i < PAGE_LENGTH; i++) {
+            System.out.println();
+        }
+    }
+
+    /**
+     * Reads the list of options from a text file into and array
+     */
+    private void FillOptions() {
+        File file = new File(OPTIONS);
+        try {
+            Scanner read = new Scanner(file);
+            ArrayList<String> temp = new ArrayList<String>();
+            while(read.hasNextLine()) {
+                temp.add(read.nextLine());
+            }
+            size = temp.size();
+            Options = new String[size];
+            for (int i =  0; i < size; i++) {
+                Options[i] = temp.get(i);
+            }
+        } catch (Exception e) {
+            System.out.println("Error reading options file");
+        }
+    }
+//    private InternshipApplication application;
 
     /**
      * Entry UI
      * @options (L)ogin, (C)reate Account, (E)xit
      */
     public void StartUI() {
-
+        char entry = UIOptionsLine("000203");
+        ClearPage();
+        if (entry == 'L') Login();
+        else if (entry == 'C') CreateAccount();
+        else if (entry == 'E') {
+            ClearPage();
+            System.out.println("Saving");
+            //Save Data
+            System.out.println("Exiting Application");
+            System.exit(0);
+        } else {
+            StartUI();
+        }
     }
 
     /**
      * Login UI
      */
     public void Login() {
-
+        ClearPage();
+        System.out.println("Login");
+        PrintDivider();
+        System.out.println("Email: ");
+        String email = in.nextLine();
+        System.out.println("Password: ");
+        String password = in.nextLine();
+        //currentUser = login(email, password);
+        //Get User List
+        //Search User List by UUID
+        //Store run appropriate UI
     }
 
     /**
@@ -32,21 +124,49 @@ public class InternshipUI {
      * @options (S)student, (E)mployer, (B)ack
      */
     public void CreateAccount() {
-
+        ClearPage();
+        System.out.println("Account Creation");
+        char entry = UIOptionsLine("040506");
+        if (entry == 'S') CreateStudent();
+        else if (entry == 'E') CreateEmployer();
+        else if (entry == 'B') StartUI();
+        else CreateAccount();
     }
 
     /**
      * Creates a new student account
      */
     public void CreateStudent() {
-
+        ClearPage();
+        System.out.println("Student Account Creation");
+        PrintDivider();
+        System.out.println("First Name: ");
+        String first = in.nextLine();
+        System.out.println("Last Name: ");
+        String last = in.nextLine();
+        System.out.println("Email: ");
+        String email = in.nextLine();
+        System.out.println("Password: ");
+        String password = in.nextLine();
+        //currentUser = createUser();
+        StartUI();
     }
 
     /**
      * Creates a new employer account
      */
     public void CreateEmployer() {
-
+        ClearPage();
+        System.out.println("Employer Account Creation");
+        PrintDivider();
+        System.out.println("Company Name: ");
+        String first = in.nextLine();
+        System.out.println("Email: ");
+        String email = in.nextLine();
+        System.out.println("Password: ");
+        String password = in.nextLine();
+        //currentUser = createUser();
+        StartUI();
     }
 
     /**
@@ -185,7 +305,7 @@ public class InternshipUI {
     /**
      * UI for adding a rating
      */
-    public void AddRating(/*Employer*/) {
+    public void AddRating(Employer employer) {
 
     }
 
@@ -201,7 +321,7 @@ public class InternshipUI {
      * Displays and internships information
      * @options (A)pply, (B)ack, (L)ogout
      */
-    public void ViewInternship() {
+    public void ViewInternship(Internship internship) {
 
     }
 
@@ -268,7 +388,7 @@ public class InternshipUI {
      * Displays a list of employees
      * @options (#)of Listing, (N)ext, (P)revious, (B)ack, (L)ogout
      */
-    public void ViewEmployees() {
+    public void ViewEmployees(Employer employer) {
 
     }
 
@@ -290,7 +410,7 @@ public class InternshipUI {
      * Displays a list of internships
      * @options (#)of Listing, (N)ext, (P)revious, (B)ack, (L)ogout
      */
-    public void ViewInternships() {
+    public void ViewInternships(Employer employer) {
 
     }
 
@@ -322,7 +442,7 @@ public class InternshipUI {
      * Displays an appicants resume
      * @options (A)ccept Applicant, (D)ecline Applicant, (B)ack, (L)ogout
      */
-    public void ViewResume() {
+    public void ViewResume(Resume resume) {
 
     }
 
@@ -346,7 +466,7 @@ public class InternshipUI {
      * Displays a list of a students ratings
      * @options (#)to Remove, (R)eset Rating, (N)ext, (P)revious, (B)ack, (L)ogout
      */
-    public void ViewRatings() {
+    public void ViewRatings(Student student) {
 
     }
 
