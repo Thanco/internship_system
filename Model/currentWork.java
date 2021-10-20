@@ -1,4 +1,3 @@
-
 public class currentWork {
 
 	public currentWork(resume resume) {

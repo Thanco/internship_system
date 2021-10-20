@@ -1,11 +1,11 @@
-package Model;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class Employer extends User {
     private boolean verificationStatus;
     private ArrayList<Internship> internshipList;
-    private ArrayList<Rating> ratings;
+    private ArrayList<Integer> ratings;
     private ArrayList<Student> employees;
 
     public Employer(UUID id, String firstName, String lastName, String email, String password) {
@@ -20,44 +20,20 @@ public class Employer extends User {
         return true;
     }
 
-    public void addRating(UUID userId, int rating, String feedback) {
-        return;
+    /**
+     * Adds a rating to the rating list.
+     * @param rating is the rating number 
+     */
+    public void addRating(int rating){
+        ratings.add(rating);
     }
 
-    @Override
-    protected boolean validateEmail(String email) {
-        return false;
-    }
-    public boolean isVerificationStatus() {
-        return this.verificationStatus;
-    }
-
+    /**
+     * Sets the verification status of an Employee to the provided boolean.
+     * @param verificationStatus to set this boolean to.
+     */
     public void setVerificationStatus(boolean verificationStatus) {
         this.verificationStatus = verificationStatus;
-    }
-
-    public ArrayList<Internship> getInternshipList() {
-        return this.internshipList;
-    }
-
-    public void setInternshipList(ArrayList<Internship> internshipList) {
-        this.internshipList = internshipList;
-    }
-
-    public ArrayList<Rating> getRatings() {
-        return this.ratings;
-    }
-
-    public void setRatings(ArrayList<Rating> ratings) {
-        this.ratings = ratings;
-    }
-
-    public ArrayList<Student> getEmployees() {
-        return this.employees;
-    }
-
-    public void setEmployees(ArrayList<Student> employees) {
-        this.employees = employees;
     }
 
 }
