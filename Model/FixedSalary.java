@@ -1,13 +1,11 @@
-package Model;
-
 public class FixedSalary implements SalaryType{
     public int salary;
 
     public FixedSalary(int salary){
-        return;
+        this.salary = salary;
     }
 
     public String getSalary(){
-        return "";
+        return "" + salary;
     }
 }

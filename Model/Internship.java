@@ -1,6 +1,5 @@
-package Model;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.UUID;
 
 public class Internship {
@@ -8,33 +7,102 @@ public class Internship {
     private String title;
     private String employer;
     private String description;
-    private String requiredStrings;
-    private WorkSchedule workschedule;
-    private Date expirationDate;
+    private ArrayList<String> requiredSkills;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private int hoursPerDay;
+    private LocalDate expirationDate;
     private SalaryType salaryType;
     private ArrayList<Resume> applications;
 
-    public Internship(UUID id, String title, String employer, String description, String requiredSkills, WorkSchedule workSchedule, Date expirationDate, SalaryType salaryType){
-        return;
+    /**
+     * Instantiates an Internship object with given UUID. Used for loading from JSON
+     * into the program.
+     * 
+     * @param id             the uuid of the internship offer.
+     * @param title          the title as string.
+     * @param employer       the employer name as a string.
+     * @param description    the description of the internship offer.
+     * @param requiredSkills the skills required for the internship
+     * @param startDate      the date when the internship is supposed to start.
+     * @param endDate        the date when the internship is supposed to end.
+     * @param hoursPerDay    the hours the student is supposed to work.
+     * @param expirationDate the date when the offer expires.
+     * @param salaryType     the type of the salary.
+     * @param applications the applications already received.
+     */
+    public Internship(UUID id, String employer, String title, String description, ArrayList<String> requiredSkills,
+            LocalDate startDate, LocalDate endDate, int hoursPerDay, int endHour, LocalDate expirationDate,
+            SalaryType salaryType, ArrayList<Resume> applications) {
+        this.id = id;
+        this.title = title;
+        this.employer = employer;
+        this.description = description;
+        this.requiredSkills = requiredSkills;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.hoursPerDay = hoursPerDay;
+        this.expirationDate = expirationDate;
+        this.salaryType = salaryType;
     }
 
-    public boolean addApplication(Resume resume){
-        return true;
+    /**
+     * Instantiates an Internship object and generates a UUID. Supposed to be used
+     * when creating a completely new user.
+     * 
+     * @param title          the title as string.
+     * @param employer       the employer name as a string.
+     * @param description    the description of the internship offer.
+     * @param requiredSkills the skills required for the internship
+     * @param startDate      the date when the internship is supposed to start.
+     * @param endDate        the date when the internship is supposed to end.
+     * @param hoursPerDay    the hours the student is supposed to work.
+     * @param expirationDate the date when the offer expires.
+     * @param salaryType     the type of the salary.
+     */
+    public Internship(String title, String employer, String description, ArrayList<String> requiredSkills,
+            LocalDate startDate, LocalDate endDate, int hoursPerDay, int endHour, LocalDate expirationDate,
+            SalaryType salaryType) {
+        this.id = UUID.randomUUID();
+        this.title = title;
+        this.employer = employer;
+        this.description = description;
+        this.requiredSkills = requiredSkills;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.hoursPerDay = hoursPerDay;
+        this.expirationDate = expirationDate;
+        this.salaryType = salaryType;
     }
-
-    private Resume getResumesWithSkill(String skill){
-        return new Resume();
+    
+    /**
+     * Adds an application the the application list.
+     * @param resume the application to add.
+     */
+    public void addApplication(Resume resume) {
+        applications.add(resume);
     }
 
     public String toString(){
-        return ""
- ;   }
-    public UUID getId() {
-        return this.id;
-    }
+        String output = employer;
+        output += "\n	" + title;
 
-    public void setId(UUID id) {
-        this.id = id;
+        output += "\nRequired Skills: ";
+        for(String skill : requiredSkills){
+            output += skill;
+        }
+
+        output += "\nDescription:";
+        output += description;
+        output += "\nPay: " + salaryType.getSalary();
+        output += "\nSchedule:";
+        output += "\n   Start Day: " + startDate.getMonthValue() + "/" + startDate.getDayOfMonth() + "/" + startDate.getYear();
+        output += "\n   End Day: " + endDate.getMonthValue() + "/" + endDate.getDayOfMonth() + "/" + endDate.getYear();
+        output += "\n   Hours per Day: " + hoursPerDay;
+        output += "\nOpen Until: " + expirationDate.getMonthValue() + "/" + expirationDate.getDayOfMonth() + "/" + expirationDate.getYear();
+
+        return output;
+
     }
 
     public String getTitle() {
@@ -53,40 +121,42 @@ public class Internship {
         this.employer = employer;
     }
 
-    public String getDescription() {
-        return this.description;
-    }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getRequiredStrings() {
-        return this.requiredStrings;
+    public void setRequiredSkills(ArrayList<String> requiredSkills) {
+        this.requiredSkills = requiredSkills;
     }
 
-    public void setRequiredStrings(String requiredStrings) {
-        this.requiredStrings = requiredStrings;
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public WorkSchedule getWorkschedule() {
-        return this.workschedule;
+    public LocalDate getEndDate() {
+        return this.endDate;
     }
 
-    public void setWorkschedule(WorkSchedule workschedule) {
-        this.workschedule = workschedule;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
-    public Date getExpirationDate() {
+    public void setHoursPerDay(int hoursPerDay) {
+        this.hoursPerDay = hoursPerDay;
+    }
+
+    public LocalDate getExpirationDate() {
         return this.expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
     }
 
-    public SalaryType getSalaryType() {
-        return this.salaryType;
+    public String getSalary() {
+        return this.salaryType.getSalary();
     }
 
     public void setSalaryType(SalaryType salaryType) {
@@ -96,9 +166,4 @@ public class Internship {
     public ArrayList<Resume> getApplications() {
         return this.applications;
     }
-
-    public void setApplications(ArrayList<Resume> applications) {
-        this.applications = applications;
-    }
-
 }

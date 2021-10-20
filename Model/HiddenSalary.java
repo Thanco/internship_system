@@ -1,4 +1,3 @@
-package Model;
 
 public class HiddenSalary implements SalaryType {
 
@@ -7,9 +6,8 @@ public class HiddenSalary implements SalaryType {
         return;
     }
 
-    @Override
     public String getSalary() {
-        return "";
+        return "To be determined";
     }
     
 }
