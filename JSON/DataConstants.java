@@ -5,7 +5,7 @@ public abstract class DataConstants {
 	/**
 	 * User definitions
 	 */
-	protected static final String USER_FILE_NAME = "users.json";
+	protected static final String USERS_FILE_NAME = "users.json";
 
 	/**
 	 * Resume definitions
