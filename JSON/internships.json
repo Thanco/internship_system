@@ -5,13 +5,9 @@
         "employer":"Apple",
         "description":"You're going to program the programs",
         "requiredSkills":"java,communication,time management,project management",
-        "workSchedule":
-            {
-                "startDay":"Monday",
-                "endDay":"Friday",
-                "startHour":9,
-                "endHour":4
-            },
+        "startDate":"1-10-2022",
+        "endDate":"4-10-2022",
+        "hoursPerDay":7,
         "experationDate":"12-25-2021",
         "salary":
             {

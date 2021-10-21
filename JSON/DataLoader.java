@@ -2,15 +2,15 @@ package JSON;
 import java.util.ArrayList;
 public class DataLoader extends DataConstants {
 	
-	public static ArrayList<String> loadUsers() {
-		return new ArrayList<String>();
+	public static ArrayList<Student> loadUsers() {
+		return new ArrayList<Student>();
 	}
 
-	public static ArrayList<String> loadResumes() {
-		return new ArrayList<String>();
+	public static ArrayList<resume> loadResumes() {
+		return new ArrayList<resume>();
 	}
 
-	public static ArrayList<String> loadInternships() {
-		return new ArrayList<String>();
+	public static ArrayList<Internship> loadInternships() {
+		return new ArrayList<Internship>();
 	}
 }
