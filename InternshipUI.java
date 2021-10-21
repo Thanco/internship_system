@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Contains all user interfaces.
  * @author Wyatt Wilgus
  */
-public class InternshipUI {
+public class InternshipUI extends InternshipApplication {
     private final int LINE_LENGTH = 80;
     private final int PAGE_LENGTH = 25;
     private final String OPTIONS = "Options.txt";
@@ -34,7 +34,7 @@ public class InternshipUI {
         PrintDivider();
         System.out.println();
         for (int i = 0; i < size; i += 2) {
-            int index = Integer.parseInt(options.substring(i, i + 2));
+            int index = Integer.parseInt(options.substring(i, i + 2)) - 1;
             System.out.print(Options[index] + "   ");
         }
         PrintDivider();
@@ -80,127 +80,101 @@ public class InternshipUI {
             System.out.println("Error reading options file");
         }
     }
-//    private InternshipApplication application;
+
+    /**
+     * Logs User out
+     */
+    private void Logout() {
+        currentUser = null;
+        StartUI();
+    }
 
     /**
      * Entry UI
      * @options (L)ogin, (C)reate Account, (E)xit
+     * @options "210616"
      */
     public void StartUI() {
-        char entry = UIOptionsLine("000203");
-        ClearPage();
-        if (entry == 'L') Login();
-        else if (entry == 'C') CreateAccount();
-        else if (entry == 'E') {
-            ClearPage();
-            System.out.println("Saving");
-            //Save Data
-            System.out.println("Exiting Application");
-            System.exit(0);
-        } else {
-            StartUI();
-        }
+        
     }
 
     /**
-     * Login UI
+     * Collects email and passwrod then calls the login(email, password) application.
+     * @if login() returns a user it saves that user in currentUser and calls the appropriate Main Menu
+     * @else Returns to StartUI()
      */
     public void Login() {
-        ClearPage();
-        System.out.println("Login");
-        PrintDivider();
-        System.out.println("Email: ");
-        String email = in.nextLine();
-        System.out.println("Password: ");
-        String password = in.nextLine();
-        //currentUser = login(email, password);
-        //Get User List
-        //Search User List by UUID
-        //Store run appropriate UI
+        
     }
 
     /**
-     * Askes user which type of account they want to create
-     * @options (S)student, (E)mployer, (B)ack
+     * Asks user which type of account they want to create
+     * @options (S)tudent, (E)mployer, (B)ack
+     * @options "391404"
      */
     public void CreateAccount() {
-        ClearPage();
-        System.out.println("Account Creation");
-        char entry = UIOptionsLine("040506");
-        if (entry == 'S') CreateStudent();
-        else if (entry == 'E') CreateEmployer();
-        else if (entry == 'B') StartUI();
-        else CreateAccount();
+        
     }
 
     /**
      * Creates a new student account
+     * @complete StartUI()
      */
     public void CreateStudent() {
-        ClearPage();
-        System.out.println("Student Account Creation");
-        PrintDivider();
-        System.out.println("First Name: ");
-        String first = in.nextLine();
-        System.out.println("Last Name: ");
-        String last = in.nextLine();
-        System.out.println("Email: ");
-        String email = in.nextLine();
-        System.out.println("Password: ");
-        String password = in.nextLine();
-        //currentUser = createUser();
-        StartUI();
+        
     }
 
     /**
      * Creates a new employer account
+     * @complete StartUI()
      */
     public void CreateEmployer() {
-        ClearPage();
-        System.out.println("Employer Account Creation");
-        PrintDivider();
-        System.out.println("Company Name: ");
-        String first = in.nextLine();
-        System.out.println("Email: ");
-        String email = in.nextLine();
-        System.out.println("Password: ");
-        String password = in.nextLine();
-        //currentUser = createUser();
-        StartUI();
+        
     }
 
     /**
      * Main menu for students after login
-     * @options (C)reate Resume, (O)ptions, (R)ate Employer, (V)iew Internships, (L)ogout
+     * @options (C)reate Resume, (O)ptions, (A)dd Rating, (V)iew Internships, (L)ogout
+     * @options "0824024222"
      */
     public void StudentMain() {
-
+        
     }
 
     /**
-     * Meain menu for employers after login
-     * @options (C)reate Internship, (V)iew Internship, (E)mployees, (B)ack, (L)ogout
+     * Mein menu for employers after login
+     * @options (C)reate Internship, (V)iew Internships, (E)mployees, (L)ogout
+     * @options "07421522"
      */
     public void EmployerMain() {
-
+        
     }
 
     /**
      * Main menu for admins after login
-     * @options 
+     * @options (S)tudents, (E)mployers, (I)nternships, (L)ogout
+     * @options "39142022"
      */
     public void AdminMain() {
-
+        
     }
 
     /**
      * UI for creating a new resume
-     * @options (S)hool, (W)ork Experience, (E)xtra-Curricular, (D)one, (B)ack, (L)ogout
+     * @options (S)kills, (E)ducation, (W)ork Experience, (H)obbies, (D)one, (B)ack, (L)ogout
+     * @options "364419"
      */
     public void CreateResume() {
 
     }
 
+    /**
+     * UI for entering skills
+     */
+    public void EnterSkills() {
+
+    }
+    
     /**
      * UI for entering ecucation
      */
@@ -225,6 +199,7 @@ public class InternshipUI {
     /**
      * Menu for student account settings
      * @options (P)rofile Options, (R)esume Options, (B)ack, (L)ogout
+     * @options "30340423"
      */
     public void AccountOptions() {
 
@@ -233,6 +208,7 @@ public class InternshipUI {
     /**
      * Profile options menu
      * @options (E)mail, (P)assword, (C)urrent Employer, (B)ack, (L)ogout
+     * @options ""
      */
     public void ProfileOptions() {
 
@@ -262,6 +238,7 @@ public class InternshipUI {
     /**
      * Menu for viewing and editing a resume
      * @options (S)kills, (W)ork Experience, (S)chool, (E)xtra-Curriculars, (C)urrent Employer, (B)ack, (L)ogout
+     * @options ""
      */
     public void ResumeOptions() {
 
@@ -312,6 +289,7 @@ public class InternshipUI {
     /**
      * Menu for viewing internship lists
      * @options (F)ull List, (S)earch, (B)ack, (L)ogout
+     * @options
      */
     public void ViewInternshipList() {
 
@@ -320,6 +298,7 @@ public class InternshipUI {
     /**
      * Displays and internships information
      * @options (A)pply, (B)ack, (L)ogout
+     * @options ""
      */
     public void ViewInternship(Internship internship) {
 
@@ -328,6 +307,7 @@ public class InternshipUI {
     /**
      * Menu for searching internships
      * @options (C)ompany, (P)osition, (S)alary, (B)ack, (L)ogout
+     * @options ""
      */
     public void SeachInternships() {
 
@@ -350,6 +330,7 @@ public class InternshipUI {
     /**
      * Displays a list of internships
      * @options (#)of Listing, (N)ext, (P)revious, (B)ack, (L)ogout
+     * @options ""
      */
     public void DisplayResults() {
 
@@ -358,6 +339,7 @@ public class InternshipUI {
     /**
      * Displays information about an internship
      * @options (A)pply, (B)ack, (L)ogout
+     * @options ""
      */
     public void InternshipInfo() {
 
@@ -387,6 +369,7 @@ public class InternshipUI {
     /**
      * Displays a list of employees
      * @options (#)of Listing, (N)ext, (P)revious, (B)ack, (L)ogout
+     * @options ""
      */
     public void ViewEmployees(Employer employer) {
 
@@ -409,6 +392,7 @@ public class InternshipUI {
     /**
      * Displays a list of internships
      * @options (#)of Listing, (N)ext, (P)revious, (B)ack, (L)ogout
+     * @options ""
      */
     public void ViewInternships(Employer employer) {
 
@@ -417,6 +401,7 @@ public class InternshipUI {
     /**
      * Displays information about an internship
      * @options (E)dit, (R)emove, (V)iew Applicants, (B)ack, (L)ogout
+     * @options ""
      */
     public void ViewInternship() {
 
@@ -425,6 +410,7 @@ public class InternshipUI {
     /**
      * Menu for editing an internship
      * @options (C)ompany, (T)itle, (S)kills, (P)ay, (W)ork Schedule, (E)xperation Date, (B)ack, (L)ogout
+     * @options ""
      */
     public void EditInternship() {
 
@@ -433,6 +419,7 @@ public class InternshipUI {
     /**
      * Displays list of applicants
      * @options (#)of Listing, (N)ext, (P)revious, (B)ack, (L)ogout
+     * @options ""
      */
     public void ViewApplications() {
 
@@ -441,6 +428,7 @@ public class InternshipUI {
     /**
      * Displays an appicants resume
      * @options (A)ccept Applicant, (D)ecline Applicant, (B)ack, (L)ogout
+     * @options ""
      */
     public void ViewResume(Resume resume) {
 
@@ -449,6 +437,7 @@ public class InternshipUI {
     /**
      * Displays list of all student users
      * @options (#)of Listing, (N)ext, (P)revious, (B)ack, (L)ogout
+     * @options ""
      */
     public void ViewStudents() {
 
@@ -457,6 +446,7 @@ public class InternshipUI {
     /**
      * Displays a student profile
      * @options (P)romote, (R)emove, (V)iew Ratings, (B)ack, (L)ogout
+     * @options ""
      */
     public void ViewStudent() {
 
@@ -465,6 +455,7 @@ public class InternshipUI {
     /**
      * Displays a list of a students ratings
      * @options (#)to Remove, (R)eset Rating, (N)ext, (P)revious, (B)ack, (L)ogout
+     * @options ""
      */
     public void ViewRatings(Student student) {
 
@@ -473,6 +464,7 @@ public class InternshipUI {
     /**
      * Displays a student's resume
      * @options (R)emove, (B)ack, (L)ogout
+     * @options ""
      */
     public void ViewResume() {
 
@@ -488,6 +480,7 @@ public class InternshipUI {
     /**
      * Displays a list of internships
      * @options (#)of Listing, (N)ext, (P)revious, (B)ack, (L)ogout
+     * @options ""
      */
     public void ViewInternships() {
 
@@ -496,6 +489,7 @@ public class InternshipUI {
     /**
      * Views a list of employees
      * @options (#)of Listing, (N)ext, (P)revious, (B)ack, (L)ogout
+     * @options ""
      */
     public void ViewEmployees() {
 
@@ -504,6 +498,7 @@ public class InternshipUI {
     /**
      * Displays an employee profile
      * @options (A)dd Rating, (R)emove Employee, (B)ack, (L)ogout
+     * @options ""
      */
     public void ViewEmployee() {
 
@@ -512,6 +507,7 @@ public class InternshipUI {
     /**
      * Displays a users ratings
      * @options (#)to Remove, (R)eset Rating, (N)ext, (P)revious, (B)ack, (L)ogout
+     * @options ""
      */
     public void ViewRatings() {
 

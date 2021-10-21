@@ -1,47 +1,46 @@
-(L)ogin
-(C)reate Account
-(E)xit
-(S)tudent
-(E)mployer
-(B)ack
-(C)reate Resume
-(O)ptions
-(A)dd Rating
-(V)iew Internships
-(L)ogout
-(S)chool
-(W)ork Experience
-(E)xtra-Curricular
-(D)one
-(P)rofile Options
-(R)esume Options
-(E)mail
-(P)assword
-(C)urrent Employer
-(S)kills
-(F)ull List
-(S)earch
-(#) of Listing
-(N)ext Page
-(P)revious Page
-(C)ompany
-(P)osition
-(S)alary
-(A)pply
-(C)reate Internship
-(V)iew Internships
-(E)mployees
-(W)ork Schedule
-(P)ay Rate
-(R)emove
-(E)dit
-(V)iew Applicants
-(C)ompany
-(T)itle
-(E)xperation Date
 (A)ccept
+(A)dd Rating
+(A)pply
+(B)ack
+(C)ompany
+(C)reate Account
+(C)reate Internship
+(C)reate Resume
+(C)urrent Employer
 (D)ecline
+(D)one
+(E)dit
+(E)ducation
+(E)mail
+(E)mployer
+(E)mployees
+(E)xit
+(E)xperation Date
+(F)ull List
+(H)obbies
+(I)nternships
+(L)ogin
+(L)ogout
+(N)ext Page
+(O)ptions
+(P)assword
+(P)ay Rate
+(P)osition
+(P)revious Page
+(P)rofile Options
 (P)romote
-(V)iew Rating
-(#) to Remove
+(R)emove
 (R)eset
+(R)esume Options
+(S)alary
+(S)chedule
+(S)earch
+(S)kills
+(S)tudent
+(T)itle
+(V)iew Applicants
+(V)iew Internships
+(V)iew Rating
+(W)ork Experience
+(#) of Listing
+(#) to Remove
