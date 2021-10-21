@@ -1,5 +1,4 @@
-
-public class resume {
+public class Resume {
 
 	private String firstName;
 	private String lastName;
