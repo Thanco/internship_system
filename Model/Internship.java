@@ -29,7 +29,7 @@ public class Internship {
      * @param hoursPerDay    the hours the student is supposed to work.
      * @param expirationDate the date when the offer expires.
      * @param salaryType     the type of the salary.
-     * @param applications the applications already received.
+     * @param applications   the applications already received.
      */
     public Internship(UUID id, String employer, String title, String description, ArrayList<String> requiredSkills,
             LocalDate startDate, LocalDate endDate, int hoursPerDay, int endHour, LocalDate expirationDate,
@@ -74,21 +74,22 @@ public class Internship {
         this.expirationDate = expirationDate;
         this.salaryType = salaryType;
     }
-    
+
     /**
      * Adds an application the the application list.
+     * 
      * @param resume the application to add.
      */
     public void addApplication(Resume resume) {
         applications.add(resume);
     }
 
-    public String toString(){
+    public String toString() {
         String output = employer;
         output += "\n	" + title;
 
         output += "\nRequired Skills: ";
-        for(String skill : requiredSkills){
+        for (String skill : requiredSkills) {
             output += skill;
         }
 
@@ -96,13 +97,23 @@ public class Internship {
         output += description;
         output += "\nPay: " + salaryType.getSalary();
         output += "\nSchedule:";
-        output += "\n   Start Day: " + startDate.getMonthValue() + "/" + startDate.getDayOfMonth() + "/" + startDate.getYear();
+        output += "\n   Start Day: " + startDate.getMonthValue() + "/" + startDate.getDayOfMonth() + "/"
+                + startDate.getYear();
         output += "\n   End Day: " + endDate.getMonthValue() + "/" + endDate.getDayOfMonth() + "/" + endDate.getYear();
         output += "\n   Hours per Day: " + hoursPerDay;
-        output += "\nOpen Until: " + expirationDate.getMonthValue() + "/" + expirationDate.getDayOfMonth() + "/" + expirationDate.getYear();
+        output += "\nOpen Until: " + expirationDate.getMonthValue() + "/" + expirationDate.getDayOfMonth() + "/"
+                + expirationDate.getYear();
 
         return output;
 
+    }
+
+    public UUID getId() {
+        return this.id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -121,7 +132,6 @@ public class Internship {
         this.employer = employer;
     }
 
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -129,7 +139,6 @@ public class Internship {
     public void setRequiredSkills(ArrayList<String> requiredSkills) {
         this.requiredSkills = requiredSkills;
     }
-
 
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
