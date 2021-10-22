@@ -1,3 +1,4 @@
+package Model;
 
 public class HiddenSalary implements SalaryType {
 

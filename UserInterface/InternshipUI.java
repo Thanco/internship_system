@@ -1,6 +1,14 @@
+package UserInterface;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import Model.Admin;
+import Model.Employer;
+import Model.Internship;
+import Model.Resume;
+import Model.Student;
+import Model.User;
 
 /**
  * Contains all user interfaces.
@@ -92,10 +100,12 @@ public class InternshipUI extends InternshipApplication {
     /**
      * Entry UI
      * @options (L)ogin, (C)reate Account, (E)xit
-     * @options "210616"
+     * @options ""
      */
     public void StartUI() {
-        
+        ClearPage();
+        System.out.println("Start");
+        UIOptionsLine("220617");
     }
 
     /**
@@ -104,16 +114,32 @@ public class InternshipUI extends InternshipApplication {
      * @else Returns to StartUI()
      */
     public void Login() {
-        
+        ClearPage();
+        System.out.println("Login");
+        PrintDivider();
+        System.out.println("Email: ");
+        String email = in.nextLine();
+        System.out.println("Password: ");
+        String password = in.nextLine();
+        currentUser = super.login(email, password);
+        if(currentUser instanceof Employer ) EmployerMain();
+        else if(currentUser instanceof Student ) StudentMain();
+        else if(currentUser instanceof Admin) AdminMain();
+        else StartUI();
     }
 
     /**
      * Asks user which type of account they want to create
      * @options (S)tudent, (E)mployer, (B)ack
-     * @options "391404"
+     * @options "391504"
      */
     public void CreateAccount() {
-        
+        ClearPage();
+        char entry = UIOptionsLine("391504");
+        if(entry == 'S') CreateStudent();
+        else if(entry == 'E') CreateEmployer();
+        else if(entry == 'B') StartUI();
+        else CreateAccount();
     }
 
     /**
@@ -121,7 +147,19 @@ public class InternshipUI extends InternshipApplication {
      * @complete StartUI()
      */
     public void CreateStudent() {
-        
+        ClearPage();
+        System.out.println("Student Account Creation");
+        PrintDivider();
+        System.out.println("First Name: ");
+        String first = in.nextLine();
+        System.out.println("Last Name");
+        String last = in.nextLine();
+        System.out.println("Email: ");
+        String email = in.nextLine();
+        System.out.println("Password: ");
+        String password = in.nextLine();
+        super.createUser(first, last,  email, password, 0);
+        StartUI();
     }
 
     /**
@@ -129,16 +167,34 @@ public class InternshipUI extends InternshipApplication {
      * @complete StartUI()
      */
     public void CreateEmployer() {
-        
+        System.out.println("Employer Account Creation");
+        PrintDivider();
+        System.out.println("First Name: ");
+        String first = in.nextLine();
+        System.out.println("Last Name");
+        String last = in.nextLine();
+        System.out.println("Email: ");
+        String email = in.nextLine();
+        System.out.println("Password: ");
+        String password = in.nextLine();
+        super.createUser(first, last,  email, password, 1);
+        StartUI();
     }
 
     /**
      * Main menu for students after login
      * @options (C)reate Resume, (O)ptions, (A)dd Rating, (V)iew Internships, (L)ogout
-     * @options "0824024222"
+     * @options "0825020423"
      */
     public void StudentMain() {
-        
+        ClearPage();
+        System.out.println("Main Menu");
+        char entry = UIOptionsLine("0825020423");
+        if (entry == 'C') CreateResume();
+        else if (entry == 'o') AddRating();
+        else if (entry == 'V') ViewInternshipList();
+        else if (entry == 'L') Logout();
+        else StudentMain();
     }
 
     /**

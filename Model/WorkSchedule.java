@@ -1,4 +1,6 @@
 package Model;
+
+package Model;
 import java.time.DayOfWeek;
 
 public class WorkSchedule {

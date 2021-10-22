@@ -1,5 +1,10 @@
+package UserInterface;
 import java.util.ArrayList;
 import java.util.UUID;
+import Model.Employer;
+import Model.Internship;
+import Model.Student;
+import Model.User;
 
 /**
  * Used by UI to acces other classes
@@ -8,12 +13,12 @@ public class InternshipApplication {
     /**
      * Checks user list for matching email/password
      * @param email Entered email
-     * @param Password Entered Password
+     * @param password Entered Password
      * @return A user if credentials match
      * @return null if incorrect
      */
     public User login(String email, String Password) {
-
+        
     }
 
     /**
@@ -21,9 +26,9 @@ public class InternshipApplication {
      * @param name Name of company/student
      * @param email Users email
      * @param password Users password
-     * @param type Type of user: 0 = _, 1 = _
+     * @param type Type of user: 0 = Student, 1 = Employer
      */
-    public void createUser(String name, String email, String password, int type) {
+    public void createUser(String first, String last, String email, String password, int type) {
 
     }
 
