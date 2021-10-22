@@ -71,4 +71,12 @@ public abstract class User {
     public void changePassword(String newPassword){
         this.password = newPassword;
     }
+
+    /**
+     * Function to obtain the UUID of the user object.
+     * @return the UUID
+     */
+    public UUID getId(){
+        return this.id;
+    }
 }
