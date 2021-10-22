@@ -1,31 +1,67 @@
+import java.util.ArrayList;
+import java.util.UUID;
 
-public class internshipList {
-	
-	private internships ArrayList<internship>;
+/**
+ * Class that contains all internship listings currently loaded into the
+ * program.
+ * 
+ * @author Bjorn Sauter
+ */
+public class InternshipList {
 
-	public internshipList() {
-		
+	private static InternshipList internshipList;
+	private ArrayList<Internship> internships;
+
+	/**
+	 * Private constructor used in Singleton design pattern.
+	 */
+	private InternshipList() {
+		this.internships = new ArrayList<>();
 	}
-	
-	public internships getArrayList() {
-		return ArrayList;
+
+	/**
+	 * Returns instance of internship list.
+	 * 
+	 * @return the instance
+	 */
+	public static InternshipList getInstance() {
+		if (internshipList == null) {
+			internshipList = new InternshipList();
+		}
+		return internshipList;
 	}
 
-	public void setArrayList(internships arrayList) {
-		ArrayList = arrayList;
+	/**
+	 * Sets the provided internships
+	 * 
+	 * @param internshipList the provided internships as array list.
+	 */
+	public void setInternshipList(ArrayList<Internship> internshipList) {
+		this.internships = internshipList;
 	}
 
-	public intershipList getInstance() {
-		
+	/**
+	 * Returns the internship that matches a given .
+	 * 
+	 * @param internshipId the given id.
+	 * @return the internship with the id.
+	 */
+	public Internship getInternshipById(UUID internshipId) {
+		for (Internship internship : internships) {
+			if (internship.getId().equals(internshipId)) {
+				return internship;
+			}
+		}
 		return null;
 	}
-	
-	public int getInternship(int id) {
-		return null;
+
+	/**
+	 * Removes an internship with a given Id
+	 * @param internshipId the id of the internship to delete.
+	 */
+	public void removeInternshipById(UUID internshipId) {
+
+		internships.removeIf(internship -> internship.getId().equals(internshipId));
 	}
-	
-	public void saveList() {
-		
-	}
-	
+
 }

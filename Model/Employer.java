@@ -1,6 +1,9 @@
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
+
+import Model.SalaryType;
 
 public class Employer extends User {
     private boolean verificationStatus;
@@ -90,5 +93,33 @@ public class Employer extends User {
     public void setVerificationStatus(boolean verificationStatus) {
         this.verificationStatus = verificationStatus;
     }
+
+    /**
+     * Completely deltes an intership from the program.
+     * @param internshipId the id of the internship to delete.
+     */
+    public void deleteInternship(UUID internshipId){
+        internshipList.removeIf(internship -> internship.equals(internshipId));
+        InternshipList.getInstance().removeInternshipById(internshipId);
+    }
+
+    /**
+     * Add an entirely new Internship. 
+     * @param title          the title as string.
+     * @param employer       the employer name as a string.
+     * @param description    the description of the internship offer.
+     * @param requiredSkills the skills required for the internship
+     * @param startDate      the date when the internship is supposed to start.
+     * @param endDate        the date when the internship is supposed to end.
+     * @param hoursPerDay    the hours the student is supposed to work.
+     * @param expirationDate the date when the offer expires.
+     * @param salaryType     the type of the salary.
+     */
+    public void createNewInternship(String title, String employer, String description, ArrayList<String> requiredSkills, LocalDate startDate, LocalDate endDate, int hoursPerDay, int endHour, LocalDate expirationDate, SalaryType salaryType){
+        Internship internship = new Internship(title, employer, description, requiredSkills, startDate, endDate, hoursPerDay, endHour, expirationDate, salaryType);
+        this.internshipList.add(internship.getId());
+        InternshipList.getInstance().addInternship(internship);
+    }
+
 
 }
