@@ -1,3 +1,5 @@
+package Model;
+
 public class FixedSalary implements SalaryType{
     public int salary;
 

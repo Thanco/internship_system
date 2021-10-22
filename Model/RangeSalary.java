@@ -1,3 +1,4 @@
+package Model;
 
 public class RangeSalary implements SalaryType{
     private int lowRange;

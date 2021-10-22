@@ -1,3 +1,5 @@
+package Model;
+
 public class currentWork {
 
 	public currentWork(resume resume) {
