@@ -81,7 +81,7 @@ public class Employer extends User {
      * @param studentId the id of the student.
      */
     public void addStudentRating(int rating, UUID studentId) {
-        Student student = UserList.getInstance().getUserById(studentId);
+        User student = UserList.getInstance().getUserById(studentId);
         student.addRating(rating);
     }
 

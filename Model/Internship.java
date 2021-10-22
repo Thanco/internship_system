@@ -84,6 +84,11 @@ public class Internship {
         applications.add(resume);
     }
 
+    /**
+     * Method that prints the internship object in String format.
+     * 
+     * @return the internship in string format.
+     */
     public String toString() {
         String output = employer;
         output += "\n	" + title;

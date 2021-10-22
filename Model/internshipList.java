@@ -64,4 +64,12 @@ public class InternshipList {
 		internships.removeIf(internship -> internship.getId().equals(internshipId));
 	}
 
+	/**
+	 * Add an internship to the list.
+	 * @param internship the internship to add.
+	 */
+	public void addInternship(Internship internship){
+		internships.add(internship);
+	}
+
 }
