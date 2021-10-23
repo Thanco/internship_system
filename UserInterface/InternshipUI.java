@@ -93,8 +93,16 @@ public class InternshipUI extends InternshipApplication {
      * Logs User out
      */
     private void Logout() {
+        super.saveUser(currentUser);
         currentUser = null;
         StartUI();
+    }
+
+    /**
+     * Runs shut down code to save all system data
+     */
+    private void Exit() {
+
     }
 
     /**
@@ -105,7 +113,11 @@ public class InternshipUI extends InternshipApplication {
     public void StartUI() {
         ClearPage();
         System.out.println("Start");
-        UIOptionsLine("220617");
+        char entry = UIOptionsLine("220617");
+        if (entry == 'L') Login();
+        else if (entry == 'C') CreateAccount();
+        else if (entry == 'E') Exit();
+        else StartUI();
     }
 
     /**
@@ -167,6 +179,7 @@ public class InternshipUI extends InternshipApplication {
      * @complete StartUI()
      */
     public void CreateEmployer() {
+        ClearPage();
         System.out.println("Employer Account Creation");
         PrintDivider();
         System.out.println("First Name: ");
@@ -200,10 +213,16 @@ public class InternshipUI extends InternshipApplication {
     /**
      * Mein menu for employers after login
      * @options (C)reate Internship, (V)iew Internships, (E)mployees, (L)ogout
-     * @options "07421522"
+     * @options "07421623"
      */
     public void EmployerMain() {
-        
+        ClearPage();
+        char entry = UIOptionsLine("07421623");
+        if (entry == 'C') CreateInternship();
+        else if (entry == 'V') ViewInternships();
+        else if (entry == 'E') ViewEmployees();
+        else if (entry == 'L') Logout();
+        else EmployerMain(); 
     }
 
     /**
@@ -212,23 +231,50 @@ public class InternshipUI extends InternshipApplication {
      * @options "39142022"
      */
     public void AdminMain() {
-        
+        ClearPage();
+        char entry = UIOptionsLine("39152123");
+        if (entry == 'S') ViewStudents();
+        else if (entry == 'E') ViewEmployers();
+        else if (entry == 'I') ViewInternshipList();
+        else if (entry == 'L') Logout();
+        else AdminMain();
     }
 
     /**
      * UI for creating a new resume
-     * @options (S)kills, (E)ducation, (W)ork Experience, (H)obbies, (D)one, (B)ack, (L)ogout
-     * @options "364419"
+     * @options (E)ducation, (W)ork Experience, (H)obbies, (B)ack, (L)ogout
+     * @options "1344200423"
      */
     public void CreateResume() {
-
+        ClearPage();
+        System.out.println("Resume Creation");
+        PrintDivider();
+        System.out.println("Type \"done\" when you have entered all of your skills");
+        ArrayList<String> skills = new ArrayList<>();
+        while(true) {
+            System.out.println("Skill: ");
+            String entry = in.nextLine();
+            if (entry.equalsIgnoreCase("done")) {
+                break;
+            }
+            else {
+                skills.add(entry);
+            }
+        }
+        super.createResume(skills);
+        CompleteResume();
     }
 
-    /**
-     * UI for entering skills
-     */
-    public void EnterSkills() {
-
+    public void CompleteResume() {
+        ClearPage();
+        System.out.println("Resume Creation");
+        char entry = UIOptionsLine("134420110423");
+        if (entry == 'E') EnterEducation();
+        else if (entry == 'W') EnterWork();
+        else if (entry == 'H') EnterExtra();
+        else if (entry == 'B') StudentMain();
+        else if (entry == 'L') Logout();
+        else CompleteResume();
     }
     
     /**
@@ -258,37 +304,60 @@ public class InternshipUI extends InternshipApplication {
      * @options "30340423"
      */
     public void AccountOptions() {
-
+        ClearPage();
+        char entry = UIOptionsLine("30340423");
+        if (entry == 'P') ProfileOptions();
+        else if (entry == 'R') ResumeOptions();
+        else if (entry == 'B') StudentMain();
+        else if (entry == 'L') Logout();
+        else AccountOptions();
     }
 
     /**
      * Profile options menu
-     * @options (E)mail, (P)assword, (C)urrent Employer, (B)ack, (L)ogout
-     * @options ""
+     * @options (E)mail, (P)assword, (B)ack, (L)ogout
+     * @options "14260423"
      */
     public void ProfileOptions() {
-
+        ClearPage();
+        System.out.println("Profile");
+        PrintDivider();
+        System.out.println(currentUser.getFirstName() + currentUser.getLastName());
+        System.out.println(currentUser.getEmail());
+        System.out.println(/**Get Rating*/);
+        System.out.println(/**Get Current Employer*/);
+        char entry = UIOptionsLine("14260423");
+        if(entry == 'E') ChangeEmail();
+        else if (entry == 'P') ChangePassword();
+        else if (entry == 'B') AccountOptions();
+        else if (entry == 'L') Logout();
+        else ProfileOptions();
     }
 
     /**
      * UI for changing email
      */
     public void ChangeEmail() {
-
+        ClearPage();
+        System.out.println("Change Email");
+        PrintDivider();
+        System.out.println("New Email: ");
+        String entry = in.nextLine();
+        /**currentUser.setEmail(entry); */
+        ProfileOptions();
     }
 
     /**
      * UI for changing password
      */
     public void ChangePassword() {
-
-    }
-
-    /**
-     * UI for changing current employer
-     */
-    public void ChangeEmployer() {
-
+        ClearPage();
+        System.out.println("Change Password");
+        PrintDivider();
+        System.out.println("New Password: ");
+        String entry = in.nextLine();
+        /**currentUser.setPassword(entry); */
+        ProfileOptions();
     }
 
     /**

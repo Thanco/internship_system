@@ -35,7 +35,7 @@ public class InternshipApplication {
     /**
      * idk
      */
-    public void createResume(/*???*/) {
+    public void createResume(ArrayList<String> skills) {
 
     }
 
@@ -60,7 +60,7 @@ public class InternshipApplication {
      * Overwrites Student with matching UUID to save any changes
      * @param user The Student who is logging out
      */
-    public void saveUser(Student user) {
+    public void saveUser(User user) {
 
     }
 
