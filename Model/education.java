@@ -1,18 +1,20 @@
 package Model;
 
-public class education {
+import java.util.concurrent.TimeUnit;
+
+public class Education {
 
 	private String schoolTitle;
 	private TimeUnit enrollmentLength;
 	private SchoolYear schoolClass;
 	private String major;
 	
-	public education() 
+	public Education() 
 	{
 		
 	}
 	
-	public education(String schoolTitle, TimeUnit enrollmentLength, SchoolYear schoolClass, resume resume)
+	public Education(String schoolTitle, TimeUnit enrollmentLength, SchoolYear schoolClass, Resume resume)
 	{
 		try 
 		{

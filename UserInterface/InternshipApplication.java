@@ -18,7 +18,7 @@ public class InternshipApplication {
      * @return null if incorrect
      */
     public User login(String email, String Password) {
-        
+        return null;
     }
 
     /**
@@ -53,7 +53,7 @@ public class InternshipApplication {
      * @return An array list of Internships
      */
     public ArrayList<Internship> getInternshipList() {
-        
+        return null;
     }
 
     /**
@@ -78,7 +78,7 @@ public class InternshipApplication {
      * @return A User
      */
     public User getUser(UUID user) {
-
+        return null;
     }
 
     /**
@@ -86,7 +86,7 @@ public class InternshipApplication {
      * @return The user ArrayList
      */
     public ArrayList<User> getUserList() {
-
+        return null;
     }
 
     /**

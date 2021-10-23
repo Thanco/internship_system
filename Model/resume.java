@@ -1,20 +1,22 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class Resume {
 
 	private String firstName;
 	private String lastName;
 	private Education education;
-	private workExpierence;
+	private WorkExpierence experiance;
 	private ArrayList<String> studentSkills;
 	private String extraCirricular;
 	private String currentEmployment;
 	
-	public resume() {
+	public Resume() {
 		//defaults
 	}
 	
-	public resume(String firstName, String lastName, ArrayList<String> studentSkills) {
+	public Resume(String firstName, String lastName, ArrayList<String> studentSkills) {
 		try 
 		{
 			//

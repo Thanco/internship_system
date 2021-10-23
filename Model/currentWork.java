@@ -1,8 +1,8 @@
 package Model;
 
-public class currentWork {
+public class CurrentWork {
 
-	public currentWork(resume resume) {
+	public CurrentWork(Resume resume) {
 		
 		
 	}

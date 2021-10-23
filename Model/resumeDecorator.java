@@ -1,10 +1,10 @@
 package Model;
 
-public class resumeDecorator {
+public class ResumeDecorator {
 
-	protected resume resume;
+	protected Resume resume;
 	
-	public resume resumeDecorator(resume resume) {
+	public Resume resumeDecorator(Resume resume) {
 		
 		return resume;
 	}

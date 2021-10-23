@@ -1,17 +1,19 @@
 package Model;
 
-public class workExpierence {
+import java.util.concurrent.TimeUnit;
+
+public class WorkExpierence {
 
 	private int workLength;
 	private Date start;
 	private Date end;
 	
-	public workExpierence() {
+	public WorkExpierence() {
 		
 		
 	}
 	
-	public workExpierence(int workLength, TimeUnit timeUnit, resume resume) {
+	public WorkExpierence(int workLength, TimeUnit timeUnit, Resume resume) {
 		
 		
 	}

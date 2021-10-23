@@ -1,8 +1,8 @@
 package Model;
 
-public class extraCirricular {
+public class ExtraCurricular {
 
-	public extraCirricular(resume resume) {
+	public ExtraCurricular(Resume resume) {
 		
 	}
 	
