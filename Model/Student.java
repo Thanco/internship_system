@@ -52,4 +52,12 @@ public class Student extends User {
     public void addRating(int rating){
         ratings.add(rating);
     }
+
+    public Resume getResume() {
+        return resume;
+    }
+
+    public void setResume(Resume resume) {
+        this.resume = resume;
+    }
 }

@@ -76,8 +76,7 @@ public class Resume {
 	}
 	
 	public String toString() {
-			
-			return "needs to be coded";
+		return "n<Resume toString>>";
 	}
 	
 }

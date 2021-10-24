@@ -96,4 +96,12 @@ public class InternshipApplication {
     public void removeUser(UUID user) {
 
     }
+
+    public ArrayList<Internship> SearchCompany(String entry) {
+        return null;
+    }
+
+    public ArrayList<Internship> SearchPosition(String entry) {
+        return null;
+    }
 }

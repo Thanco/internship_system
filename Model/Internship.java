@@ -182,4 +182,8 @@ public class Internship {
     public ArrayList<Resume> getApplications() {
         return this.applications;
     }
+
+    public String toStringShort() {
+        return "<<Display Internship Short>>";
+    }
 }

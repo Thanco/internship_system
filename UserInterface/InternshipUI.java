@@ -2,6 +2,7 @@ package UserInterface;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.UUID;
 
 import Model.Admin;
 import Model.Employer;
@@ -262,23 +263,27 @@ public class InternshipUI extends InternshipApplication {
             }
         }
         super.createResume(skills);
-        CompleteResume();
+        EditResume();
     }
 
-    public void CompleteResume() {
+    /**
+     * Fills resume with additional information or edits existing information
+     */
+    public void EditResume() {
         ClearPage();
         System.out.println("Resume Creation");
-        char entry = UIOptionsLine("134420110423");
-        if (entry == 'E') EnterEducation();
+        char entry = UIOptionsLine("33134420110423");
+        if (entry == 'S') EnterSkills();
+        else if (entry == 'E') EnterEducation();
         else if (entry == 'W') EnterWork();
         else if (entry == 'H') EnterExtra();
         else if (entry == 'B') StudentMain();
         else if (entry == 'L') Logout();
-        else CompleteResume();
+        else EditResume();
     }
     
     /**
-     * UI for entering ecucation
+     * UI for entering education
      */
     public void EnterEducation() {
 
@@ -296,6 +301,27 @@ public class InternshipUI extends InternshipApplication {
      */
     public void EnterExtra() {
 
+    }
+
+    /**
+     * UI for entering skills
+     */
+    public void EnterSkills() {
+        ClearPage();
+        System.out.println("Skills Entry");
+        PrintDivider();
+        ArrayList<String> skills = currentUser.getResume().getStudentSkills();
+        System.out.println("Skills: ");
+        for(int i = 0; i < skills.size(); i++) {
+            System.out.print(skills.get(i) + ", ");
+        }
+        PrintDivider();
+        System.out.println("Enter a skill to add/remove or enter 'done': ");
+        String entry = in.nextLine();
+        if(entry.equalsIgnoreCase("done")) currentUser.setStudentSkills(skills);
+        else if (skills.contains(entry)) skills.remove(entry);
+        else skills.add(entry);
+        EnterSkills();
     }
 
     /**
@@ -366,108 +392,135 @@ public class InternshipUI extends InternshipApplication {
      * @options ""
      */
     public void ResumeOptions() {
-
-    }
-
-    /**
-     * UI for editing a list of skills
-     */
-    public void EditSkills() {
-
-    }
-
-    /**
-     * UI for adding work Experience
-     */
-    public void AddWork() {
-
-    }
-
-    /**
-     * UI for editing education
-     */
-    public void EditEducation() {
-
-    }
-
-    /**
-     * UI for editing extra-curriculars
-     */
-    public void EditExtra() {
-
-    }
-
-    /**
-     * UI for editing current employer
-     */
-    public void EditCurrent() {
-
+        ClearPage();
+        System.out.println("Resume Options");
+        PrintDivider();
+        currentUser.getResume().toString();
+        char entry = UIOptionsLine("33134420110423");
+        if (entry == 'S') EnterSkills();
+        else if (entry == 'E') EnterEducation();
+        else if (entry == 'W') EnterWork();
+        else if (entry == 'H') EnterExtra();
+        else if (entry == 'B') StudentMain();
+        else if (entry == 'L') Logout();
+        else EditResume();
     }
 
     /**
      * UI for adding a rating
      */
-    public void AddRating(Employer employer) {
-
+    public void AddRating(UUID user) {
+        ClearPage();
+        System.out.println("Rate User");
+        PrintDivider();
+        System.out.println("Enter a rating (1-5): ");
+        super.AddRating(user, in.nextInt());
+        in.nextLine();
+        if(currentUser instanceof Student) StudentMain();
+        else if(currentUser instanceof Employer) ViewEmployees();
     }
 
     /**
      * Menu for viewing internship lists
      * @options (F)ull List, (S)earch, (B)ack, (L)ogout
-     * @options
+     * @options "19370423"
      */
     public void ViewInternshipList() {
-
-    }
-
-    /**
-     * Displays and internships information
-     * @options (A)pply, (B)ack, (L)ogout
-     * @options ""
-     */
-    public void ViewInternship(Internship internship) {
-
+        ArrayList<Internship> internships = getInternshipList();
+        ClearPage();
+        System.out.println("View Internships");
+        char entry = UIOptionsLine("19370423");
+        if (entry == 'F') DisplayInternshipList(internships, 0, 0);
+        else if (entry == 'S') SearchInternships(internships);
+        else if (entry == 'B') StudentMain();
+        else if (entry == 'L') Logout();
+        else ViewInternshipList();
     }
 
     /**
      * Menu for searching internships
-     * @options (C)ompany, (P)osition, (S)alary, (B)ack, (L)ogout
-     * @options ""
+     * @options (C)ompany, (P)osition, (B)ack, (L)ogout
+     * @options "05280423"
      */
-    public void SeachInternships() {
-
+    public void SearchInternships(ArrayList<Internship> internships) {
+        ClearPage();
+        System.out.println("Search Internships");
+        char entry = UIOptionsLine("05280423");
+        if (entry == 'C') SearchCompany();
+        else if (entry == 'P') SearchPosition();
+        else if (entry == 'B') ViewInternshipList();
+        else if (entry == 'L') Logout();
+        else SearchInternships(internships);
     }
 
     /**
      * Menu for searching internships by company
      */
     public void SearchCompany() {
-
+        ClearPage();
+        System.out.println("Search by Employer");
+        PrintDivider();
+        System.out.println("Enter a company to search for: ");
+        String entry = in.nextLine();
+        DisplayInternshipList(SearchCompany(entry), 1, 0);
     }
 
     /**
      * UI for searching internships by position
      */
     public void SearchPosition() {
-
+        ClearPage();
+        System.out.println("Search by Position");
+        PrintDivider();
+        System.out.println("Enter a position to search for: ");
+        String entry = in.nextLine();
+        DisplayInternshipList(SearchPosition(entry), 2, 0);
     }
 
     /**
-     * Displays a list of internships
      * @options (#)of Listing, (N)ext, (P)revious, (B)ack, (L)ogout
      * @options ""
+     * @param internships
+     * @param back
      */
-    public void DisplayResults() {
-
+    public void DisplayInternshipList(ArrayList<Internship> internships, int back, int page) {
+        ArrayList<Internship[]> pages = new ArrayList<Internship[]>();
+        for (int i = 0; i < internships.size(); i += 16) {
+            Internship temp[] = new Internship[16];
+            for (int j = 0; j < 16 && j + (i * 16) < internships.size(); j++) {
+                temp[i] = internships.get((i * 16) + j);
+            }
+            pages.add(temp);
+        }
+        ClearPage();
+        System.out.println("Internship List");
+        PrintDivider();
+        System.out.println("Page: " + page + "/" + pages.size());
+        System.out.println("#	| Company	| Position	| Salary		| Open Until");
+        System.out.println("____|___________|___________|_______________|___________");
+        for (int i = 0; i < 16; i++) {
+            Internship internship = pages.get(page)[i];
+            System.out.println(i +1 + "\t|" + internship.toStringShort());
+        }
+        char entry = UIOptionsLine("4524290423");
+        //Option Selection
     }
 
-    /**
-     * Displays information about an internship
+        /**
+     * Displays and internships information
      * @options (A)pply, (B)ack, (L)ogout
      * @options ""
      */
-    public void InternshipInfo() {
-
+    public void ViewInternship(Internship internship) {
+        ClearPage();
+        System.out.println("Internship Information");
+        PrintDivider();
+        internship.toString();
+        char entry = UIOptionsLine("030423");
+        if (entry == 'A')/*Add resume t internship*/;
+        else if (entry == 'B') ViewInternshipList();
+        else if (entry == 'L') Logout();
+        else ViewInternship(internship);
     }
 
     /**
