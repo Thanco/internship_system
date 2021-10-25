@@ -1,29 +1,16 @@
 package Model;
 
-import java.util.concurrent.TimeUnit;
-
 public class Education {
 
 	private String schoolTitle;
-	private TimeUnit enrollmentLength;
 	private SchoolYear schoolClass;
 	private String major;
 	
-	public Education() 
+	public Education(String schoolTitle, SchoolYear schoolClass, String major)
 	{
-		
-	}
-	
-	public Education(String schoolTitle, TimeUnit enrollmentLength, SchoolYear schoolClass, Resume resume)
-	{
-		try 
-		{
-			
-		}
-		catch(DimensionException e)
-		{
-			System.out.println(e.getMessage());
-		}
+		this.schoolTitle = schoolTitle;
+		this.schoolClass = schoolClass;
+		this.major = major;
 	}
 
 	public String getSchoolTitle() {
@@ -32,14 +19,6 @@ public class Education {
 
 	public void setSchoolTitle(String schoolTitle) {
 		this.schoolTitle = schoolTitle;
-	}
-
-	public TimeUnit getEnrollmentLength() {
-		return enrollmentLength;
-	}
-
-	public void setEnrollmentLength(TimeUnit enrollmentLength) {
-		this.enrollmentLength = enrollmentLength;
 	}
 
 	public SchoolYear getSchoolClass() {
@@ -64,7 +43,7 @@ public class Education {
 	
 	public String toString() {
 		
-		return "needs to be coded";
+		return "Education: /n" + this.schoolTitle + "-" + this.schoolClass + "-" + this.schoolClass;
 	}
 	
 }
