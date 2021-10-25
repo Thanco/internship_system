@@ -1,5 +1,9 @@
 package Model;
 
-public class SchoolYear {
-    
+public enum SchoolYear {
+
+	FRESHMAN,
+	SOPHOMORE,
+	JUNIOR,
+	SENIOR
 }
