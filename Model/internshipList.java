@@ -2,7 +2,6 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.UUID;
-//>>>>>>> 3fa10fed6160521f4e237f104fbba7f42a813a0c
 
 /**
  * Class that contains all internship listings currently loaded into the
