@@ -8,7 +8,7 @@
         "startDate":"1-10-2022",
         "endDate":"4-10-2022",
         "hoursPerDay":7,
-        "experationDate":"12-25-2021",
+        "experationDate":"12/2021",
         "salary":
             {
                 "salaryType":"h"
@@ -21,14 +21,10 @@
         "employer":"Apple",
         "description":"You're going to manage the databases",
         "requiredSkills":"sql,communication,time management,understanding of databases",
-        "workSchedule":
-            {
-                "startDay":"Monday",
-                "endDay":"Thursday",
-                "startHour":8,
-                "endHour":5
-            },
-        "experationDate":"11-1-2021",
+        "startDate":"12-1-2021",
+        "endDate":"12-20-2021",
+        "hoursPerDay":7,
+        "experationDate":"11/2021",
         "salary":
             {
                 "salaryType":"f",
