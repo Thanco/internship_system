@@ -4,7 +4,6 @@
         "education":
             {
                 "schoolTitle":"Canada University",
-                "enrollmentLength":"3 years",
                 "schoolClass":"junior",
                 "major":"computer science"
             },
@@ -12,11 +11,11 @@
             [
                 {
                     "employer":"Chick-Fil-A",
-                    "startDate":"10-09-2020",
+                    "startDate":"10/2020",
                     "endDate":"10/2021"
                 },{
                     "employer":"Cracker Barrel",
-                    "startDate":"10-09-2016",
+                    "startDate":"10/2016",
                     "endDate":"10/2019"
                 }
             ],
@@ -26,7 +25,7 @@
                 "data management",
                 "project management"
             ],
-        "extraCurricular":"Code-a-thons",
+        "extraCurricular":["Code-a-thons"],
         "currentEmployment":"Chick-Fil-A"
     }
 ]

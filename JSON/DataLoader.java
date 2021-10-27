@@ -7,13 +7,19 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+/**
+ * Contains methods to load objects from json files
+ */
 public class DataLoader extends DataConstants {
 	
+	/**
+	 * Loads an ArrayList of Users from the users json file
+	 * @return An ArrayList of Users
+	 */
 	public static ArrayList<User> loadUsers() {
 		ArrayList<User> users = new ArrayList<User>();
 		try {
 			FileReader reader = new FileReader(USERS_FILE_NAME);
-			JSONParser parser = new JSONParser();
 			JSONArray usersJSON = (JSONArray)new JSONParser().parse(reader);
 			for (int i = 0; i < usersJSON.size(); i++) {
 				JSONObject userJSON = (JSONObject)usersJSON.get(i);
@@ -73,11 +79,91 @@ public class DataLoader extends DataConstants {
 		return null;
 	}
 
+	/**
+	 * Loads an ArrayList of Resumes from the resumes json file
+	 * @return An ArrayList of Resumes
+	 */
 	public static ArrayList<Resume> loadResumes() {
-		return new ArrayList<Resume>();
+		ArrayList<Resume> resumes = new ArrayList<>();
+		try {
+			FileReader reader = new FileReader(RESUMES_FILE_NAME);
+			JSONArray resumesJSON = (JSONArray)new JSONParser().parse(reader);
+			for (int i = 0; i < resumesJSON.size(); i++) {
+				JSONObject resumeJSON = (JSONObject)resumesJSON.get(i);
+				UUID id = (UUID)resumeJSON.get(RESUMES_ID);
+				JSONArray educationArrJSON = (JSONArray)new JSONParser().parse(RESUMES_EDUCATION);
+				for (int j = 0; j < educationArrJSON.size(); j++) {
+					JSONObject educationJSON = (JSONObject)educationArrJSON.get(j);
+					String schoolTitle = (String)educationJSON.get(RESUMES_SCHOOL_TITLE);
+					SchoolYear schoolClass = null;
+					switch ((String)educationJSON.get(RESUMES_SCHOOL_TITLE)) {
+						case "freshman":
+							schoolClass = SchoolYear.FRESHMAN;
+							break;
+						case "sophomore":
+							schoolClass = SchoolYear.SOPHOMORE;
+							break;
+						case "junior":
+							schoolClass = SchoolYear.JUNIOR;
+							break;
+						case "senior":
+							schoolClass = SchoolYear.SENIOR;
+							break;
+						default:
+							break;
+					}
+					String major = (String)educationJSON.get(RESUMES_MAJOR);
+					Education education = new Education(schoolTitle, schoolClass, major);
+				}
+				JSONArray workExperienceArrJSON = (JSONArray)new JSONParser().parse(RESUMES_EDUCATION);
+				ArrayList<WorkExperience> workExperience = new ArrayList<>();
+				for (int j = 0; j < workExperienceArrJSON.size(); j++) {
+					JSONObject workExperienceJSON = (JSONObject)workExperienceArrJSON.get(j);
+					String employer = (String)workExperienceJSON.get(RESUMES_EMPLOYER);
+					String startDateString = (String)workExperienceJSON.get(RESUMES_START_DATE);
+					String[] startDateArr = startDateString.split("/");
+					Calendar startDate = Calendar.getInstance();
+					startDate.set(Calendar.MONTH, Integer.parseInt(startDateArr[0]));
+					startDate.set(Calendar.YEAR, Integer.parseInt(startDateArr[1]));
+					String endDateString = (String)workExperienceJSON.get(RESUMES_START_DATE);
+					String[] endDateArr = endDateString.split("/");
+					Calendar endDate = Calendar.getInstance();
+					endDate.set(Calendar.MONTH, Integer.parseInt(endDateArr[0]));
+					endDate.set(Calendar.YEAR, Integer.parseInt(endDateArr[1]));
+					// workExperience.add(new WorkExperience(employer, startDate, endDate));
+					workExperience.add(new WorkExperience("company", 1, "start", "end"));
+				}
+				ArrayList<String> skills = jsonToStringArr(RESUMES_STUDENT_SKILLS);
+				ArrayList<String> extraCurricular = jsonToStringArr(RESUMES_EXTRA_CURRICULAR);
+				String currentEmployer = (String)resumeJSON.get(RESUMES_EMPLOYER);
+				// resumes.add(new Resume(firstName, lastName, school, schoolClass, major, company, length, start, end, studentSkills, extraCirricular));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
+	/**
+	 * Loads an ArrayList of Internships from the internships json file
+	 * @return An ArrayList of Internships
+	 */
 	public static ArrayList<Internship> loadInternships() {
 		return new ArrayList<Internship>();
+	}
+
+	private static ArrayList<String> jsonToStringArr(String toLoad) {
+		try {
+			JSONArray JSONArr = (JSONArray)new JSONParser().parse(toLoad);
+			ArrayList<String> arr = new ArrayList<>();
+			Iterator<?> arrIterator = JSONArr.iterator();
+			while (arrIterator.hasNext()) {
+				arr.add((String)arrIterator.next());
+			}
+			return arr;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

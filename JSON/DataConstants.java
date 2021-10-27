@@ -33,10 +33,16 @@ public abstract class DataConstants {
 	protected static final String RESUMES_ID = "id";
 	protected static final String RESUMES_FIRST_NAME = "firstName";
 	protected static final String RESUMES_LAST_NAME = "lastName";
-	protected static final String RESUME_EDUCATION = "education";
-	protected static final String RESUME_WORK_EXPERIENCE = "workExperience";
-	protected static final String RESUME_STUDENT_SKILLS = "studentSkills";
-	protected static final String RESUME_EXTRA_CURRICULAR = "extraCurricular";
+	protected static final String RESUMES_EDUCATION = "education";
+	protected static final String RESUMES_SCHOOL_TITLE = "schoolTitle";
+	protected static final String RESUMES_SCHOOL_CLASS = "schoolClass";
+	protected static final String RESUMES_MAJOR = "major";
+	protected static final String RESUMES_WORK_EXPERIENCE = "workExperience";
+	protected static final String RESUMES_EMPLOYER = "currentEmployment";
+	protected static final String RESUMES_START_DATE = "startDate";
+	protected static final String RESUMES_END_DATE = "endDate";
+	protected static final String RESUMES_STUDENT_SKILLS = "studentSkills";
+	protected static final String RESUMES_EXTRA_CURRICULAR = "extraCurricular";
 
 	/**
 	 * Internship definitions
