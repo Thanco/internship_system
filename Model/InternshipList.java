@@ -14,6 +14,7 @@ public class InternshipList {
 	private static InternshipList internshipList;
 	private ArrayList<Internship> internships;
 
+
 	/**
 	 * Private constructor used in Singleton design pattern.
 	 */
@@ -74,4 +75,11 @@ public class InternshipList {
 		internships.add(internship);
 	}
 
+	/**
+	 * Returns internship list. 
+	 * @return internship list.
+	 */
+	public ArrayList<Internship> getInternships() {
+		return this.internships;
+	}
 }

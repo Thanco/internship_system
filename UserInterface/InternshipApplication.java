@@ -79,7 +79,7 @@ public class InternshipApplication {
      * @return An array list of Internships
      */
     public ArrayList<Internship> getInternshipList() {
-        
+        return this.internshipList.getInternships();
     }
 
     /**
