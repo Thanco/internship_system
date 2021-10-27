@@ -8,7 +8,7 @@
         "phone":"843-555-0149",
         "password":"A12345",
         "rating":[5,3],
-        "documents":["0690b59c-7460-4759-b7e6-c8684643f06d"]
+        "resume":["0690b59c-7460-4759-b7e6-c8684643f06d"]
     },{
         "UUID":"840435d5-2a6f-47eb-9869-bc1f9cb2af65",
         "userType":"e",
@@ -18,7 +18,7 @@
         "phone":"803-777-2427",
         "password":"JavaIsC00L!",
         "rating":[5,4],
-        "documents":
+        "internships":
             [
                 "fa5d8b35-2bb8-4629-8019-b6a132dde89f",
                 "5d0f2080-3784-4566-9522-9f72b7e7c6c1"
