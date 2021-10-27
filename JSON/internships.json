@@ -4,7 +4,7 @@
         "title":"Software Engineer",
         "employer":"Apple",
         "description":"You're going to program the programs",
-        "requiredSkills":"java,communication,time management,project management",
+        "requiredSkills":["java","communication","time management","project management"],
         "startDate":"1-10-2022",
         "endDate":"4-10-2022",
         "hoursPerDay":7,
@@ -20,15 +20,15 @@
         "title":"Database Manager",
         "employer":"Apple",
         "description":"You're going to manage the databases",
-        "requiredSkills":"sql,communication,time management,understanding of databases",
-        "startDate":"12-1-2021",
-        "endDate":"12-20-2021",
+        "requiredSkills":["sql","communication","time management","understanding of databases"],
+        "startDate":"12/2021",
+        "endDate":"12/2021",
         "hoursPerDay":7,
         "experationDate":"11/2021",
         "salary":
             {
                 "salaryType":"f",
-                "fixedSalary":80000
+                "salaryValue":80000
             },
         "applicants":["c17f9f3f-3dd3-4175-9d80-bcf00e3a0ffa"]
     }

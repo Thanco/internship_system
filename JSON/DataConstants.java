@@ -57,6 +57,10 @@ public abstract class DataConstants {
 	protected static final String INTERNSHIPS_END_DATE = "endDate";
 	protected static final String INTERNSHIPS_HOURS_PER_DAY = "hoursPerDay";
 	protected static final String INTERNSHIPS_EXPERATION_DATE = "experationDate";
+	protected static final String INTERNSHIPS_SALARY = "salary";
+	protected static final String INTERNSHIPS_SALARY_VALUE = "salaryValue";
+	protected static final String INTERNSHIPS_SALARY_LOWER = "lowRange";
+	protected static final String INTERNSHIPS_SALARY_UPPER = "highRange";
 	protected static final String INTERNSHIPS_SALARY_TYPE = "salaryType";
 	protected static final String INTERNSHIPS_APPLICATIONS = "applications";
 }
