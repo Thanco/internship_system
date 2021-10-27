@@ -54,7 +54,7 @@ public class Student extends User {
     }
 
     public Resume getResume() {
-        return resume;
+        return this.resume;
     }
 
     public void setResume(Resume resume) {

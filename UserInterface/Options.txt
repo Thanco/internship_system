@@ -44,3 +44,5 @@
 (W)ork Experience
 (#) of Listing
 (#) to Remove
+(D)elete
+(K)eyword

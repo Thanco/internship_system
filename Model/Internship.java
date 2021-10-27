@@ -139,8 +139,16 @@ public class Internship {
         this.employer = employer;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public ArrayList<String> getRequiredSkills() {
+        return this.requiredSkills;
     }
 
     public void setRequiredSkills(ArrayList<String> requiredSkills) {
