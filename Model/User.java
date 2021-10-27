@@ -93,23 +93,11 @@ public abstract class User {
         return email;
     }
 
-    public void getResume() {
-        
-    }
-
     public String toString() {
         return "<<User To String>>";
     }
 
     public String toStringShort() {
         return "<<User To String Short>>";
-    }
-
-    public char[] getRating() {
-        return null;
-    }
-
-    public char[] getCurrentEmployer() {
-        return null;
     }
 }

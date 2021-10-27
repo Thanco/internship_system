@@ -99,7 +99,37 @@ public class UserList {
 	}
 
 	/**
+	 * Adds a new user to the user list.
+	 * 
+	 * @param name     Name of company/student
+	 * @param email    Users email
+	 * @param password Users password
+	 * @param type     Type of user: 0 = Student, 1 = Employer, 2 = Admin
+	 * @return the created User object, null if type is not match 0, 1 or 2
+	 */
+	public User createUser(String first, String last, String email, String password, int type) {
+		User user;
+		switch (type) {
+		case 0:
+			user = new Student(first, last, email, password);
+			this.addUser(user);
+			return user;
+		case 1:
+			user = new Employer(first, last, email, password);
+			this.addUser(user);
+			return user;
+		case 2:
+			user = new Admin(first, last, email, password);
+			this.addUser(user);
+			return user;
+		default:
+			return null;
+		}
+	}
+
+	/**
 	 * Returns a user object if available with given email.
+	 * 
 	 * @param email the email the account has to have.
 	 * @return user object if email matches, null if no accout with email available.
 	 */
@@ -112,7 +142,7 @@ public class UserList {
 		return null;
 	}
 
-	public void saveList(){
+	public void saveList() {
 		return;
 	}
 

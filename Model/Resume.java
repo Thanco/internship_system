@@ -13,7 +13,7 @@ public class Resume {
 	private ExtraCirricular extraCirricular;
 	
 	public Resume(String firstName, String lastName, String school, SchoolYear schoolClass, String major, String company, 
-			int length, String start, String end, ArrayList<String> studentSkills, String extraCirricular) throws ParseException {
+			int length, String start, String end, ArrayList<String> studentSkills, String extraCirricular) {
 		
 		this.firstName = firstName;
 		this.lastName = lastName;

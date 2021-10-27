@@ -11,7 +11,7 @@ public class WorkExperience {
 	private Date start;
 	private Date end;
 	
-	public WorkExperience(String company, int workLength, String start, String end) throws ParseException {
+	public WorkExperience(String company, int workLength, String start, String end) {
 		
 		this.company = company;
 		this.workLength = workLength;

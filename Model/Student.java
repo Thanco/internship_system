@@ -53,6 +53,23 @@ public class Student extends User {
         ratings.add(rating);
     }
 
+    /**
+     * Creates a resume and adds it to the student
+     * @param school of the student
+     * @param schoolClass of the student
+     * @param major of the student
+     * @param company of the student
+     * @param length 
+     * @param start
+     * @param end
+     * @param studentSkills
+     * @param extraCirricular
+     */
+    public void createResume(String school, SchoolYear schoolClass, String major, String company, 
+    int length, String start, String end, ArrayList<String> studentSkills, String extraCirricular){
+        this.resume = new Resume(this.getFirstName(), this.getLastName(), school, schoolClass, major, company, length, start, end, studentSkills, extraCirricular);
+    }
+
     public Resume getResume() {
         return this.resume;
     }
