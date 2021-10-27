@@ -1,5 +1,10 @@
 package JSON;
 
+/**
+ * Contains constants for json writer and loader
+ * 
+ * @author Terry Hancock
+ */
 public abstract class DataConstants {
 	
 	/**
@@ -29,7 +34,7 @@ public abstract class DataConstants {
 	/**
 	 * Resume definitions
 	 */
-	protected static final String RESUMES_FILE_NAME = "resumes.json";
+	protected static final String RESUMES_FILE_NAME = "JSON/resumes.json";
 	protected static final String RESUMES_ID = "id";
 	protected static final String RESUMES_FIRST_NAME = "firstName";
 	protected static final String RESUMES_LAST_NAME = "lastName";
@@ -47,7 +52,7 @@ public abstract class DataConstants {
 	/**
 	 * Internship definitions
 	 */
-	protected static final String INTERNSHIPS_FILE_NAME = "internships.json";
+	protected static final String INTERNSHIPS_FILE_NAME = "JSON/internships.json";
 	protected static final String INTERNSHIPS_ID = "id";
 	protected static final String INTERNSHIPS_TITLE = "title";
 	protected static final String INTERNSHIPS_EMPLOYER = "employer";

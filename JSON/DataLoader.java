@@ -157,7 +157,7 @@ public class DataLoader extends DataConstants {
 				}
 				ArrayList<UUID> applications = (ArrayList<UUID>)jsonToArr(INTERNSHIPS_APPLICATIONS, "uuid");
 				int endHour = 5;
-				internships.add(new Internship(id, employer, title, description, requiredSkills, startDate, endDate, hoursPerDay, endHour, expirationDate, salaryType, applications));
+				// internships.add(new Internship(id, employer, title, description, requiredSkills, startDate, endDate, hoursPerDay, endHour, expirationDate, salaryType, applications));
 			}
 			return internships;
 		} catch (Exception e) {
