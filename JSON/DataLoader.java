@@ -138,9 +138,11 @@ public class DataLoader extends DataConstants {
 				String currentEmployer = (String)resumeJSON.get(RESUMES_EMPLOYER);
 				// resumes.add(new Resume(firstName, lastName, school, schoolClass, major, company, length, start, end, studentSkills, extraCirricular));
 			}
+			return resumes;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	/**
