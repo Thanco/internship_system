@@ -16,6 +16,7 @@
         "email":"shephejj@email.sc.edu",
         "password":"JavaIsC00L!",
         "rating":[5,4],
+        "verificationStatus":true,
         "internshipList":
             [
                 "fa5d8b35-2bb8-4629-8019-b6a132dde89f",
