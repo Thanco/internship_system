@@ -1,34 +1,20 @@
 package Model;
 
-import java.util.ArrayList;
-
 public class ExtraCirricular {
 	
-	private ArrayList<String> extraCirricularList = new ArrayList<String>();
+	private String name;
 	
-	public ExtraCirricular(String extraCirricular) {
+	public ExtraCirricular(String name) {
 		
-		this.extraCirricularList = makeArrayList(extraCirricular);
-	}
-
-	public ArrayList<String> getExtraCirricularList() {
-		return extraCirricularList;
-	}
-
-	public void setExtraCirricularList(ArrayList<String> extraCirricularList) {
-		this.extraCirricularList = extraCirricularList;
+		this.name = name;
 	}
 	
-	public ArrayList<String> makeArrayList(String extraCirricular) {
-		
-		String[] tempStr = extraCirricular.split(",");
-		ArrayList<String> temp = new ArrayList<String>();
-		
-		for (int i =0; i < tempStr.length; i++) {
-			
-			temp.add(tempStr[i]);
-		}
-		
-		return temp;
+	public String getName() {
+		return name;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 }
