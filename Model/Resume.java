@@ -130,9 +130,18 @@ public class Resume {
 		extraCirricularList.add(extraCirricular);
 	}
 	
-	public String toString() {
+	public String toStringShort() {
 		
-		return "code this";
+		UserList user = UserList.getInstance();
+		
+		//user.getUserById(this.uuid);
+		
+		return "Name: " + this.getFirstName() + " " + this.getLastName() + " : " + user.education().getMajor();
+	}
+	
+	public String toStringLong() {
+		
+		return "needs to be coded";
 	}
 
 }
