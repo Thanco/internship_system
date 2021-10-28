@@ -84,4 +84,19 @@ public class InternshipList {
 	public ArrayList<Internship> getInternships() {
 		return this.internships;
 	}
+
+	/**
+	 * Get an internships by keyword.
+	 * @param keyword all internships that contain the keyword
+	 * @return the internships with the keyword.
+	 */
+	public ArrayList<Internship> getInternshipByKeyword(String keyword){
+		ArrayList<Internship> internshipsWithKeyword = new ArrayList<>();
+		for(Internship internship : internships){
+			if(internship.toString().contains(keyword)){
+				internshipsWithKeyword.add(internship);
+			}
+		}
+		return internshipsWithKeyword;
+	}
 }

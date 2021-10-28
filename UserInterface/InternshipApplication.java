@@ -307,7 +307,7 @@ public class InternshipApplication {
      * @param user The UUID of the user to be removed
      */
     public void removeUser(UUID userId) {
-        User user = userList.removeUserById(userId);
+        userList.removeUserById(userId);
 
     }
 
