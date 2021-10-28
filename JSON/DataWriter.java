@@ -234,12 +234,22 @@ public class DataWriter extends DataConstants {
 		return internshipInformation;
 	}
 
+	/**
+	 * Converts a calender object to the json string format
+	 * @param calendar the calender to convert
+	 * @return A string format of the calender (MM/YYYY)
+	 */
 	private static String calendarToJsonDate(Calendar calendar) {
 		String month = String.valueOf(calendar.get(Calendar.MONTH));
 		String year = String.valueOf(calendar.get(Calendar.YEAR));
 		return month + "/" + year;
 	}
 
+	/**
+	 * Converts a locadDate object to the json string format
+	 * @param calendar the locadDate to convert
+	 * @return A string format of the locadDate (MM/YYYY)
+	 */
 	private static String localDateToJsonDate(LocalDate date) {
 		return date.getMonthValue() + "/" + date.getYear();
 	}
