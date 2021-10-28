@@ -1,6 +1,6 @@
 [
     {
-        "UUID":"0690b59c-7460-4759-b7e6-c8684643f06d",
+        "id":"0690b59c-7460-4759-b7e6-c8684643f06d",
         "education":
             {
                 "schoolTitle":"Canada University",
@@ -19,7 +19,7 @@
                     "endDate":"10/2019"
                 }
             ],
-        "skills":
+        "studentSkills":
             [
                 "java",
                 "data management",

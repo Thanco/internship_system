@@ -52,7 +52,7 @@ public class DataLoader extends DataConstants {
 						Boolean verificationStatus = (Boolean)userJSON.get(EMPLOYERS_VERIFICATION_STATUS);
 						ArrayList<UUID> internshipList = (ArrayList<UUID>)jsonToArr(EMPLOYERS_INTERNSHIP_LIST, userJSON, "uuid");
 						ArrayList<UUID> employees = (ArrayList<UUID>)jsonToArr(EMPLOYERS_EMPLOYEES, userJSON, "uuid");
-						users.add(new Employer(id, firstName, lastName, email, password, verificationStatus, internshipList, ratings, employees));
+						// users.add(new Employer(id, firstName, lastName, email, password, verificationStatus, internshipList, ratings, employees));
 						break;
 					}
 					case "a": {
@@ -87,7 +87,7 @@ public class DataLoader extends DataConstants {
 				Education education = null;
 					String schoolTitle = (String)educationJSON.get(RESUMES_SCHOOL_TITLE);
 					SchoolYear schoolClass = null;
-					switch ((String)educationJSON.get(RESUMES_SCHOOL_TITLE)) {
+					switch ((String)educationJSON.get(RESUMES_SCHOOL_CLASS)) {
 						case "freshman":
 							schoolClass = SchoolYear.FRESHMAN;
 							break;
@@ -207,7 +207,7 @@ public class DataLoader extends DataConstants {
 					ArrayList<UUID> arr = new ArrayList<>();
 					Iterator<?> arrIterator = JSONArr.iterator();
 					while (arrIterator.hasNext()) {
-						arr.add((UUID)arrIterator.next());
+						arr.add(UUID.fromString((String)arrIterator.next()));
 					}
 					return arr;
 				}
