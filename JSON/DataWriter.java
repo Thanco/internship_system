@@ -178,6 +178,11 @@ public class DataWriter extends DataConstants {
 		}
 	}
 
+	/**
+	 * Converts a java internship object to a JSONObject
+	 * @param internship the intership to covert
+	 * @return the JSONObject format of the internship
+	 */
 	private static JSONObject getInternshipJSON(Internship internship) {
 		JSONObject internshipInformation = new JSONObject();
 		internshipInformation.put(INTERNSHIPS_ID, internship.getId().toString());
