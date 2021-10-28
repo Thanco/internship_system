@@ -129,5 +129,10 @@ public class Resume {
 		
 		extraCirricularList.add(extraCirricular);
 	}
+	
+	public String toString() {
+		
+		return "code this";
+	}
 
 }
