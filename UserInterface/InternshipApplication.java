@@ -259,7 +259,7 @@ public class InternshipApplication {
      * @return true if name is changed
      */
     public boolean updateName(String first, String last) {
-        
+        return false;
     }
 
     /**

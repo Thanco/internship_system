@@ -247,6 +247,61 @@ public class InternshipUI {
      * UI for creating a resume
      */
     public void createResume() {
+        clearPage();
+        System.out.print("Resume Creation");
+        printDivider();
+        System.out.println("Enter the name of your school: ");
+        String school = in.nextLine();
+        System.out.println("Enter your major: ");
+        String major = in.nextLine();
+        System.out.println("Enter your year: ");
+        String year = in.nextLine();
+        boolean attempt = application.createResume(school, major, class);
+        if (attempt) ResumeOptions();
+        else {
+            System.out.println("Resume could not be created: Press enter to continiue");
+            in.nextLine();
+            studentMain();
+        }
+    }
+
+    /**
+     * Menu for viewing and editing a resume
+     * @options (S)kills, (W)ork Experience, (S)chool, (E)xtra-Curriculars, (B)ack, (L)ogout
+     * @options ""
+     */
+    public void ResumeOptions() {
+        clearPage();
+        System.out.println("Resume Options");
+        printDivider();
+        Resume resume = application.getResume();
+        resume.toString();
+        char entry = UIOptionsLine("331344200423");
+        if (entry == 'S') enterSkills();
+        else if (entry == 'W') enterWork();
+        else if (entry == 'S') enterEducation();
+        else if (entry == 'E') enterExtra();
+        else if (entry == 'B') studentMain();
+        else if (entry == 'L') logout();
+        else ResumeOptions();
+    }
+
+    public void enterSkills() {
+        clearPage();
+        System.out.print("Enter a skill or \"done\"");
+        printDivider();
+        System.out.print("Skill: ");
+        String skill = in.nextLine();
+        if (skill.equalsIgnoreCase("done")) ResumeOptions();
+    }
+
+
+
+    public void enterExtra() {
+
+    }
+
+    public void enterWork() {
 
     }
 
@@ -284,20 +339,6 @@ public class InternshipUI {
         else if (entry == 'B') accountOptions();
         else if (entry == 'L') logout();
         else profileOptions();
-    }
-
-    /**
-     * Menu for viewing and editing a resume
-     * @options (S)kills, (W)ork Experience, (S)chool, (E)xtra-Curriculars, (C)urrent Employer, (B)ack, (L)ogout
-     * @options ""
-     */
-    public void ResumeOptions() {
-        clearPage();
-        System.out.println("Resume Options");
-        printDivider();
-        Resume resume = application.getResume();
-        resume.toString();
-        char entry = UIOptionsLine("33134420110423");
     }
 
     /**
