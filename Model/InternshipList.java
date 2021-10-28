@@ -3,6 +3,8 @@ package Model;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import JSON.DataLoader;
+
 /**
  * Class that contains all internship listings currently loaded into the
  * program.
@@ -19,7 +21,7 @@ public class InternshipList {
 	 * Private constructor used in Singleton design pattern.
 	 */
 	private InternshipList() {
-		this.internships = new ArrayList<>();
+		this.internships = DataLoader.getInternships();
 	}
 
 	/**
