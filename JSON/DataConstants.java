@@ -48,6 +48,7 @@ public abstract class DataConstants {
 	protected static final String RESUMES_END_DATE = "endDate";
 	protected static final String RESUMES_STUDENT_SKILLS = "studentSkills";
 	protected static final String RESUMES_EXTRA_CURRICULAR = "extraCurricular";
+	protected static final String RESUMES_OWNER_ID = "ownerID";
 
 	/**
 	 * Internship definitions
@@ -68,4 +69,5 @@ public abstract class DataConstants {
 	protected static final String INTERNSHIPS_SALARY_UPPER = "highRange";
 	protected static final String INTERNSHIPS_SALARY_TYPE = "salaryType";
 	protected static final String INTERNSHIPS_APPLICATIONS = "applications";
+	protected static final String INTERNSHIPS_END_HOUR = "endHour";
 }

@@ -6,17 +6,17 @@ import java.util.UUID;
 public class Resume {
 
 	private UUID uuid;
-	private UUID uuidRes;
+	private UUID ownerUuid;
 	private String firstName;
 	private String lastName;
 	private Education education;
 	private ArrayList<String> studentSkills = new ArrayList<String>();
 	private ArrayList<WorkExperience> workExperienceList = new ArrayList<WorkExperience>();
-	private ArrayList<ExtraCirricular> extraCirricularList = new ArrayList<ExtraCirricular>();
+	private ArrayList<String> extraCirricularList = new ArrayList<String>();
 	
-	public Resume(UUID uuid, UUID uuidRes, String firstName, String lastName, Education education, ArrayList<String> studentSkills, 
-			ArrayList<WorkExperience> workExperienceList, ArrayList<ExtraCirricular> extraCirricularList ) {
-		
+	public Resume(UUID uuid, UUID ownerUuid, String firstName, String lastName, Education education, ArrayList<String> studentSkills, 
+			ArrayList<WorkExperience> workExperienceList, ArrayList<String> extraCirricularList ) {
+		this.ownerUuid = ownerUuid;
 		this.uuid = uuid;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -27,10 +27,10 @@ public class Resume {
 	}
 	
 	public Resume(UUID uuid, String firstName, String lastName, Education education, ArrayList<String> studentSkills, 
-			ArrayList<WorkExperience> workExperienceList, ArrayList<ExtraCirricular> extraCirricularList ) {
+			ArrayList<WorkExperience> workExperienceList, ArrayList<String> extraCirricularList) {
 		
 		this.uuid = uuid;
-		this.uuidRes = UUID.randomUUID();
+		this.ownerUuid = UUID.randomUUID();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.education = education;
@@ -43,8 +43,8 @@ public class Resume {
 		return uuid;
 	}
 
-	public UUID getUuidRes() {
-		return uuidRes;
+	public UUID getOwnerUUID() {
+		return ownerUuid;
 	}
 
 	public String getFirstName() {
@@ -87,11 +87,11 @@ public class Resume {
 		this.workExperienceList = workExperienceList;
 	}
 
-	public ArrayList<ExtraCirricular> getExtraCirricularList() {
+	public ArrayList<String> getExtraCirricularList() {
 		return extraCirricularList;
 	}
 
-	public void setExtraCirricularList(ArrayList<ExtraCirricular> extraCirricularList) {
+	public void setExtraCirricularList(ArrayList<String> extraCirricularList) {
 		this.extraCirricularList = extraCirricularList;
 	}
 
@@ -125,7 +125,7 @@ public class Resume {
 		}
 	}
 	
-	public void addExtraCirricular(ExtraCirricular extraCirricular) {
+	public void addExtraCirricular(String extraCirricular) {
 		
 		extraCirricularList.add(extraCirricular);
 	}

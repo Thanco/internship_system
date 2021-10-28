@@ -34,7 +34,7 @@ public class Internship {
      * @param applications   the applications already received.
      */
     public Internship(UUID id, String employer, String title, String description, ArrayList<String> requiredSkills,
-            LocalDate startDate, LocalDate endDate, int hoursPerDay, int endHour, LocalDate expirationDate,
+            LocalDate startDate, LocalDate endDate, int hoursPerDay, LocalDate expirationDate,
             SalaryType salaryType, ArrayList<Resume> applications) {
         this.id = id;
         this.title = title;
@@ -46,6 +46,7 @@ public class Internship {
         this.hoursPerDay = hoursPerDay;
         this.expirationDate = expirationDate;
         this.salaryType = salaryType;
+        this.applications = applications;
     }
 
     /**
@@ -159,6 +160,10 @@ public class Internship {
         this.startDate = startDate;
     }
 
+    public LocalDate getStartDate() {
+        return this.startDate;
+    }
+
     public LocalDate getEndDate() {
         return this.endDate;
     }
@@ -189,6 +194,10 @@ public class Internship {
 
     public ArrayList<Resume> getApplications() {
         return this.applications;
+    }
+
+    public int getHoursPerDay() {
+        return this.hoursPerDay;
     }
 
     public String toStringShort() {

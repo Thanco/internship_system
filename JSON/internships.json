@@ -8,12 +8,13 @@
         "startDate":"1/2022",
         "endDate":"4/2022",
         "hoursPerDay":7,
+        "endHour":5,
         "experationDate":"12/2021",
         "salary":
             {
                 "salaryType":"h"
             },
-        "applicants":["c17f9f3f-3dd3-4175-9d80-bcf00e3a0ffa"]
+        "applications":["0690b59c-7460-4759-b7e6-c8684643f06d"]
     },{
         "id":"5d0f2080-3784-4566-9522-9f72b7e7c6c1",
         "ownerUUID":"840435d5-2a6f-47eb-9869-bc1f9cb2af65",
@@ -24,12 +25,13 @@
         "startDate":"12/2021",
         "endDate":"12/2021",
         "hoursPerDay":7,
+        "endHour":5,
         "experationDate":"11/2021",
         "salary":
             {
                 "salaryType":"f",
                 "salaryValue":80000
             },
-        "applicants":["c17f9f3f-3dd3-4175-9d80-bcf00e3a0ffa"]
+        "applications":["0690b59c-7460-4759-b7e6-c8684643f06d"]
     }
 ]

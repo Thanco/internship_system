@@ -32,6 +32,7 @@ public class Employer extends User {
         super(id, firstName, lastName, email, password);
         this.verificationStatus = verificationStatus;
         this.internshipList = internshipList;
+        this.ratings = ratings;
         this.employees = employees;
     }
 
@@ -123,26 +124,57 @@ public class Employer extends User {
     }
 
     /**
+<<<<<<< HEAD
      * Get current ratings for employer.
      * @return the ratings.
      */
+=======
+	 * Returns rating list. 
+	 * @return rating list.
+	 */
+>>>>>>> c3ec4c37a29368e2add9829a818a66226f605629
     public ArrayList<Integer> getRatings() {
         return this.ratings;
     }
 
+<<<<<<< HEAD
     /**
      * Get all internship offers of this employer.
      * @return the internships.
      */
+=======
+    
+    /**
+	 * Returns internship list. 
+	 * @return internship list.
+	 */
+>>>>>>> c3ec4c37a29368e2add9829a818a66226f605629
     public ArrayList<UUID> getInternshipList() {
         return this.internshipList;
     }
 
     /**
+<<<<<<< HEAD
      * Returns all uuids of employees.
      * @return uudis in array list.
      */
     public ArrayList<UUID> getEmployees(){
         return this.employees;
     }
+=======
+	 * Returns employee list. 
+	 * @return employee list.
+	 */
+    public ArrayList<UUID> getEmployees() {
+        return this.employees;
+    }
+
+    /**
+	 * Returns verification status. 
+	 * @return verification status.
+	 */
+    public boolean getVerificationStatus() {
+        return this.verificationStatus;
+    }
+>>>>>>> c3ec4c37a29368e2add9829a818a66226f605629
 }
