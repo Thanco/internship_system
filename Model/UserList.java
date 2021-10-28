@@ -3,6 +3,8 @@ package Model;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import JSON.DataLoader;
+
 /**
  * Class that contains all users currently loaded into the program.
  * 
@@ -17,7 +19,7 @@ public class UserList {
 	 * Private constructor used in Singleton design pattern.
 	 */
 	private UserList() {
-		this.users = new ArrayList<>();
+		this.users = DataLoader.getUsers();
 	}
 
 	/**
