@@ -110,6 +110,12 @@ public class InternshipApplication {
      * @return for employer return an array list of past employee UUIDs
      */
     public ArrayList<UUID> getRatables() {
+        if(currentUser instanceof Student){
+            return ((Student) currentUser).getFormerEmployers();
+        }else if(currentUser instanceof Employer){
+            return ((Employer) currentUser).getEmployees();
+        }
+
         return null;
     }
 
@@ -245,7 +251,7 @@ public class InternshipApplication {
      * saves changes made to the currentUser to the user list
      */
     public void saveUser() {
-
+        DataWriter.saveUsers();
     }
 
     /**
@@ -297,13 +303,17 @@ public class InternshipApplication {
      * @return current users resume
      */
     public Resume getResume() {
-        return null;
+        return getResume(this.currentUser.getId());
     }
 
     /**
      * Returns a specific users Resume
      */
-    public Resume getResume(UUID user) {
+    public Resume getResume(UUID userId) {
+        User user = userList.getUserById(userId);
+        if(user instanceof Student){
+            return ((Student) user).getResume();
+        }
         return null;
     }
 
@@ -330,6 +340,7 @@ public class InternshipApplication {
      * @param resume
      */
     public void acceptApplication(Resume resume) {
+
 
     }
 
