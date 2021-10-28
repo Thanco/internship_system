@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+import JSON.DataWriter;
 import Model.*;
 
 /**
@@ -142,7 +143,8 @@ public class InternshipApplication {
      * @return An array list that contains any internships with info that matches the entry (Company, Position, or Skill)
      */
     public ArrayList<Internship> getInternships(String keyword) {
-        return null;
+        return internshipList.getInternshipByKeyword(keyword);
+    
     }
 
     /**
@@ -150,7 +152,18 @@ public class InternshipApplication {
      * @param user The users UUID
      * @return An array list of internships
      */
-    public ArrayList<Internship> getInternships(UUID user) {
+    public ArrayList<Internship> getInternships(UUID userId) {
+        User user = userList.getUserById(userId);
+        if(user instanceof Employer){
+            Employer employer = (Employer) user;
+            ArrayList<UUID> internshipIds = employer.getInternshipList();
+            ArrayList<Internship> internships = new ArrayList<>();
+            for(UUID internship: internshipIds){
+                internships.add(internshipList.getInternshipById(internship));
+            }
+
+            return internships;
+        }
         return null;
     }
 
@@ -240,7 +253,7 @@ public class InternshipApplication {
      * @param user The modified User
      */
     public void saveUser(User user) {
-
+        DataWriter.saveUsers();
     }
 
     /**
