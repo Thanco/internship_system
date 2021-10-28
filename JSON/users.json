@@ -7,7 +7,8 @@
         "email":"pplante@email.sc.edu",
         "password":"A12345",
         "rating":[5,3],
-        "resume":"0690b59c-7460-4759-b7e6-c8684643f06d"
+        "resume":"0690b59c-7460-4759-b7e6-c8684643f06d",
+        "formerEmployers":["840435d5-2a6f-47eb-9869-bc1f9cb2af65"]
     },{
         "id":"840435d5-2a6f-47eb-9869-bc1f9cb2af65",
         "userType":"e",

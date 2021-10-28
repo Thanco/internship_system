@@ -73,6 +73,12 @@ public class DataWriter extends DataConstants {
 		} else {
 			userInformation.put(STUDENTS_RESUME, null);
 		}
+		ArrayList<UUID> formerEmployersUUID = user.getFormerEmployers();
+		ArrayList<String> formerEmployersStr = new ArrayList<>();
+		for (UUID i : formerEmployersUUID) {
+			formerEmployersStr.add(i.toString());
+		}
+		userInformation.put(SUTDENTS_FORMER_EMPLOYERS, formerEmployersStr);
 	}
 
 	/**

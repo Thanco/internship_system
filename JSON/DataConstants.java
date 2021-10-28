@@ -23,6 +23,7 @@ public abstract class DataConstants {
 	 * Student definitions
 	 */
 	protected static final String STUDENTS_RESUME = "resume";
+	protected static final String SUTDENTS_FORMER_EMPLOYERS = "formerEmployers";
 
 	/**
 	 * Employer definitions

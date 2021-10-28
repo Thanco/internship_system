@@ -47,7 +47,8 @@ public class DataLoader extends DataConstants {
 								resume.setLastName(lastName);
 							}
 						}
-						users.add(new Student(id, firstName, lastName, email, password, resume, ratings));
+						ArrayList<UUID> formerEmployers = (ArrayList<UUID>)jsonToArr(SUTDENTS_FORMER_EMPLOYERS, userJSON, "uuid");
+						users.add(new Student(id, firstName, lastName, email, password, resume, ratings, formerEmployers));
 						break;
 					}
 					case "e": {
