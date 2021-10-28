@@ -57,6 +57,23 @@ public class UserList {
 	}
 
 	/**
+	 * Returns the Student that matches a given resume id.
+	 * 
+	 * @param resumeId the given resume id
+	 * @return the Student with the resume with the id
+	 */
+	public Student getStudentByResumeId(UUID resumeId) {
+		for (User user : users) {
+			if (user instanceof Student) {
+				if ((((Student)user).getResume().getUuid()).equals(resumeId)) {
+					return (Student)user;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * Removes an user with a given Id
 	 * 
 	 * @param userId the id of the User to delete.

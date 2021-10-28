@@ -2,6 +2,7 @@ package JSON;
 
 import Model.*;
 import java.io.*;
+import java.time.LocalDate;
 import java.util.*;
 import org.json.simple.*;
 
@@ -67,7 +68,11 @@ public class DataWriter extends DataConstants {
 	 */
 	private static void getStudentInformation(Student user, JSONObject userInformation) {
 		userInformation.put(USERS_RATINGS, user.getRatings());
-		userInformation.put(STUDENTS_RESUME, user.getResume().getUuid().toString());
+		if (user.getResume() != null) {
+			userInformation.put(STUDENTS_RESUME, user.getResume().getUuid().toString());
+		} else {
+			userInformation.put(STUDENTS_RESUME, null);
+		}
 	}
 
 	/**
@@ -77,7 +82,19 @@ public class DataWriter extends DataConstants {
 	 */
 	private static void getEmployerInformation(Employer user, JSONObject userInformation) {
 		userInformation.put(USERS_RATINGS, user.getRatings());
-		userInformation.put(EMPLOYERS_INTERNSHIP_LIST, user.getInternshipList());
+		userInformation.put(EMPLOYERS_VERIFICATION_STATUS, user.getVerificationStatus());
+		ArrayList<UUID> internshipListUUID = user.getInternshipList();
+		ArrayList<String> internshipListStr = new ArrayList<>();
+		for (UUID i : internshipListUUID) {
+			internshipListStr.add(i.toString());
+		}
+		userInformation.put(EMPLOYERS_INTERNSHIP_LIST, internshipListStr);
+		ArrayList<UUID> employeesUUID = user.getEmployees();
+		ArrayList<String> employeesStr = new ArrayList<>();
+		for (UUID i : employeesUUID) {
+			employeesStr.add(i.toString());
+		}
+		userInformation.put(EMPLOYERS_EMPLOYEES, employeesStr);
 	}
 
 	/**
@@ -138,18 +155,21 @@ public class DataWriter extends DataConstants {
 		resumeInformation.put(RESUMES_WORK_EXPERIENCE, workExperienceJSONs);
 		resumeInformation.put(RESUMES_STUDENT_SKILLS, student.getResume().getStudentSkills());
 		resumeInformation.put(RESUMES_EXTRA_CURRICULAR, student.getResume().getExtraCirricularList());
+		resumeInformation.put(RESUMES_OWNER_ID, student.getResume().getOwnerUUID().toString());
 		return resumeInformation;
 	}
 	
 
-
+	/**
+	 * Writes internships from InternshipList to internships.json
+	 */
 	public static void saveInternships() {
 		InternshipList internships = InternshipList.getInstance();
-		//ArrayList<Internship> internshipsArr = internships.getInternships();
+		ArrayList<Internship> internshipsArr = internships.getInternships();
 		JSONArray internshipsJSON = new JSONArray();
-		// for (int i = 0; i < internshipsArr.size(); i++) {
-		// 	internshipsJSON.add(getInternshipJSON(internshipsArr.get(i)));
-		// }
+		for (int i = 0; i < internshipsArr.size(); i++) {
+			internshipsJSON.add(getInternshipJSON(internshipsArr.get(i)));
+		}
 		try (FileWriter file = new FileWriter(INTERNSHIPS_FILE_NAME)) {
 			file.write(internshipsJSON.toJSONString());
 			file.flush();
@@ -163,12 +183,12 @@ public class DataWriter extends DataConstants {
 		internshipInformation.put(INTERNSHIPS_ID, internship.getId().toString());
 		internshipInformation.put(INTERNSHIPS_TITLE, internship.getTitle());
 		internshipInformation.put(INTERNSHIPS_EMPLOYER, internship.getEmployer());
-		// internshipInformation.put(INTERNSHIPS_DESCRIPTION, internship.getDescription());
-		// internshipInformation.put(INTERNSHIPS_REQUIRED_SKILLS, internship.getRequiredSkills());
-		// internshipInformation.put(INTERNSHIPS_START_DATE, calendarToJsonDate(internship.getStartDate()));
-		// internshipInformation.put(INTERNSHIPS_END_DATE, calendarToJsonDate(internship.getEndDate()));
-		// internshipInformation.put(INTERNSHIPS_HOURS_PER_DAY, internship.getHoursPerDay());
-		// internshipInformation.put(INTERNSHIPS_EXPERATION_DATE, calendarToJsonDate(internship.getExpirationDate()));
+		internshipInformation.put(INTERNSHIPS_DESCRIPTION, internship.getDescription());
+		internshipInformation.put(INTERNSHIPS_REQUIRED_SKILLS, internship.getRequiredSkills());
+		internshipInformation.put(INTERNSHIPS_START_DATE, localDateToJsonDate(internship.getStartDate()));
+		internshipInformation.put(INTERNSHIPS_END_DATE, localDateToJsonDate(internship.getEndDate()));
+		internshipInformation.put(INTERNSHIPS_HOURS_PER_DAY, internship.getHoursPerDay());
+		internshipInformation.put(INTERNSHIPS_EXPERATION_DATE, localDateToJsonDate(internship.getExpirationDate()));
 		JSONObject salary = new JSONObject();
 		if (internship.getSalary().contains("-")) {
 			salary.put(INTERNSHIPS_SALARY_TYPE, "r");
@@ -176,8 +196,8 @@ public class DataWriter extends DataConstants {
 			for (String i : salaryStr) {
 				i.trim();
 			}
-			salary.put(INTERNSHIPS_SALARY_LOWER, salaryStr[0]);
-			salary.put(INTERNSHIPS_SALARY_LOWER, salaryStr[1]);
+			salary.put(INTERNSHIPS_SALARY_LOWER, Integer.parseInt(salaryStr[0]));
+			salary.put(INTERNSHIPS_SALARY_LOWER, Integer.parseInt(salaryStr[1]));
 		} else if (internship.getSalary().contains("0") || 
 				   internship.getSalary().contains("1") || 
 				   internship.getSalary().contains("2") || 
@@ -189,13 +209,17 @@ public class DataWriter extends DataConstants {
 				   internship.getSalary().contains("8") || 
 				   internship.getSalary().contains("9")) {
 			salary.put(INTERNSHIPS_SALARY_TYPE, "f");
-			salary.put(INTERNSHIPS_SALARY_VALUE, internship.getSalary());
+			salary.put(INTERNSHIPS_SALARY_VALUE, Integer.parseInt(internship.getSalary()));
 		} else {
 			salary.put(INTERNSHIPS_SALARY_TYPE, "h");
 			salary.put(INTERNSHIPS_SALARY_VALUE, internship.getSalary());
 		}
 		internshipInformation.put(INTERNSHIPS_SALARY, salary);
-		internshipInformation.put(INTERNSHIPS_APPLICATIONS, internship.getApplications());
+		ArrayList<String> applicantsUUID = new ArrayList<>();
+		for (Resume i : internship.getApplications()) {
+			applicantsUUID.add(i.getUuid().toString());
+		}
+		internshipInformation.put(INTERNSHIPS_APPLICATIONS, applicantsUUID);
 		return internshipInformation;
 	}
 
@@ -203,5 +227,9 @@ public class DataWriter extends DataConstants {
 		String month = String.valueOf(calendar.get(Calendar.MONTH));
 		String year = String.valueOf(calendar.get(Calendar.YEAR));
 		return month + "/" + year;
+	}
+
+	private static String localDateToJsonDate(LocalDate date) {
+		return date.getMonthValue() + "/" + date.getYear();
 	}
 }

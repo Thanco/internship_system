@@ -35,15 +35,18 @@ public class DataLoader extends DataConstants {
 				switch ((String)userJSON.get(USERS_TYPE)) {
 					case "s": {
 						ArrayList<Integer> ratings = (ArrayList<Integer>)jsonToArr(USERS_RATINGS, userJSON, "int");
-						UUID resumeUUID = UUID.fromString((String)userJSON.get(STUDENTS_RESUME));
+						UUID resumeUUID = null;
+						if (userJSON.get(STUDENTS_RESUME) != null) {
+							resumeUUID = UUID.fromString((String)userJSON.get(STUDENTS_RESUME));
+						}
 						Resume resume = null;
 						for (Resume j : resumes) {
 							if (j.getUuid().equals(resumeUUID)) {
 								resume = j;
+								resume.setFirstName(firstName);
+								resume.setLastName(lastName);
 							}
 						}
-						resume.setFirstName(firstName);
-						resume.setLastName(lastName);
 						users.add(new Student(id, firstName, lastName, email, password, resume, ratings));
 						break;
 					}
@@ -52,7 +55,7 @@ public class DataLoader extends DataConstants {
 						Boolean verificationStatus = (Boolean)userJSON.get(EMPLOYERS_VERIFICATION_STATUS);
 						ArrayList<UUID> internshipList = (ArrayList<UUID>)jsonToArr(EMPLOYERS_INTERNSHIP_LIST, userJSON, "uuid");
 						ArrayList<UUID> employees = (ArrayList<UUID>)jsonToArr(EMPLOYERS_EMPLOYEES, userJSON, "uuid");
-						// users.add(new Employer(id, firstName, lastName, email, password, verificationStatus, internshipList, ratings, employees));
+						users.add(new Employer(id, firstName, lastName, email, password, verificationStatus, internshipList, ratings, employees));
 						break;
 					}
 					case "a": {
@@ -83,6 +86,7 @@ public class DataLoader extends DataConstants {
 			for (int i = 0; i < resumesJSON.size(); i++) {
 				JSONObject resumeJSON = (JSONObject)resumesJSON.get(i);
 				UUID id = UUID.fromString((String)resumeJSON.get(RESUMES_ID));
+				UUID ownerID = UUID.fromString((String)resumeJSON.get(RESUMES_OWNER_ID));
 				JSONObject educationJSON = (JSONObject)resumeJSON.get(RESUMES_EDUCATION);
 				Education education = null;
 					String schoolTitle = (String)educationJSON.get(RESUMES_SCHOOL_TITLE);
@@ -116,7 +120,7 @@ public class DataLoader extends DataConstants {
 				}
 				ArrayList<String> studentSkills = (ArrayList<String>)jsonToArr(RESUMES_STUDENT_SKILLS, resumeJSON, "string");
 				ArrayList<String> extraCirricular = (ArrayList<String>)jsonToArr(RESUMES_EXTRA_CURRICULAR, resumeJSON, "string");
-				resumes.add(new Resume(id, "", "", education, studentSkills, workExperience, extraCirricular));
+				resumes.add(new Resume(id, ownerID, "", "", education, studentSkills, workExperience, extraCirricular));
 			}
 			return resumes;
 		} catch (Exception e) {
@@ -164,11 +168,10 @@ public class DataLoader extends DataConstants {
 				ArrayList<UUID> applicationsUUID = (ArrayList<UUID>)jsonToArr(INTERNSHIPS_APPLICATIONS, internshipJSON, "uuid");
 				UserList users = UserList.getInstance();
 				ArrayList<Resume> applications = new ArrayList<>();
-				for (int j = 0; j < applicationsUUID.size(); j++) {
-					applications.add(((Student)users.getUserById(applicationsUUID.get(j))).getResume());
+				for (UUID j : applicationsUUID) {
+					applications.add((users.getStudentByResumeId(j)).getResume());
 				}
-				int endHour = 5;
-				internships.add(new Internship(id, employer, title, description, requiredSkills, startDate, endDate, hoursPerDay, endHour, expirationDate, salaryType, applications));
+				internships.add(new Internship(id, employer, title, description, requiredSkills, startDate, endDate, hoursPerDay, expirationDate, salaryType, applications));
 			}
 			return internships;
 		} catch (Exception e) {
@@ -239,7 +242,7 @@ public class DataLoader extends DataConstants {
 	private static LocalDate jsonDateToLocalDate(String toLoad, JSONObject object) {
 		String dateString = (String)object.get(toLoad);
 		String[] startDateArr = dateString.split("/");
-		LocalDate date = LocalDate.of(Integer.parseInt(startDateArr[1]), Integer.parseInt(startDateArr[0]), 0);
+		LocalDate date = LocalDate.of(Integer.parseInt(startDateArr[1]), Integer.parseInt(startDateArr[0]), 1);
 		return date;
 	}
 }

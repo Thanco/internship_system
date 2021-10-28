@@ -32,6 +32,7 @@ public class Employer extends User {
         super(id, firstName, lastName, email, password);
         this.verificationStatus = verificationStatus;
         this.internshipList = internshipList;
+        this.ratings = ratings;
         this.employees = employees;
     }
 
@@ -122,12 +123,36 @@ public class Employer extends User {
         InternshipList.getInstance().addInternship(internship);
     }
 
+    /**
+	 * Returns rating list. 
+	 * @return rating list.
+	 */
     public ArrayList<Integer> getRatings() {
         return this.ratings;
     }
 
     
+    /**
+	 * Returns internship list. 
+	 * @return internship list.
+	 */
     public ArrayList<UUID> getInternshipList() {
         return this.internshipList;
+    }
+
+    /**
+	 * Returns employee list. 
+	 * @return employee list.
+	 */
+    public ArrayList<UUID> getEmployees() {
+        return this.employees;
+    }
+
+    /**
+	 * Returns verification status. 
+	 * @return verification status.
+	 */
+    public boolean getVerificationStatus() {
+        return this.verificationStatus;
     }
 }
