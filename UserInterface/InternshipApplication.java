@@ -248,7 +248,8 @@ public class InternshipApplication {
      * @return true if password is changed
      */
     public boolean updatePassword(String password) {
-        return false;
+        this.currentUser.setPassword(password);
+        return true;
     }
 
     /**
@@ -258,7 +259,7 @@ public class InternshipApplication {
      * @return true if name is changed
      */
     public boolean updateName(String first, String last) {
-        return false;
+        
     }
 
     /**

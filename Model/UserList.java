@@ -154,8 +154,24 @@ public class UserList {
 		return this.users;
 	}
 
-	public ArrayList<User> getUsersByType(){
-		ArrayList<User> userWithType = this.users.clone();
+	/**
+	 * Returns all users that are of a given type.
+	 * @param type of the user
+	 * @return all users in an array list
+	 */
+	public ArrayList<User> getUsersByType(int type){
+		ArrayList<User> userWithType = new ArrayList<>();
+		for(User user : this.users){
+			if(type == 0 && user instanceof Student){
+				userWithType.add(user);
+			}else if(type == 1 && user instanceof Employer){
+				userWithType.add(user);
+			}else if(type == 2 && user instanceof Admin){
+				userWithType.add(user);
+			}
+		}
+		return userWithType;
+
 	}
 
 }
