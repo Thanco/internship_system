@@ -154,4 +154,8 @@ public class UserList {
 		return this.users;
 	}
 
+	public ArrayList<User> getUsersByType(){
+		ArrayList<User> userWithType = this.users.clone();
+	}
+
 }
