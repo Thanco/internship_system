@@ -14,15 +14,18 @@ import Model.UserList;
  */
 public class DataWriter extends DataConstants {
 	
+	/**
+	 * Writes the users in the UserList to users.json
+	 */
 	public static void saveUsers() {
 		UserList users = UserList.getInstance();
-		// ArrayList<User> usersArr = users.getUsers();
-		ArrayList<Student> studentArr;
+		ArrayList<User> usersArr = users.getUsers();
+		ArrayList<Student> studentArr = new ArrayList<>();
 		JSONArray usersJSON = new JSONArray();
-		// for (int i = 0; i < usersArr.size(); i++) {
-		// 	usersJSON.add(getUserJSON(usersArr.get(i), studentArr));
-		// }
-		// saveResumes(studentArr);
+		for (int i = 0; i < usersArr.size(); i++) {
+			usersJSON.add(getUserJSON(usersArr.get(i), studentArr));
+		}
+		saveResumes(studentArr);
 		try (FileWriter file = new FileWriter(USERS_FILE_NAME)) {
 			file.write(usersJSON.toJSONString());
 			file.flush();
@@ -31,9 +34,15 @@ public class DataWriter extends DataConstants {
 		}
 	}
 
+	/**
+	 * Converts a user to a JSONObject and adds students to the studentArr
+	 * @param user the user to be converted
+	 * @param studentArr an ArrayList of students
+	 * @return user in JSONObject format
+	 */
 	private static JSONObject getUserJSON(User user, ArrayList<Student> studentArr) {
 		JSONObject userInformation = new JSONObject();
-		userInformation.put(USERS_ID, user.getId());
+		userInformation.put(USERS_ID, user.getId().toString());
 		userInformation.put(USERS_FIRST_NAME, user.getFirstName());
 		userInformation.put(USERS_LAST_NAME, user.getLastName());
 		userInformation.put(USERS_EMAIL, user.getEmail());
@@ -51,16 +60,30 @@ public class DataWriter extends DataConstants {
 	return userInformation;
 	}
 
+	/**
+	 * Adds student specific variables to the user JSONObject
+	 * @param user the student that is being converted to a json
+	 * @param userInformation the student JSONObject that variables are being added to
+	 */
 	private static void getStudentInformation(Student user, JSONObject userInformation) {
-		// userInformation.put(USERS_RATINGS, user.getRatings());
-		// userInformation.put(STUDENTS_RESUME, user.getResume().getID());
+		userInformation.put(USERS_RATINGS, user.getRatings());
+		userInformation.put(STUDENTS_RESUME, user.getResume().getUuid().toString());
 	}
 
+	/**
+	 * Adds employer specific variables to the user JSONObject
+	 * @param user the employer that is being converted to a json
+	 * @param userInformation the employer JSONObject that variables are being added to
+	 */
 	private static void getEmployerInformation(Employer user, JSONObject userInformation) {
-		//userInformation.put(USERS_RATINGS, user.getRatings());
-		//userInformation.put(EMPLOYERS_INTERNSHIP_LIST, user.getInternshipList().getID);
+		userInformation.put(USERS_RATINGS, user.getRatings());
+		userInformation.put(EMPLOYERS_INTERNSHIP_LIST, user.getInternshipList());
 	}
 
+	/**
+	 * Writes resumes from the students in studentArr to resuemes.json
+	 * @param studentArr ArrayList of students to get resumes from
+	 */
 	private static void saveResumes(ArrayList<Student> studentArr) {
 		JSONArray resumesJSON = new JSONArray();
 		for (int i = 0; i < studentArr.size(); i++) {
@@ -75,23 +98,46 @@ public class DataWriter extends DataConstants {
 		}
 	}
 
+	/**
+	 * Converts a resume to a JSONObject and adds students to the studentArr
+	 * @param student the student that owns the resume
+	 * @return resume in JSONObject format
+	 */
 	private static JSONObject getResumeJSON(Student student) {
 		JSONObject resumeInformation = new JSONObject();
-		// resumeInformation.put(RESUMES_ID, student.getResume().getID());
+		resumeInformation.put(RESUMES_ID, student.getResume().getUuid().toString());
 		JSONObject education = new JSONObject();
 		education.put(RESUMES_SCHOOL_TITLE, student.getResume().getEducation().getSchoolTitle());
-		education.put(RESUMES_SCHOOL_CLASS, student.getResume().getEducation().getSchoolClass());
+		switch (student.getResume().getEducation().getSchoolClass()) {
+			case FRESHMAN:
+				education.put(RESUMES_SCHOOL_CLASS, "freshman");
+			break;
+			case SOPHOMORE:
+				education.put(RESUMES_SCHOOL_CLASS, "sophomore");
+			break;
+			case JUNIOR:
+				education.put(RESUMES_SCHOOL_CLASS, "junior");
+			break;
+			case SENIOR:
+				education.put(RESUMES_SCHOOL_CLASS, "senior");
+			break;
+			default:
+				break;
+		}
 		education.put(RESUMES_MAJOR, student.getResume().getEducation().getMajor());
 		resumeInformation.put(RESUMES_EDUCATION, education);
-		JSONObject workExperience = new JSONObject();
-		// workExperience.put(RESUMES_EMPLOYER, student.getResume().getWorkExpierence().getEmployer());
-		// workExperience.put(RESUMES_START_DATE, calendarToJsonDate(student.getResume().getWorkExpierence().getStart()));
-		// workExperience.put(RESUMES_END_DATE, calendarToJsonDate(student.getResume().getWorkExpierence().getEnd()));
-		resumeInformation.put(RESUMES_WORK_EXPERIENCE, workExperience);
-		JSONObject studentSkills = new JSONObject();
+		ArrayList<WorkExperience> workExperienceArr = student.getResume().getWorkExperienceList();
+		JSONArray workExperienceJSONs = new JSONArray();
+		for (int i = 0; i < workExperienceArr.size(); i++) {
+			JSONObject workExperienceJSON = new JSONObject();
+			workExperienceJSON.put(RESUMES_EMPLOYER, workExperienceArr.get(i).getCompany());
+			workExperienceJSON.put(RESUMES_START_DATE, calendarToJsonDate(workExperienceArr.get(i).getStart()));
+			workExperienceJSON.put(RESUMES_END_DATE, calendarToJsonDate(workExperienceArr.get(i).getEnd()));
+			workExperienceJSONs.add(workExperienceJSON);
+		}
+		resumeInformation.put(RESUMES_WORK_EXPERIENCE, workExperienceJSONs);
 		resumeInformation.put(RESUMES_STUDENT_SKILLS, student.getResume().getStudentSkills());
-		resumeInformation.put(RESUMES_EXTRA_CURRICULAR, student.getResume().getExtraCirricular());
-		// resumeInformation.put(RESUMES_EMPLOYER, student.getResume().getEmployer());
+		resumeInformation.put(RESUMES_EXTRA_CURRICULAR, student.getResume().getExtraCirricularList());
 		return resumeInformation;
 	}
 	
@@ -114,7 +160,7 @@ public class DataWriter extends DataConstants {
 
 	private static JSONObject getInternshipJSON(Internship internship) {
 		JSONObject internshipInformation = new JSONObject();
-		internshipInformation.put(INTERNSHIPS_ID, internship.getId());
+		internshipInformation.put(INTERNSHIPS_ID, internship.getId().toString());
 		internshipInformation.put(INTERNSHIPS_TITLE, internship.getTitle());
 		internshipInformation.put(INTERNSHIPS_EMPLOYER, internship.getEmployer());
 		// internshipInformation.put(INTERNSHIPS_DESCRIPTION, internship.getDescription());

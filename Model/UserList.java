@@ -145,5 +145,13 @@ public class UserList {
 	public void saveList() {
 		return;
 	}
+	
+	/**
+	 * Returns user list. 
+	 * @return user list.
+	 */
+	public ArrayList<User> getUsers() {
+		return this.users;
+	}
 
 }

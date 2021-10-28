@@ -6,6 +6,7 @@ import java.io.FileReader;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import java.time.LocalDate;
 
 /**
  * Contains methods to load objects from json files
@@ -18,30 +19,39 @@ public class DataLoader extends DataConstants {
 	 * Loads an ArrayList of Users from the users json file
 	 * @return An ArrayList of Users
 	 */
-	public static ArrayList<User> loadUsers() {
+	public static ArrayList<User> getUsers() {
 		ArrayList<User> users = new ArrayList<User>();
+		ArrayList<Resume> resumes = getResumes();
 		try {
 			FileReader reader = new FileReader(USERS_FILE_NAME);
 			JSONArray usersJSON = (JSONArray)new JSONParser().parse(reader);
 			for (int i = 0; i < usersJSON.size(); i++) {
 				JSONObject userJSON = (JSONObject)usersJSON.get(i);
-				UUID id = (UUID)userJSON.get(USERS_ID);
+				UUID id = UUID.fromString((String)userJSON.get(USERS_ID));
 				String firstName = (String)userJSON.get(USERS_FIRST_NAME);
 				String lastName = (String)userJSON.get(USERS_LAST_NAME);
 				String email = (String)userJSON.get(USERS_EMAIL);
 				String password = (String)userJSON.get(USERS_PASSWORD);
 				switch ((String)userJSON.get(USERS_TYPE)) {
 					case "s": {
-						ArrayList<Integer> ratings = (ArrayList<Integer>)jsonToArr(USERS_RATINGS, "int");
-						Resume resume = (Resume)userJSON.get(STUDENTS_RESUME);
+						ArrayList<Integer> ratings = (ArrayList<Integer>)jsonToArr(USERS_RATINGS, userJSON, "int");
+						UUID resumeUUID = UUID.fromString((String)userJSON.get(STUDENTS_RESUME));
+						Resume resume = null;
+						for (Resume j : resumes) {
+							if (j.getUuid().equals(resumeUUID)) {
+								resume = j;
+							}
+						}
+						resume.setFirstName(firstName);
+						resume.setLastName(lastName);
 						users.add(new Student(id, firstName, lastName, email, password, resume, ratings));
 						break;
 					}
 					case "e": {
-						ArrayList<Integer> ratings = (ArrayList<Integer>)jsonToArr(USERS_RATINGS, "int");
+						ArrayList<Integer> ratings = (ArrayList<Integer>)jsonToArr(USERS_RATINGS, userJSON, "int");
 						Boolean verificationStatus = (Boolean)userJSON.get(EMPLOYERS_VERIFICATION_STATUS);
-						ArrayList<UUID> internshipList = (ArrayList<UUID>)jsonToArr(EMPLOYERS_INTERNSHIP_LIST, "uuid");
-						ArrayList<UUID> employees = (ArrayList<UUID>)jsonToArr(EMPLOYERS_EMPLOYEES, "uuid");
+						ArrayList<UUID> internshipList = (ArrayList<UUID>)jsonToArr(EMPLOYERS_INTERNSHIP_LIST, userJSON, "uuid");
+						ArrayList<UUID> employees = (ArrayList<UUID>)jsonToArr(EMPLOYERS_EMPLOYEES, userJSON, "uuid");
 						users.add(new Employer(id, firstName, lastName, email, password, verificationStatus, internshipList, ratings, employees));
 						break;
 					}
@@ -65,18 +75,16 @@ public class DataLoader extends DataConstants {
 	 * Loads an ArrayList of Resumes from the resumes json file
 	 * @return An ArrayList of Resumes
 	 */
-	public static ArrayList<Resume> loadResumes() {
-		ArrayList<Resume> resumes = new ArrayList<Resume>();
+	public static ArrayList<Resume> getResumes() {
+		ArrayList<Resume> resumes = new ArrayList<>();
 		try {
 			FileReader reader = new FileReader(RESUMES_FILE_NAME);
 			JSONArray resumesJSON = (JSONArray)new JSONParser().parse(reader);
 			for (int i = 0; i < resumesJSON.size(); i++) {
 				JSONObject resumeJSON = (JSONObject)resumesJSON.get(i);
-				UUID id = (UUID)resumeJSON.get(RESUMES_ID);
-				JSONArray educationArrJSON = (JSONArray)new JSONParser().parse(RESUMES_EDUCATION);
-				Education education;
-				for (int j = 0; j < educationArrJSON.size(); j++) {
-					JSONObject educationJSON = (JSONObject)educationArrJSON.get(j);
+				UUID id = UUID.fromString((String)resumeJSON.get(RESUMES_ID));
+				JSONObject educationJSON = (JSONObject)resumeJSON.get(RESUMES_EDUCATION);
+				Education education = null;
 					String schoolTitle = (String)educationJSON.get(RESUMES_SCHOOL_TITLE);
 					SchoolYear schoolClass = null;
 					switch ((String)educationJSON.get(RESUMES_SCHOOL_TITLE)) {
@@ -97,20 +105,18 @@ public class DataLoader extends DataConstants {
 					}
 					String major = (String)educationJSON.get(RESUMES_MAJOR);
 					education = new Education(schoolTitle, schoolClass, major);
-				}
-				JSONArray workExperienceArrJSON = (JSONArray)new JSONParser().parse(RESUMES_EDUCATION);
+				JSONArray workExperienceArrJSON = (JSONArray)resumeJSON.get(RESUMES_WORK_EXPERIENCE);
 				ArrayList<WorkExperience> workExperience = new ArrayList<>();
 				for (int j = 0; j < workExperienceArrJSON.size(); j++) {
 					JSONObject workExperienceJSON = (JSONObject)workExperienceArrJSON.get(j);
 					String employer = (String)workExperienceJSON.get(RESUMES_EMPLOYER);
 					Calendar startDate = jsonDateToCalender(RESUMES_START_DATE, workExperienceJSON);
 					Calendar endDate = jsonDateToCalender(RESUMES_END_DATE, workExperienceJSON);
-					// workExperience.add(new WorkExperience(employer, startDate, endDate));
+					workExperience.add(new WorkExperience(employer, startDate, endDate));
 				}
-				ArrayList<String> studentSkills = (ArrayList<String>)jsonToArr(RESUMES_STUDENT_SKILLS, "string");
-				ArrayList<String> extraCirricular = (ArrayList<String>)jsonToArr(RESUMES_EXTRA_CURRICULAR, "string");
-				String currentEmployer = (String)resumeJSON.get(RESUMES_EMPLOYER);
-				// resumes.add(new Resume(id, school, schoolClass, major, company, length, start, end, studentSkills, extraCirricular));
+				ArrayList<String> studentSkills = (ArrayList<String>)jsonToArr(RESUMES_STUDENT_SKILLS, resumeJSON, "string");
+				ArrayList<String> extraCirricular = (ArrayList<String>)jsonToArr(RESUMES_EXTRA_CURRICULAR, resumeJSON, "string");
+				resumes.add(new Resume(id, "", "", education, studentSkills, workExperience, extraCirricular));
 			}
 			return resumes;
 		} catch (Exception e) {
@@ -123,22 +129,22 @@ public class DataLoader extends DataConstants {
 	 * Loads an ArrayList of Internships from the internships json file
 	 * @return An ArrayList of Internships
 	 */
-	public static ArrayList<Internship> loadInternships() {
+	public static ArrayList<Internship> getInternships() {
 		ArrayList<Internship> internships = new ArrayList<Internship>();
 		try {
 			FileReader reader = new FileReader(INTERNSHIPS_FILE_NAME);
 			JSONArray internshipsJSON = (JSONArray)new JSONParser().parse(reader);
 			for (int i = 0; i < internshipsJSON.size(); i++) {
 				JSONObject internshipJSON = (JSONObject)internshipsJSON.get(i);
-				UUID id = (UUID)internshipJSON.get(INTERNSHIPS_ID);
+				UUID id = UUID.fromString((String)internshipJSON.get(INTERNSHIPS_ID));
 				String title = (String)internshipJSON.get(INTERNSHIPS_TITLE);
 				String employer = (String)internshipJSON.get(INTERNSHIPS_EMPLOYER);
 				String description = (String)internshipJSON.get(INTERNSHIPS_DESCRIPTION);
-				ArrayList<String> requiredSkills = (ArrayList<String>)jsonToArr(INTERNSHIPS_REQUIRED_SKILLS, "string");
-				Calendar startDate = jsonDateToCalender(INTERNSHIPS_START_DATE, internshipJSON);
-				Calendar endDate = jsonDateToCalender(INTERNSHIPS_END_DATE, internshipJSON);
+				ArrayList<String> requiredSkills = (ArrayList<String>)jsonToArr(INTERNSHIPS_REQUIRED_SKILLS, internshipJSON, "string");
+				LocalDate startDate = jsonDateToLocalDate(INTERNSHIPS_START_DATE, internshipJSON);
+				LocalDate endDate = jsonDateToLocalDate(INTERNSHIPS_END_DATE, internshipJSON);
 				int hoursPerDay = ((Long)internshipJSON.get(INTERNSHIPS_HOURS_PER_DAY)).intValue();
-				Calendar expirationDate = jsonDateToCalender(INTERNSHIPS_EXPERATION_DATE, internshipJSON);
+				LocalDate expirationDate = jsonDateToLocalDate(INTERNSHIPS_EXPERATION_DATE, internshipJSON);
 				JSONObject salaryJSON = (JSONObject)internshipJSON.get(INTERNSHIPS_SALARY);
 				SalaryType salaryType;
 				switch ((String)salaryJSON.get(INTERNSHIPS_SALARY_TYPE)) {
@@ -155,9 +161,14 @@ public class DataLoader extends DataConstants {
 						salaryType = new HiddenSalary();
 						break;
 				}
-				ArrayList<UUID> applications = (ArrayList<UUID>)jsonToArr(INTERNSHIPS_APPLICATIONS, "uuid");
+				ArrayList<UUID> applicationsUUID = (ArrayList<UUID>)jsonToArr(INTERNSHIPS_APPLICATIONS, internshipJSON, "uuid");
+				UserList users = UserList.getInstance();
+				ArrayList<Resume> applications = new ArrayList<>();
+				for (int j = 0; j < applicationsUUID.size(); j++) {
+					applications.add(((Student)users.getUserById(applicationsUUID.get(j))).getResume());
+				}
 				int endHour = 5;
-				// internships.add(new Internship(id, employer, title, description, requiredSkills, startDate, endDate, hoursPerDay, endHour, expirationDate, salaryType, applications));
+				internships.add(new Internship(id, employer, title, description, requiredSkills, startDate, endDate, hoursPerDay, endHour, expirationDate, salaryType, applications));
 			}
 			return internships;
 		} catch (Exception e) {
@@ -172,9 +183,9 @@ public class DataLoader extends DataConstants {
 	 * @param type the type of array ("string", "int", "uuid")
 	 * @return A java ArrayList object of the parameter type
 	 */
-	private static ArrayList<?> jsonToArr(String toLoad, String type) {
+	private static ArrayList<?> jsonToArr(String toLoad, JSONObject loadFrom, String type) {
 		try {
-			JSONArray JSONArr = (JSONArray)new JSONParser().parse(toLoad);
+			JSONArray JSONArr = (JSONArray)loadFrom.get(toLoad);
 			switch (type) {
 				case "string": {
 					ArrayList<String> arr = new ArrayList<>();
@@ -217,11 +228,18 @@ public class DataLoader extends DataConstants {
 	 * @return A java Calender object with the date from the json stirng
 	 */
 	private static Calendar jsonDateToCalender(String toLoad, JSONObject object) {
-		String dateString = (String)object.get(RESUMES_START_DATE);
+		String dateString = (String)object.get(toLoad);
 		String[] startDateArr = dateString.split("/");
 		Calendar date = Calendar.getInstance();
 		date.set(Calendar.MONTH, Integer.parseInt(startDateArr[0]));
 		date.set(Calendar.YEAR, Integer.parseInt(startDateArr[1]));
+		return date;
+	}
+
+	private static LocalDate jsonDateToLocalDate(String toLoad, JSONObject object) {
+		String dateString = (String)object.get(toLoad);
+		String[] startDateArr = dateString.split("/");
+		LocalDate date = LocalDate.of(Integer.parseInt(startDateArr[1]), Integer.parseInt(startDateArr[0]), 0);
 		return date;
 	}
 }

@@ -77,4 +77,8 @@ public class Student extends User {
     public void setResume(Resume resume) {
         this.resume = resume;
     }
+
+    public ArrayList<Integer> getRatings() {
+        return this.ratings;
+    }
 }

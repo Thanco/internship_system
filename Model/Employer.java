@@ -122,5 +122,12 @@ public class Employer extends User {
         InternshipList.getInstance().addInternship(internship);
     }
 
+    public ArrayList<Integer> getRatings() {
+        return this.ratings;
+    }
 
+    
+    public ArrayList<UUID> getInternshipList() {
+        return this.internshipList;
+    }
 }
