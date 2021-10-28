@@ -10,9 +10,9 @@ public class Resume {
 	private String firstName;
 	private String lastName;
 	private Education education;
-	private ArrayList<String> studentSkills = new ArrayList<String>();
-	private ArrayList<WorkExperience> workExperienceList = new ArrayList<WorkExperience>();
-	private ArrayList<String> extraCirricularList = new ArrayList<String>();
+	private ArrayList<String> studentSkills;
+	private ArrayList<WorkExperience> workExperienceList;
+	private ArrayList<String> extraCirricularList;
 	
 	public Resume(UUID uuid, UUID ownerUuid, String firstName, String lastName, Education education, ArrayList<String> studentSkills, 
 			ArrayList<WorkExperience> workExperienceList, ArrayList<String> extraCirricularList ) {
@@ -26,17 +26,16 @@ public class Resume {
 		this.extraCirricularList = extraCirricularList;	
 	}
 	
-	public Resume(UUID ownerUuid, String firstName, String lastName, Education education, ArrayList<String> studentSkills, 
-			ArrayList<WorkExperience> workExperienceList, ArrayList<String> extraCirricularList) {
+	public Resume(UUID ownerUuid, String firstName, String lastName, Education education) {
 		
 		this.uuid = UUID.randomUUID();
 		this.ownerUuid = ownerUuid;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.education = education;
-		this.studentSkills = studentSkills;
-		this.workExperienceList = workExperienceList;
-		this.extraCirricularList = extraCirricularList;	
+		this.studentSkills = new ArrayList<String>();
+		this.workExperienceList = new ArrayList<WorkExperience>();
+		this.extraCirricularList = new ArrayList<String>();
 	}
 	
 	public UUID getUuid() {
