@@ -1,7 +1,8 @@
 package UserInterface;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.regex.Pattern;
+
 import Model.*;
 
 /**
@@ -52,6 +53,11 @@ public class InternshipApplication {
      * @return Returns true/false if account was/wasnot created
      */
     public boolean createUser(String first, String last, String email, String password, int type) {
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
+        if(!pattern.matcher(email).matches() || first.isEmpty() || last.isEmpty()){
+            return false;
+        }
+
         this.currentUser = userList.createUser(first, last, email, password, type);
         if(this.currentUser == null){
             return false;
@@ -98,7 +104,7 @@ public class InternshipApplication {
     }
 
     /**
-     * gets a list of UUIDs that the current user can add a rating to
+     * Gets a list of UUIDs that the current user can add a rating to
      * @return for student return an array list of past employer UUIDs
      * @return for employer return an array list of past employee UUIDs
      */
@@ -111,8 +117,15 @@ public class InternshipApplication {
      * @param user The UUID of a user
      * @param rating the entered rating
      */
-    public void addRating(UUID user, int rating) {
-
+    public void addRating(UUID userId, int rating) {
+        User user = userList.getUserById(userId);
+        if(user instanceof Student){
+            Student student = (Student) user;
+            student.addRating(rating);
+        }else if(user instanceof Employer){
+            Employer employer = (Employer) user;
+            employer.addRating(rating);
+        }
     }
 
     /**
@@ -237,6 +250,10 @@ public class InternshipApplication {
      * @return true if email is changed
      */
     public boolean updateEmail(String email) {
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
+        if(!pattern.matcher(email).matches()){
+            return false;
+        }
         this.currentUser.setEmail(email);
         return true;
     }
@@ -259,7 +276,7 @@ public class InternshipApplication {
      * @return true if name is changed
      */
     public boolean updateName(String first, String last) {
-        
+        return true;
     }
 
     /**
@@ -289,7 +306,8 @@ public class InternshipApplication {
      * Removes a User from the UserList
      * @param user The UUID of the user to be removed
      */
-    public void removeUser(UUID user) {
+    public void removeUser(UUID userId) {
+        User user = userList.removeUserById(userId);
 
     }
 
