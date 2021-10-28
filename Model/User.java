@@ -93,6 +93,22 @@ public abstract class User {
         return email;
     }
 
+    /**
+     * Sets email.
+     * @param email to set
+     */
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    /**
+     * Sets the password.
+     * @param password to set.
+     */
+    public void setPassword(String password){
+        this.password = password;
+    }
+
     public String toString() {
         return "<<User To String>>";
     }

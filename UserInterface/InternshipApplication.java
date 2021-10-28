@@ -9,12 +9,15 @@ import Model.*;
  */
 public class InternshipApplication {
     private User currentUser;
+    private InternshipList internshipList;
+    private UserList userList;
 
     /**
      * Constructor
      */
     public InternshipApplication() {
-
+        this.internshipList = InternshipList.getInstance();
+        this.userList = UserList.getInstance();
     }
 
     /**
@@ -24,7 +27,11 @@ public class InternshipApplication {
      * @return True/False if login is succesful
      */
     public boolean login(String email, String password) {
-        return false;
+        this.currentUser = userList.loginUser(email, password);
+        if(this.currentUser == null){
+            return false;
+        }
+        return true;
     }
 
     /** 
@@ -41,11 +48,15 @@ public class InternshipApplication {
      * @param last Users last name
      * @param email Users email
      * @param password Users password
-     * @param type Type of user: 0 = Student, 1 = Employer
+     * @param type Type of user: 0 = Student, 1 = Employer, 2 = Admin
      * @return Returns true/false if account was/wasnot created
      */
     public boolean createUser(String first, String last, String email, String password, int type) {
-        return false;
+        this.currentUser = userList.createUser(first, last, email, password, type);
+        if(this.currentUser == null){
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -55,18 +66,27 @@ public class InternshipApplication {
      * @return else -1
      */
     public int userType() {
-        return 0;
+        return userType(this.currentUser.getId());
     }
     
     /**
-     * @param user UUID of user
+     * @param userId UUID of user
      * @return 0 for Student
      * @return 1 for Employer
      * @return 2 for Admin
      * @return else -1
      */
-    public int userType(UUID user) {
-        return -1;
+    public int userType(UUID userId) {
+        User user = userList.getUserById(userId);
+        if(user instanceof Student){
+            return 0;
+        }else if(user instanceof Employer){
+            return 1;
+        }else if(user instanceof Admin){
+            return 2;
+        }else{
+            return -1;
+        }
     }
 
     /**
@@ -100,7 +120,7 @@ public class InternshipApplication {
      * @return The full list of Internships
      */
     public ArrayList<Internship> getInternships() {
-        return null;
+        return this.internshipList.getInternships();
     }
 
     /**
@@ -126,7 +146,7 @@ public class InternshipApplication {
      * @return The user ArrayList
      */
     public ArrayList<User> getUsers() {
-        return null;
+        return this.userList.getUsers();
     }
 
     /**
@@ -135,7 +155,7 @@ public class InternshipApplication {
      * @return An array list of users
      */
     public ArrayList<User> getUsers(int type) {
-        return null;
+        return this.userList.getUsersByType(type);
     }
 
     /**
@@ -153,17 +173,29 @@ public class InternshipApplication {
      * @return An array list of an employers employees
      */
     public ArrayList<User> getEmployees() {
-        return null;
+        return getEmployees(this.currentUser.getId());
     }
 
     /**
      * Returns an array list of employees for a given employer
      * @param user The uuid of the user to get employees of
-     * @return an arrya list of users
+     * @return an array list of users
      * @return null if given user is not an employer or has no employees
      */
-    public ArrayList<User> getEmployees(UUID user) {
-        return null;
+    public ArrayList<User> getEmployees(UUID userId) {
+        User user = userList.getUserById(userId);
+        if(!(user instanceof Employer)){
+            return null;
+        }
+        Employer employer = (Employer) user;
+        ArrayList<UUID> employeeIds = employer.getEmployees();
+
+        ArrayList<User> employees = new ArrayList<>();
+        for(UUID employeeId : employeeIds){
+            employees.add(userList.getUserById(employeeId));
+        }
+
+        return employees;
     }
 
     /**
@@ -179,8 +211,8 @@ public class InternshipApplication {
      * @param user The UUID of the user to be returned
      * @return A User
      */
-    public User getUser(UUID user) {
-        return null;
+    public User getUser(UUID userId) {
+        return userList.getUserById(userId);
     }
 
     /**
@@ -205,7 +237,8 @@ public class InternshipApplication {
      * @return true if email is changed
      */
     public boolean updateEmail(String email) {
-        return false;
+        this.currentUser.setEmail(email);
+        return true;
     }
 
     /**

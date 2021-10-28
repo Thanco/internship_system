@@ -122,12 +122,27 @@ public class Employer extends User {
         InternshipList.getInstance().addInternship(internship);
     }
 
+    /**
+     * Get current ratings for employer.
+     * @return the ratings.
+     */
     public ArrayList<Integer> getRatings() {
         return this.ratings;
     }
 
-    
+    /**
+     * Get all internship offers of this employer.
+     * @return the internships.
+     */
     public ArrayList<UUID> getInternshipList() {
         return this.internshipList;
+    }
+
+    /**
+     * Returns all uuids of employees.
+     * @return uudis in array list.
+     */
+    public ArrayList<UUID> getEmployees(){
+        return this.employees;
     }
 }
