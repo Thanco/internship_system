@@ -295,7 +295,9 @@ public class InternshipUI {
         if (skill.equalsIgnoreCase("done")) ResumeOptions();
     }
 
-
+    public void enterEducation() {
+        
+    }
 
     public void enterExtra() {
 

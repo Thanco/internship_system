@@ -1,7 +1,9 @@
 package UserInterface;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.regex.Pattern;
+
+import JSON.DataWriter;
 import Model.*;
 
 /**
@@ -52,6 +54,11 @@ public class InternshipApplication {
      * @return Returns true/false if account was/wasnot created
      */
     public boolean createUser(String first, String last, String email, String password, int type) {
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
+        if(!pattern.matcher(email).matches() || first.isEmpty() || last.isEmpty()){
+            return false;
+        }
+
         this.currentUser = userList.createUser(first, last, email, password, type);
         if(this.currentUser == null){
             return false;
@@ -98,11 +105,17 @@ public class InternshipApplication {
     }
 
     /**
-     * gets a list of UUIDs that the current user can add a rating to
+     * Gets a list of UUIDs that the current user can add a rating to
      * @return for student return an array list of past employer UUIDs
      * @return for employer return an array list of past employee UUIDs
      */
     public ArrayList<UUID> getRatables() {
+        if(currentUser instanceof Student){
+            return ((Student) currentUser).getFormerEmployers();
+        }else if(currentUser instanceof Employer){
+            return ((Employer) currentUser).getEmployees();
+        }
+
         return null;
     }
 
@@ -111,8 +124,15 @@ public class InternshipApplication {
      * @param user The UUID of a user
      * @param rating the entered rating
      */
-    public void addRating(UUID user, int rating) {
-
+    public void addRating(UUID userId, int rating) {
+        User user = userList.getUserById(userId);
+        if(user instanceof Student){
+            Student student = (Student) user;
+            student.addRating(rating);
+        }else if(user instanceof Employer){
+            Employer employer = (Employer) user;
+            employer.addRating(rating);
+        }
     }
 
     /**
@@ -129,7 +149,8 @@ public class InternshipApplication {
      * @return An array list that contains any internships with info that matches the entry (Company, Position, or Skill)
      */
     public ArrayList<Internship> getInternships(String keyword) {
-        return null;
+        return internshipList.getInternshipByKeyword(keyword);
+    
     }
 
     /**
@@ -137,7 +158,18 @@ public class InternshipApplication {
      * @param user The users UUID
      * @return An array list of internships
      */
-    public ArrayList<Internship> getInternships(UUID user) {
+    public ArrayList<Internship> getInternships(UUID userId) {
+        User user = userList.getUserById(userId);
+        if(user instanceof Employer){
+            Employer employer = (Employer) user;
+            ArrayList<UUID> internshipIds = employer.getInternshipList();
+            ArrayList<Internship> internships = new ArrayList<>();
+            for(UUID internship: internshipIds){
+                internships.add(internshipList.getInternshipById(internship));
+            }
+
+            return internships;
+        }
         return null;
     }
 
@@ -219,7 +251,7 @@ public class InternshipApplication {
      * saves changes made to the currentUser to the user list
      */
     public void saveUser() {
-
+        DataWriter.saveUsers();
     }
 
     /**
@@ -227,7 +259,7 @@ public class InternshipApplication {
      * @param user The modified User
      */
     public void saveUser(User user) {
-
+        DataWriter.saveUsers();
     }
 
     /**
@@ -237,6 +269,10 @@ public class InternshipApplication {
      * @return true if email is changed
      */
     public boolean updateEmail(String email) {
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
+        if(!pattern.matcher(email).matches()){
+            return false;
+        }
         this.currentUser.setEmail(email);
         return true;
     }
@@ -267,13 +303,17 @@ public class InternshipApplication {
      * @return current users resume
      */
     public Resume getResume() {
-        return null;
+        return getResume(this.currentUser.getId());
     }
 
     /**
      * Returns a specific users Resume
      */
-    public Resume getResume(UUID user) {
+    public Resume getResume(UUID userId) {
+        User user = userList.getUserById(userId);
+        if(user instanceof Student){
+            return ((Student) user).getResume();
+        }
         return null;
     }
 
@@ -289,7 +329,8 @@ public class InternshipApplication {
      * Removes a User from the UserList
      * @param user The UUID of the user to be removed
      */
-    public void removeUser(UUID user) {
+    public void removeUser(UUID userId) {
+        userList.removeUserById(userId);
 
     }
 
@@ -299,6 +340,7 @@ public class InternshipApplication {
      * @param resume
      */
     public void acceptApplication(Resume resume) {
+
 
     }
 

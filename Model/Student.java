@@ -11,6 +11,7 @@ import java.util.UUID;
 public class Student extends User {
     private Resume resume;
     private ArrayList<Integer> ratings;
+    private ArrayList<UUID> formerEmployers;
 
     /**
      * Instantiates Student object with given UUID, resume and ratings. Used when a
@@ -25,10 +26,11 @@ public class Student extends User {
      * @param ratings the rating array of the student.
      */
     public Student(UUID id, String firstName, String lastName, String email, String password, Resume resume,
-            ArrayList<Integer> ratings) {
+            ArrayList<Integer> ratings, ArrayList<UUID> formerEmployers) {
         super(id, firstName, lastName, email, password);
         this.ratings = ratings;
         this.resume = resume;
+        this.formerEmployers = formerEmployers;
     }
 
     /**
@@ -43,6 +45,7 @@ public class Student extends User {
     public Student(String firstName, String lastName, String email, String password) {
         super(firstName, lastName, email, password);
         this.ratings = new ArrayList<>();
+        this.formerEmployers = new ArrayList<>();
     }
 
     /**
@@ -80,5 +83,9 @@ public class Student extends User {
 
     public ArrayList<Integer> getRatings() {
         return this.ratings;
+    }
+
+    public ArrayList<UUID> getFormerEmployers(){
+        return this.formerEmployers;
     }
 }

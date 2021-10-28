@@ -26,11 +26,11 @@ public class Resume {
 		this.extraCirricularList = extraCirricularList;	
 	}
 	
-	public Resume(UUID uuid, String firstName, String lastName, Education education, ArrayList<String> studentSkills, 
+	public Resume(UUID ownerUuid, String firstName, String lastName, Education education, ArrayList<String> studentSkills, 
 			ArrayList<WorkExperience> workExperienceList, ArrayList<String> extraCirricularList) {
 		
-		this.uuid = uuid;
-		this.ownerUuid = UUID.randomUUID();
+		this.uuid = UUID.randomUUID();
+		this.ownerUuid = ownerUuid;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.education = education;
@@ -128,6 +128,11 @@ public class Resume {
 	public void addExtraCirricular(String extraCirricular) {
 		
 		extraCirricularList.add(extraCirricular);
+	}
+	
+	public String toString() {
+		
+		return "code this";
 	}
 
 }

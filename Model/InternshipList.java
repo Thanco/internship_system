@@ -3,6 +3,8 @@ package Model;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import JSON.DataLoader;
+
 /**
  * Class that contains all internship listings currently loaded into the
  * program.
@@ -19,7 +21,7 @@ public class InternshipList {
 	 * Private constructor used in Singleton design pattern.
 	 */
 	private InternshipList() {
-		this.internships = new ArrayList<>();
+		this.internships = DataLoader.getInternships();
 	}
 
 	/**
@@ -81,5 +83,20 @@ public class InternshipList {
 	 */
 	public ArrayList<Internship> getInternships() {
 		return this.internships;
+	}
+
+	/**
+	 * Get an internships by keyword.
+	 * @param keyword all internships that contain the keyword
+	 * @return the internships with the keyword.
+	 */
+	public ArrayList<Internship> getInternshipByKeyword(String keyword){
+		ArrayList<Internship> internshipsWithKeyword = new ArrayList<>();
+		for(Internship internship : internships){
+			if(internship.toString().contains(keyword)){
+				internshipsWithKeyword.add(internship);
+			}
+		}
+		return internshipsWithKeyword;
 	}
 }
