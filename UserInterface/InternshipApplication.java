@@ -98,10 +98,47 @@ public class InternshipApplication {
 
     /**
      * Creates resume for current user
-     * @params add as needed an i will update the UI
+     * @params String schoolTitle, int schoolClass, String major of user
      */
-    public void createResume(ArrayList<String> skills) {
-
+    public boolean createResume(String schoolTitle, int schoolClass, String major) {
+    	
+    	if (schoolTitle == null || schoolClass == null) {
+    		return false;
+    	}
+    	
+    	else {
+    		
+    		SchoolYear classEnum = null;
+    		
+    		switch(schoolClass) {
+    		
+    		case 0 : 
+    			classEnum = SchoolYear.FRESHMAN;
+    			break;
+    		
+    		case 1 : 
+    			classEnum = SchoolYear.SOPHOMORE;
+    			break;
+    			
+    		case 2 : 
+    			classEnum = SchoolYear.JUNIOR;
+    			break;
+    			
+    		case 3 : 
+    			classEnum = SchoolYear.SENIOR;
+    			break;
+    			
+    		default :
+    			break;
+    		
+    		}
+    		
+    		Education newEducation = new Education(schoolTitle, classEnum, major);
+    		Resume newResume = new Resume(currentUser.getId(), currentUser.getFirstName(), currentUser.getLastName(), newEducation);
+    		
+    		return true;
+    	}
+    		
     }
 
     /**
