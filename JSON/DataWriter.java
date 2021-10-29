@@ -47,7 +47,7 @@ public class DataWriter extends DataConstants {
 		userInformation.put(USERS_FIRST_NAME, user.getFirstName());
 		userInformation.put(USERS_LAST_NAME, user.getLastName());
 		userInformation.put(USERS_EMAIL, user.getEmail());
-		//userInformation.put(USERS_PASSWORD, user.getPassword());
+		userInformation.put(USERS_PASSWORD, user.getPassword());
 		if (user instanceof Student) {
 			userInformation.put(USERS_TYPE, "s");
 			getStudentInformation((Student)user, userInformation);
@@ -233,6 +233,23 @@ public class DataWriter extends DataConstants {
 		internshipInformation.put(INTERNSHIPS_APPLICATIONS, applicantsUUID);
 		return internshipInformation;
 	}
+
+	// /**
+	//  * Prints a student's resume to a plain text file
+	//  * @param student the sudent to print the resume from
+	//  */
+	// public static printResumeToFile(Student student) {
+
+	// }
+
+	// /**
+	//  * Converts a resume to a string arraylist
+	//  * @param student 
+	//  * @return
+	//  */
+	// private static ArrayList<String> resuemToStringList(Student student) {
+		
+	// }
 
 	/**
 	 * Converts a calender object to the json string format

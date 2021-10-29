@@ -76,6 +76,7 @@ public class Internship {
         this.hoursPerDay = hoursPerDay;
         this.expirationDate = expirationDate;
         this.salaryType = salaryType;
+        applications = new ArrayList<>();
     }
 
     /**

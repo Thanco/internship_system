@@ -93,6 +93,10 @@ public abstract class User {
         return email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     /**
      * Sets email.
      * @param email to set

@@ -361,6 +361,7 @@ public class InternshipApplication {
      */
     public void saveUser() {
         DataWriter.saveUsers();
+        DataWriter.saveInternships();
     }
 
     /**
