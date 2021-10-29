@@ -475,7 +475,7 @@ public class InternshipApplication {
     }
 
     /**
-     * Decline Aoolicant
+     * Decline Applicant
      * 
      * @param resume
      */
@@ -737,10 +737,8 @@ public class InternshipApplication {
         User user = userList.getUserById(userId);
         if (user instanceof Student) {
             ((Student) user).setRatings(new ArrayList<>());
-            ;
         } else if (user instanceof Employer) {
             ((Employer) user).setRatings(new ArrayList<>());
-            ;
         }
     }
 }
