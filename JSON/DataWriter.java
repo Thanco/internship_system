@@ -234,22 +234,20 @@ public class DataWriter extends DataConstants {
 		return internshipInformation;
 	}
 
-	// /**
-	//  * Prints a student's resume to a plain text file
-	//  * @param student the sudent to print the resume from
-	//  */
-	// public static printResumeToFile(Student student) {
-
-	// }
-
-	// /**
-	//  * Converts a resume to a string arraylist
-	//  * @param student 
-	//  * @return
-	//  */
-	// private static ArrayList<String> resuemToStringList(Student student) {
-		
-	// }
+	/**
+	 * Prints a student's resume to a plain text file
+	 * @param student the sudent to print the resume from
+	 */
+	public static void printResumeToFile(Student student) {
+		try {
+			String fileName = student.getLastName() + "," + student.getFirstName() + "-Resume.txt";
+            PrintWriter fileWriter = new PrintWriter(new FileOutputStream(new File(fileName), false));
+            fileWriter.println(student.getResume().toStringLong());
+            fileWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	}
 
 	/**
 	 * Converts a calender object to the json string format
