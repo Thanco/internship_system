@@ -155,4 +155,25 @@ public class Employer extends User {
     public boolean getVerificationStatus() {
         return this.verificationStatus;
     }
+
+    /**
+     * Sets the ratings of the user.
+     * @param ratings to set
+     */
+    public void setRatings(ArrayList<Integer> ratings){
+        this.ratings = ratings;
+    }
+
+    /**
+     * Calculates the average of all ratings
+     * @return the average rating
+     */
+    public double getAverageRating(){
+        int sum = 0;
+        for(int num : this.ratings){
+            sum += num;
+        }
+        return sum/this.ratings.size();
+
+    }
 }

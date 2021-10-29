@@ -68,9 +68,8 @@ public class Student extends User {
      * @param studentSkills
      * @param extraCirricular
      */
-    public void createResume(String school, SchoolYear schoolClass, String major, String company, 
-    int length, String start, String end, ArrayList<String> studentSkills, String extraCirricular){
-        this.resume = new Resume(this.getFirstName(), this.getLastName(), school, schoolClass, major, company, length, start, end, studentSkills, extraCirricular);
+    public void createResume(String firstName, String lastName, Education education){
+        this.resume = new Resume(this.getId(), this.getFirstName(), this.getLastName(), education);
     }
 
     public Resume getResume() {
@@ -87,5 +86,18 @@ public class Student extends User {
 
     public ArrayList<UUID> getFormerEmployers(){
         return this.formerEmployers;
+    }
+
+    /**
+     * Calculates the average of all ratings
+     * @return the average rating
+     */
+    public double getAverageRating(){
+        int sum = 0;
+        for(int num : this.ratings){
+            sum += num;
+        }
+        return sum/this.ratings.size();
+
     }
 }
