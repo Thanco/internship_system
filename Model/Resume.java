@@ -135,7 +135,7 @@ public class Resume {
 		
 		//user.getUserById(this.uuid);
 		
-		return "Name: " + this.getFirstName() + " " + this.getLastName() + " : " + user.education().getMajor();
+		return "Name: " + this.getFirstName() + " " + this.getLastName() + " : " + this.education.getMajor();
 	}
 	
 	public String toStringLong() {
