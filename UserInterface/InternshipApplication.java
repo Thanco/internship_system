@@ -1,10 +1,8 @@
 package UserInterface;
 
-import java.lang.ref.Cleaner.Cleanable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -423,8 +421,8 @@ public class InternshipApplication {
      * @param internship
      * @return
      */
-    public ArrayList<Resume> getApplications(UUID internship) {
-        return null;
+    public ArrayList<Resume> getApplications(UUID internshipId) {
+        return internshipList.getInternshipById(internshipId).getApplications();
     }
 
     /**
@@ -477,7 +475,7 @@ public class InternshipApplication {
     }
 
     /**
-     * Decline Aoolicant
+     * Decline Applicant
      * 
      * @param resume
      */
@@ -739,10 +737,8 @@ public class InternshipApplication {
         User user = userList.getUserById(userId);
         if (user instanceof Student) {
             ((Student) user).setRatings(new ArrayList<>());
-            ;
         } else if (user instanceof Employer) {
             ((Employer) user).setRatings(new ArrayList<>());
-            ;
         }
     }
 }
