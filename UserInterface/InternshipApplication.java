@@ -1,4 +1,5 @@
 package UserInterface;
+import java.lang.ref.Cleaner.Cleanable;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -139,6 +140,42 @@ public class InternshipApplication {
     		return true;
     	}
     		
+    }
+
+    /**
+     * Add a new skill to the resume or removes if it is already there
+     * @param skill the skill to add/remove
+     */
+    public void changeSkills(String skill) {
+
+    }
+
+    /**
+     * Overwrites the existing education for a resume
+     * @param school
+     * @param major
+     * @param year
+     */
+    public void changeEducation(String school, String major, String year) {
+
+    }
+
+    /**
+     * Add a new extra-curricular to the resume or removes if it is already there
+     * @param activity the activity to add/remove
+     */
+    public void changeExtra(String activity) {
+
+    }
+
+    /** 
+    * Adds a work experience to a resume
+     * @param company
+     * @param start
+     * @param end
+     */
+    public void changeWork(String company, String start, String end) {
+
     }
 
     /**
@@ -432,6 +469,73 @@ public class InternshipApplication {
     }
 
     /**
+     * Returns the employer string for an internship
+     * @param internship The internships UUID
+     * @return Employer String
+     */
+    public String getEmployer(UUID internship) {
+        return "";
+    }
+
+    /**
+     * Modifies an Internships employer object
+     * @param internship The internship being modified
+     * @param employer The new employer string
+     */
+    public void changeEmployer(UUID internship, String employer) {
+
+    }
+
+    /**
+     * Gets the job title from an internship
+     * @param internship
+     * @return
+     */
+    public String getTitle(UUID internship) {
+        return "";
+    }
+
+    /**
+     * Changes the job title of an internship
+     * @param internship
+     * @param title
+     */
+    public void changeTitle(UUID internship, String title) {
+
+    }
+
+    /**
+     * Returns an internships arraylist of required skills
+     * @param internship
+     * @return
+     */
+    public ArrayList<String> getRequiredSkills(UUID internship) {
+        return null;
+    }
+
+    /**
+     * changes an internships required skills
+     * Adds entry if it is not included, removes if it is
+     * @param internship
+     * @return
+     */
+    public void changeRequiredSkills(UUID internship, String skill) {
+        
+    }
+
+    /**
+     * Converts string to int and stores, if param is null set to hidden
+     * @param salary
+     */
+    public void changeSalary(String salary) {
+        
+    }
+    
+    public void changeSchedule(String start, String end, int hours) {
+        
+    }
+
+    /**
      * Searches an array of Resumes for a key word
      * @param resumes List to be searched
      * @param keyword The word to search for
@@ -446,6 +550,48 @@ public class InternshipApplication {
      * @param user
      */
     public void promoteUser(UUID user) {
+
+    }
+
+    /**
+     * Gets the average overall rating of the current user
+     * @return Avg rating
+     */
+    public double getRating() {
+        return 0.0;
+    }
+
+    /**
+     * Gets the average overall rating of a given user
+     * @return Avg rating
+     */
+    public double getRating(UUID user) {
+        return 0.0;
+    }
+
+    /**
+     * Gets a users list of ratings
+     * @param user The user to get ratings of
+     * @return The users ratings
+     */
+    public int[] getRatings(UUID user) {
+        return null;
+    }
+
+    /**
+     * Removes a specific rating from the users profile
+     * @param user The user whos rating is being modified
+     * @param index The index of the rating to be removed
+     */
+    public void removeRating(UUID user, int index) {
+
+    }
+
+    /**
+     * Clears a users ratings
+     * @param user
+     */
+    public void resetRating(UUID user) {
 
     }
 }
