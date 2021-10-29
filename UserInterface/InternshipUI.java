@@ -141,7 +141,7 @@ public class InternshipUI {
         if(attempt) {
             if(application.userType() == 0) studentMain();
             else if(application.userType() == 1) employerMain();
-            else if(application.userType() == 3) adminMain();
+            else if(application.userType() == 2) adminMain();
         } else {
             startUI();
         }

@@ -24,5 +24,12 @@
                 "5d0f2080-3784-4566-9522-9f72b7e7c6c1"
             ],
         "employees":["c17f9f3f-3dd3-4175-9d80-bcf00e3a0ffa"]
+    },{
+        "id":"0d206671-3f72-4af1-90c9-b04279cae9ad",
+        "userType":"a",
+        "firstName":"Terry",
+        "lastName":"Master of Files",
+        "email":"hancoct@email.sc.edu",
+        "password":"JSONOverlord"
     }
 ]
