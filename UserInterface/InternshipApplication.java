@@ -3,6 +3,8 @@ package UserInterface;
 import java.lang.ref.Cleaner.Cleanable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -405,7 +407,7 @@ public class InternshipApplication {
      * @return true if name is changed
      */
     public boolean updateName(String first, String last) {
-        if(first.isEmpty() || last.isEmpty()){
+        if (first.isEmpty() || last.isEmpty()) {
             return false;
         }
 
@@ -502,20 +504,35 @@ public class InternshipApplication {
     /**
      * Creates an internship using given values
      * 
-     * @param title
-     * @param employer
-     * @param description
-     * @param requiredSkills
-     * @param startDate
-     * @param endDate
-     * @param hoursPerDay
-     * @param endHour
-     * @param expirationDate
-     * @param salaryType
+     * @param title of the internship
+     * @param employer of the internship
+     * @param description of the internship
+     * @param requiredSkills for the internship
+     * @param startDate of the internship
+     * @param endDate of the internship
+     * @param hoursPerDay of the internship
+     * @param endHour of the internship
+     * @param expirationDate of the internship
+     * @param salaryType of the internship
      */
-    public void CreateInternship(String title, String employer, String description, String requiredSkills,
+    public void createInternship(String title, String employer, String description, String requiredSkills,
             String startDate, String endDate, int hoursPerDay, int endHour, String expirationDate, String salaryType) {
 
+        if (this.currentUser instanceof Employer) {
+            Employer user = (Employer) this.currentUser;
+            String[] startArray = startDate.split("/");
+            String[] endArray = endDate.split("/");
+            String[] expiration = expirationDate.split("/");
+            ArrayList<String> skills = new ArrayList(Arrays.asList(requiredSkills.split(",")));
+            SalaryType salary;
+            if (salaryType == null) {
+                salary = new HiddenSalary();
+            } else {
+                salary = new FixedSalary(Integer.parseInt(salaryType));
+            }
+            user.createNewInternship(title, employer, description, skills, LocalDate.of(Integer.parseInt(startArray[2]), Integer.parseInt(startArray[0]),Integer.parseInt(startArray[1])), LocalDate.of(Integer.parseInt(endArray[2]), Integer.parseInt(endArray[0]),Integer.parseInt(endArray[1])), hoursPerDay, endHour, LocalDate.of(Integer.parseInt(expiration[2]), Integer.parseInt(expiration[0]),Integer.parseInt(expiration[1])), salary);
+
+        }
     }
 
     /**
@@ -536,7 +553,8 @@ public class InternshipApplication {
      * @param employer   The new employer string
      */
     public void changeEmployer(UUID internshipId, String employer) {
-        internshipList.getInternshipById(internshipId).setEmployer(employer);;
+        internshipList.getInternshipById(internshipId).setEmployer(employer);
+        ;
     }
 
     /**
@@ -553,7 +571,7 @@ public class InternshipApplication {
      * Changes the job title of an internship
      * 
      * @param internshipId the id of the internship
-     * @param title the new title 
+     * @param title        the new title
      */
     public void changeTitle(UUID internshipId, String title) {
         internshipList.getInternshipById(internshipId).setTitle(title);
@@ -578,10 +596,17 @@ public class InternshipApplication {
      */
     public void changeRequiredSkills(UUID internshipId, String skill) {
         String[] modifySkills = skill.split("\n");
+        ArrayList<String> toAdd = new ArrayList<>();
         ArrayList<String> skills = internshipList.getInternshipById(internshipId).getRequiredSkills();
-        for(i = 0; i < modifySkills.length; i++){
-
+        for (int i = 0; i < modifySkills.length; i++) {
+            if (!skill.contains(modifySkills[i])) {
+                toAdd.add(modifySkills[i]);
+            } else {
+                skills.remove(modifySkills[i]);
+            }
         }
+
+        skills.addAll(toAdd);
     }
 
     /**
@@ -591,29 +616,32 @@ public class InternshipApplication {
      */
     public void changeSalary(UUID internshipId, String salary) {
         SalaryType salaryType;
-        if(salary == null){
+        if (salary == null) {
             salaryType = new HiddenSalary();
-        }else{
+        } else {
             salaryType = new FixedSalary(Integer.parseInt(salary));
         }
-        internshipList.getInternshipById(internshipId).setSalaryType(salaryType);;
+        internshipList.getInternshipById(internshipId).setSalaryType(salaryType);
 
     }
 
     /**
      * Changes the schedule details of the internship.
+     * 
      * @param internshipId the id of the internship to modify.
-     * @param start the new start date.
-     * @param end the new end date.
-     * @param hours the new hours per day.
+     * @param start        the new start date.
+     * @param end          the new end date.
+     * @param hours        the new hours per day.
      */
     public void changeSchedule(UUID internshipId, String start, String end, int hours) {
         Internship internship = internshipList.getInternshipById(internshipId);
         String[] startArray = start.split("/");
         String[] endArray = end.split("/");
         internship.setHoursPerDay(hours);
-        internship.setEndDate(LocalDate.of(Integer.parseInt(endArray[2]), Integer.parseInt(endArray[0]), Integer.parseInt(endArray[1])));
-        internship.setStartDate(LocalDate.of(Integer.parseInt(startArray[2]), Integer.parseInt(startArray[0]), Integer.parseInt(startArray[1])));
+        internship.setEndDate(LocalDate.of(Integer.parseInt(endArray[2]), Integer.parseInt(endArray[0]),
+                Integer.parseInt(endArray[1])));
+        internship.setStartDate(LocalDate.of(Integer.parseInt(startArray[2]), Integer.parseInt(startArray[0]),
+                Integer.parseInt(startArray[1])));
 
     }
 
@@ -641,7 +669,7 @@ public class InternshipApplication {
      * @param user
      */
     public void promoteUser(UUID user) {
-
+        return;
     }
 
     /**
@@ -650,7 +678,7 @@ public class InternshipApplication {
      * @return Avg rating
      */
     public double getRating() {
-       return getRating(this.currentUser.getId());
+        return getRating(this.currentUser.getId());
     }
 
     /**
@@ -678,9 +706,9 @@ public class InternshipApplication {
     public int[] getRatings(UUID userId) {
         User user = userList.getUserById(userId);
         if (user instanceof Student) {
-            return ((Student) user).getRatings().stream().mapToInt(i->i).toArray();
+            return ((Student) user).getRatings().stream().mapToInt(i -> i).toArray();
         } else if (user instanceof Employer) {
-            return ((Employer) user).getRatings().stream().mapToInt(i->i).toArray();
+            return ((Employer) user).getRatings().stream().mapToInt(i -> i).toArray();
         } else {
             return null;
         }
@@ -689,8 +717,8 @@ public class InternshipApplication {
     /**
      * Removes a specific rating from the users profile
      * 
-     * @param userId  The user whos rating is being modified
-     * @param index The index of the rating to be removed
+     * @param userId The user whos rating is being modified
+     * @param index  The index of the rating to be removed
      */
     public void removeRating(UUID userId, int index) {
         User user = userList.getUserById(userId);
@@ -709,9 +737,11 @@ public class InternshipApplication {
     public void resetRating(UUID userId) {
         User user = userList.getUserById(userId);
         if (user instanceof Student) {
-            ((Student) user).setRatings(new ArrayList<>());;
+            ((Student) user).setRatings(new ArrayList<>());
+            ;
         } else if (user instanceof Employer) {
-            ((Employer) user).setRatings(new ArrayList<>());;
+            ((Employer) user).setRatings(new ArrayList<>());
+            ;
         }
     }
 }

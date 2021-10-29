@@ -711,7 +711,7 @@ public class InternshipUI {
         in.nextLine();
         System.out.print("Enter a salary type: ");
         String salaryType = in.nextLine();
-        application.CreateInternship(title, employer, description, requiredSkills, startDate, endDate, hoursPerDay, endHour, expirationDate, salaryType);
+        application.createInternship(title, employer, description, requiredSkills, startDate, endDate, hoursPerDay, endHour, expirationDate, salaryType);
         employerMain();
     }
 

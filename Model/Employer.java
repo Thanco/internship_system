@@ -2,6 +2,7 @@ package Model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import Model.SalaryType;
@@ -58,14 +59,6 @@ public class Employer extends User {
         this.ratings = new ArrayList<>();
         this.employees = new ArrayList<>();
 
-    }
-
-    public void createInternship() {
-        return;
-    }
-
-    public boolean editInternship() {
-        return true;
     }
 
     /**
