@@ -102,6 +102,22 @@ public abstract class User {
     }
 
     /**
+     * Sets the first name.
+     * @param firstName to set.
+     */
+    public void setFirstName(String firstName){
+        this.firstName = firstName;
+    }
+
+    /**
+     * Sets the last name.
+     * @param lastName to set.
+     */
+    public void setlastName(String lastName){
+        this.lastName = lastName;
+    }
+
+    /**
      * Sets the password.
      * @param password to set.
      */

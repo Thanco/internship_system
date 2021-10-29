@@ -801,7 +801,7 @@ public class InternshipUI {
         printDivider();
         System.out.print("Enter a new salary: ");
         String salary = in.nextLine();
-        application.changeSalary(salary);
+        application.changeSalary(internship, salary);
         editInternship(internship);
     }
 
@@ -820,7 +820,7 @@ public class InternshipUI {
         System.out.println("Enter new hours per day: ");
         int hours = in.nextInt();
         in.nextLine();
-        application.changeSchedule(start, end, hours);
+        application.changeSchedule(internship, start, end, hours);
         editInternship(internship);
     }
 

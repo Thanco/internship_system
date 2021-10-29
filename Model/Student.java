@@ -89,6 +89,14 @@ public class Student extends User {
     }
 
     /**
+     * Sets the ratings of the user.
+     * @param ratings to set
+     */
+    public void setRatings(ArrayList<Integer> ratings){
+        this.ratings = ratings;
+    }
+
+    /**
      * Calculates the average of all ratings
      * @return the average rating
      */

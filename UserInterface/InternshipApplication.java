@@ -1,6 +1,7 @@
 package UserInterface;
 
 import java.lang.ref.Cleaner.Cleanable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -404,7 +405,13 @@ public class InternshipApplication {
      * @return true if name is changed
      */
     public boolean updateName(String first, String last) {
-        return false;
+        if(first.isEmpty() || last.isEmpty()){
+            return false;
+        }
+
+        this.currentUser.setFirstName(first);
+        this.currentUser.setlastName(last);
+        return true;
     }
 
     /**
@@ -512,22 +519,14 @@ public class InternshipApplication {
     }
 
     /**
-     * Updates an internship in the internship list
-     * 
-     * @param internship
-     */
-    public void updateInternship(Internship internship) {
-
-    }
-
-    /**
      * Returns the employer string for an internship
      * 
-     * @param internship The internships UUID
+     * @param internshipId The internships UUID
      * @return Employer String
      */
-    public String getEmployer(UUID internship) {
-        return "";
+    public String getEmployer(UUID internshipId) {
+        return internshipList.getInternshipById(internshipId).getEmployer();
+
     }
 
     /**
@@ -536,38 +535,38 @@ public class InternshipApplication {
      * @param internship The internship being modified
      * @param employer   The new employer string
      */
-    public void changeEmployer(UUID internship, String employer) {
-
+    public void changeEmployer(UUID internshipId, String employer) {
+        internshipList.getInternshipById(internshipId).setEmployer(employer);;
     }
 
     /**
      * Gets the job title from an internship
      * 
-     * @param internship
-     * @return
+     * @param internshipId the id of the internship
+     * @return title of the internsip
      */
-    public String getTitle(UUID internship) {
-        return "";
+    public String getTitle(UUID internshipId) {
+        return internshipList.getInternshipById(internshipId).getTitle();
     }
 
     /**
      * Changes the job title of an internship
      * 
-     * @param internship
-     * @param title
+     * @param internshipId the id of the internship
+     * @param title the new title 
      */
-    public void changeTitle(UUID internship, String title) {
-
+    public void changeTitle(UUID internshipId, String title) {
+        internshipList.getInternshipById(internshipId).setTitle(title);
     }
 
     /**
      * Returns an internships arraylist of required skills
      * 
-     * @param internship
+     * @param internshipId
      * @return
      */
-    public ArrayList<String> getRequiredSkills(UUID internship) {
-        return null;
+    public ArrayList<String> getRequiredSkills(UUID internshipId) {
+        return internshipList.getInternshipById(internshipId).getRequiredSkills();
     }
 
     /**
@@ -577,20 +576,44 @@ public class InternshipApplication {
      * @param internship
      * @return
      */
-    public void changeRequiredSkills(UUID internship, String skill) {
+    public void changeRequiredSkills(UUID internshipId, String skill) {
+        String[] modifySkills = skill.split("\n");
+        ArrayList<String> skills = internshipList.getInternshipById(internshipId).getRequiredSkills();
+        for(i = 0; i < modifySkills.length; i++){
 
+        }
     }
 
     /**
      * Converts string to int and stores, if param is null set to hidden
      * 
-     * @param salary
+     * @param salary to change to.
      */
-    public void changeSalary(String salary) {
+    public void changeSalary(UUID internshipId, String salary) {
+        SalaryType salaryType;
+        if(salary == null){
+            salaryType = new HiddenSalary();
+        }else{
+            salaryType = new FixedSalary(Integer.parseInt(salary));
+        }
+        internshipList.getInternshipById(internshipId).setSalaryType(salaryType);;
 
     }
 
-    public void changeSchedule(String start, String end, int hours) {
+    /**
+     * Changes the schedule details of the internship.
+     * @param internshipId the id of the internship to modify.
+     * @param start the new start date.
+     * @param end the new end date.
+     * @param hours the new hours per day.
+     */
+    public void changeSchedule(UUID internshipId, String start, String end, int hours) {
+        Internship internship = internshipList.getInternshipById(internshipId);
+        String[] startArray = start.split("/");
+        String[] endArray = end.split("/");
+        internship.setHoursPerDay(hours);
+        internship.setEndDate(LocalDate.of(Integer.parseInt(endArray[2]), Integer.parseInt(endArray[0]), Integer.parseInt(endArray[1])));
+        internship.setStartDate(LocalDate.of(Integer.parseInt(startArray[2]), Integer.parseInt(startArray[0]), Integer.parseInt(startArray[1])));
 
     }
 
@@ -627,13 +650,7 @@ public class InternshipApplication {
      * @return Avg rating
      */
     public double getRating() {
-        if (this.currentUser instanceof Student) {
-            return ((Student) this.currentUser).getAverageRating();
-        } else if (this.currentUser instanceof Employer) {
-            return ((Employer) this.currentUser).getAverageRating();
-        } else {
-            return 0;
-        }
+       return getRating(this.currentUser.getId());
     }
 
     /**
@@ -658,26 +675,43 @@ public class InternshipApplication {
      * @param user The user to get ratings of
      * @return The users ratings
      */
-    public int[] getRatings(UUID user) {
-        return null;
+    public int[] getRatings(UUID userId) {
+        User user = userList.getUserById(userId);
+        if (user instanceof Student) {
+            return ((Student) user).getRatings().stream().mapToInt(i->i).toArray();
+        } else if (user instanceof Employer) {
+            return ((Employer) user).getRatings().stream().mapToInt(i->i).toArray();
+        } else {
+            return null;
+        }
     }
 
     /**
      * Removes a specific rating from the users profile
      * 
-     * @param user  The user whos rating is being modified
+     * @param userId  The user whos rating is being modified
      * @param index The index of the rating to be removed
      */
-    public void removeRating(UUID user, int index) {
-
+    public void removeRating(UUID userId, int index) {
+        User user = userList.getUserById(userId);
+        if (user instanceof Student) {
+            ((Student) user).getRatings().remove(index);
+        } else if (user instanceof Employer) {
+            ((Employer) user).getRatings().remove(index);
+        }
     }
 
     /**
-     * Clears a users ratings
+     * Clears a users ratings.
      * 
-     * @param user
+     * @param userid is the id of the user whose ratings to clear
      */
-    public void resetRating(UUID user) {
-
+    public void resetRating(UUID userId) {
+        User user = userList.getUserById(userId);
+        if (user instanceof Student) {
+            ((Student) user).setRatings(new ArrayList<>());;
+        } else if (user instanceof Employer) {
+            ((Employer) user).setRatings(new ArrayList<>());;
+        }
     }
 }
