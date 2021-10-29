@@ -286,25 +286,76 @@ public class InternshipUI {
         else ResumeOptions();
     }
 
+    /**
+     * UI for entering/editing skills
+     */
     public void enterSkills() {
         clearPage();
+        System.out.println("Skills Entry");
+        printDivider();
+        System.out.println("Skills: " + application.getResume().getStudentSkills());
         System.out.print("Enter a skill or \"done\"");
         printDivider();
         System.out.print("Skill: ");
         String skill = in.nextLine();
         if (skill.equalsIgnoreCase("done")) ResumeOptions();
+        else {
+            application.changeSkills(skill);
+            enterSkills();
+        }
     }
 
+    /**
+     * UI for entering a new education
+     */
     public void enterEducation() {
-        
+        clearPage();
+        System.out.print("Education Entry");
+        printDivider();
+        System.out.println("Enter the name of your school: ");
+        String school = in.nextLine();
+        System.out.println("Enter your major: ");
+        String major = in.nextLine();
+        System.out.println("Enter your year: ");
+        String year = in.nextLine();
+        application.changeEducation(school, major, year);
+        ResumeOptions();
     }
 
+    /**
+     * UI for adding/editing extra curricular activities
+     */
     public void enterExtra() {
-
+        clearPage();
+        System.out.print("Extra-Curricular Entry");
+        printDivider();
+        System.out.println("Activity: " + application.getResume().getExtraCirricularList());
+        System.out.print("Enter an activity or \"done\"");
+        printDivider();
+        System.out.print("Activity: ");
+        String activity = in.nextLine();
+        if (activity.equalsIgnoreCase("done")) ResumeOptions();
+        else {
+            application.changeExtra(activity);
+            enterExtra();
+        }
     }
 
+    /**
+     * UI for entering a new work experience
+     */
     public void enterWork() {
-
+        clearPage();
+        System.out.print("Work Experience Entry");
+        printDivider();
+        System.out.print("Enter a Company Name: ");
+        String company = in.nextLine();
+        System.out.print("Enter the start date (MM/YYYY): ");
+        String start = in.nextLine();
+        System.out.print("Enter the end date (MM/YYYY): ");
+        String end = in.nextLine();
+        application.changeWork(company, start, end);
+        ResumeOptions();
     }
 
     /**
@@ -333,8 +384,7 @@ public class InternshipUI {
         printDivider();
         System.out.println(application.getUser().getFirstName() + application.getUser().getLastName());
         System.out.println(application.getUser().getEmail());
-        System.out.println(application.getUser().getRating());
-        System.out.println(application.getUser().getCurrentEmployer());
+        System.out.println(application.getRating());
         char entry = UIOptionsLine("14260423");
         if(entry == 'E') updateEmail();
         else if (entry == 'P') updatePassword();
@@ -465,7 +515,12 @@ public class InternshipUI {
      * @param internships
      */
     public void searchInternships() {
-        
+        clearPage();
+        System.out.println("Search Internships");
+        printDivider();
+        System.out.print("Enter a keyword to search by: ");
+        String keyword = in.nextLine();
+        displayInternshipList(application.getInternships(keyword), 0);
     }
 
     /**
@@ -510,7 +565,7 @@ public class InternshipUI {
      * @options (A)pply, (B)ack, (L)ogout
      * @options (E)dit, (R)emove, (V)iew Applicants, (B)ack, (L)ogout
      */
-    public void viewInternship(Internship internship) {
+    public void viewInternship(UUID internship) {
         clearPage();
         System.out.println("Internship Information");
         printDivider();
@@ -519,7 +574,7 @@ public class InternshipUI {
         if(application.userType() == 0) {
             char entry = UIOptionsLine("030423");
             if (entry == 'A') {
-                boolean attempt = application.apply(internship.getId());
+                boolean attempt = application.apply(internship);
                 if (attempt) {
                     System.out.println("Application Succesful: Press \"Enter\" to return to the menu");
                 } else {
@@ -587,7 +642,14 @@ public class InternshipUI {
      * @param resumes
      */
     public void searchResumes(ArrayList<Resume> resumes) {
-
+        clearPage();
+        System.out.print("Search Applicants");
+        printDivider();
+        System.out.print("Enter a keyword to search for: ");
+        String keyword = in.nextLine();
+        ArrayList<Resume> newResumes = application.searchResumes(resumes, keyword);
+        if (newResumes == null) searchResumes(resumes);
+        else viewApplications(newResumes);
     }
 
     /**
@@ -596,7 +658,7 @@ public class InternshipUI {
      * @options ""
      */
     public void viewResume(UUID user) {
-        Resume resume = application.getUser(user).getResume();
+        Resume resume = application.getResume(user);
         clearPage();
         System.out.print("Resume");
         printDivider();
@@ -659,7 +721,7 @@ public class InternshipUI {
      * @options (C)ompany, (T)itle, (S)kills, (P)ay, (W)ork Schedule, (E)xperation Date, (B)ack, (L)ogout
      * @options "0540383536180423"
      */
-    public void editInternship(Internship internship) {
+    public void editInternship(UUID internship) {
         clearPage();
         System.out.print("Edit Internship");
         char entry = UIOptionsLine("0540382736180423");
@@ -669,14 +731,8 @@ public class InternshipUI {
         else if (entry == 'P')  editPay(internship);
         else if (entry == 'W')  editSchedule(internship);
         else if (entry == 'E')  editExpiration(internship);
-        else if (entry == 'B')  {
-            application.updateInternship(internship);
-            employerMain();
-        }
-        else if (entry == 'L') {
-            application.updateInternship(internship);
-            logout();
-        }
+        else if (entry == 'B')  employerMain();
+        else if (entry == 'L')  logout();
         else editInternship(internship);
     }
 
@@ -684,14 +740,14 @@ public class InternshipUI {
      * UI for chaning an internships company
      * @param internship the internship being modified
      */
-    public void editCompany(Internship internship) {
+    public void editCompany(UUID internship) {
         clearPage();
         System.out.print("Edit Company Name");
         printDivider();
-        System.out.println("Current Name: " + internship.getEmployer());
+        System.out.println("Current Name: " + application.getEmployer(internship));
         System.out.print("New Name: ");
         String employer = in.nextLine();
-        internship.setEmployer(employer);
+        application.changeEmployer(internship, employer);
         editInternship(internship);
     }
 
@@ -699,14 +755,14 @@ public class InternshipUI {
      * UI for chaning an internships job title
      * @param internship the internship being modified
      */
-    public void editTitle(Internship internship) {
+    public void editTitle(UUID internship) {
         clearPage();
         System.out.print("Edit Job Title");
         printDivider();
-        System.out.println("Current Title: " + internship.getTitle());
+        System.out.println("Current Title: " + application.getTitle(internship));
         System.out.print("New Title: ");
         String title = in.nextLine();
-        internship.setTitle(title);
+        application.changeTitle(internship, title);
         editInternship(internship);
     }
 
@@ -714,8 +770,8 @@ public class InternshipUI {
      * UI for chaning an internships required skills
      * @param internship the internship being modified
      */
-    public void editSkills(Internship internship) {
-        ArrayList<String> skills = internship.getRequiredSkills();
+    public void editSkills(UUID internship) {
+        ArrayList<String> skills = application.getRequiredSkills(internship);
         clearPage(); 
         System.out.print("Edit Required Skills");
         printDivider();
@@ -728,21 +784,11 @@ public class InternshipUI {
         }
         printDivider();
         System.out.print("Enter a skill to add/remove (Enter done when finished)");
-        String entry = in.nextLine();
-        if (entry.equalsIgnoreCase("done")) {
+        String skill = in.nextLine();
+        if (skill.equalsIgnoreCase("done")) {
             editInternship(internship);
-        } else if (entry.isBlank()) {
-            editSkills(internship);
         } else {
-            if (skills.contains(entry)) {
-                skills.remove(entry);
-                internship.setRequiredSkills(skills);
-                editSkills(internship);
-            } else {
-                skills.add(entry);
-                internship.setRequiredSkills(skills);
-                editSkills(internship);
-            }
+            application.changeRequiredSkills(internship, skill);
         }
     }
 
@@ -750,23 +796,44 @@ public class InternshipUI {
      * UI for chaning an internships salary
      * @param internship the internship being modified
      */
-    public void editPay(Internship internship) {
-
+    public void editPay(UUID internship) {
+        clearPage();
+        System.out.print("Salary Entry");
+        printDivider();
+        System.out.print("Enter a new salary: ");
+        String salary = in.nextLine();
+        application.changeSalary(salary);
+        editInternship(internship);
     }
 
     /**
      * UI for chaning an internships schedule
      * @param internship the internship being modified
      */
-    public void editSchedule(Internship internship) {
-
+    public void editSchedule(UUID internship) {
+        clearPage();
+        System.out.print("Schedule Modification");
+        printDivider();
+        System.out.print("Enter a new start date (MM/DD/YYYY): ");
+        String start = in.nextLine();
+        System.out.println("Enter a new start date (MM/DD/YYYY): ");
+        String end = in.nextLine();
+        System.out.println("Enter new hours per day: ");
+        int hours = in.nextInt();
+        in.nextLine();
+        application.changeSchedule(start, end, hours);
+        editInternship(internship);
     }
 
     /**
      * UI for chaning an internships experation date
      * @param internship the internship being modified
      */
-    public void editExpiration(Internship internship) {
+    public void editExpiration(UUID internship) {
+        clearPage();
+        System.out.print("Edit Experation Date");
+        printDivider();
+        System.out.print("Enter a new date (MM/YYYY): ");
 
     }
 
@@ -841,7 +908,7 @@ public class InternshipUI {
     }
 
     /**
-     * Displays a student profile
+     * Displays a User profile
      * @options (P)romote, (R)emove, (V)iew Ratings, (B)ack, (L)ogout
      * @options ""
      */
@@ -879,6 +946,31 @@ public class InternshipUI {
      * @options ""
      */
     public void viewRatings(UUID user) {
-        
+        clearPage();
+        System.out.println("User Ratings");
+        printDivider();
+        int[] ratings = application.getRatings(user);
+        System.out.println("#   |Rating");
+        System.out.println("____|______");
+        for (int i = 0; i < ratings.length; i++) {
+            System.out.println((i + 1) + "\t|" + ratings[i]);
+        }
+        printDivider();
+        System.out.print("(#)to Remove   (R)eset Rating   (B)ack   (L)ogout");
+        printDivider();
+        System.out.print("Option: ");
+        String entry = in.nextLine();
+        if (entry.equals("R")) application.resetRating(user);
+        else if (entry.equals("B")) viewUser(user);
+        else if (entry.equals("L")) logout();
+        else {
+            try {
+                int index = Integer.parseInt(entry) - 1;
+                if (index < ratings.length && index >= 0) application.removeRating(user, index);
+                else viewRatings(user);
+            } catch (Exception e) {
+                viewRatings(user);
+            }
+        }
     }
 }
