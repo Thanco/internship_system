@@ -1,14 +1,11 @@
 package UserInterface;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
-
-import Model.Admin;
-import Model.Employer;
 import Model.Internship;
 import Model.Resume;
-import Model.Student;
 import Model.User;
 
 /**
@@ -90,6 +87,7 @@ public class InternshipUI {
             for (int i =  0; i < temp.size(); i++) {;
                 Options[i] = temp.get(i);
             }
+            read.close();
         } catch (Exception e) {
             System.out.println("Error reading options file");
         }
@@ -254,9 +252,10 @@ public class InternshipUI {
         String school = in.nextLine();
         System.out.println("Enter your major: ");
         String major = in.nextLine();
-        System.out.println("Enter your year: ");
-        String year = in.nextLine();
-        boolean attempt = application.createResume(school, major, class);
+        System.out.println("Enter your year (1-4): ");
+        int year = in.nextInt();
+        in.nextLine();
+        boolean attempt = application.createResume(school, year, major);
         if (attempt) ResumeOptions();
         else {
             System.out.println("Resume could not be created: Press enter to continiue");
@@ -552,7 +551,7 @@ public class InternshipUI {
         else {
             try {
                 int index = Integer.parseInt(entry) - 1;
-                if (index < internships.size() && index <= 0) viewInternship(internships.get(index));
+                if (index < internships.size() && index <= 0) viewInternship(internships.get(index).getId());
                 else displayInternshipList(internships, page);
             } catch (Exception e) {
                 displayInternshipList(internships, page);
@@ -591,8 +590,8 @@ public class InternshipUI {
         else if (application.userType() == 1) {
             char entry = UIOptionsLine("1232410423");
             if (entry == 'E')       editInternship(internship);
-            else if (entry == 'R')  application.removeInternship(internship.getId());
-            else if (entry == 'V')  viewApplications(internship.getApplications());
+            else if (entry == 'R')  application.removeInternship(internship);
+            else if (entry == 'V')  viewApplications(application.getApplications(internship));
             else if (entry == 'B')  employerMain();
             else if (entry == 'L')  logout();
             else viewInternship(internship);
@@ -600,7 +599,7 @@ public class InternshipUI {
         //Admin Menu
         else if (application.userType() == 2) {
             char entry = UIOptionsLine("320423");
-            if (entry == 'R') application.removeInternship(internship.getId());
+            if (entry == 'R') application.removeInternship(internship);
             else if (entry == 'B') adminMain();
             else if (entry == 'L') logout();
             else viewInternship(internship);

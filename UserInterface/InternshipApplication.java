@@ -37,6 +37,14 @@ public class InternshipApplication {
         return true;
     }
 
+    /**
+     * Gets the current users UUID
+     * @return current users UUID
+     */
+    public UUID getCurrent() {
+        return currentUser.getId();
+    }
+
     /** 
      * Saves saves all data to jsons
     */
@@ -103,7 +111,7 @@ public class InternshipApplication {
      */
     public boolean createResume(String schoolTitle, int schoolClass, String major) {
     	
-    	if (schoolTitle == null || schoolClass == null) {
+    	if (schoolTitle == null) {
     		return false;
     	}
     	
@@ -372,6 +380,14 @@ public class InternshipApplication {
         return false;
     }
 
+    /**
+     * gets a list of resumes from an internship
+     * @param internship
+     * @return
+     */
+    public ArrayList<Resume> getApplications(UUID internship) {
+        return null;
+    }
     /**
      * returns the current users resume
      * @return current users resume
