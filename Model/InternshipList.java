@@ -93,7 +93,7 @@ public class InternshipList {
 	public ArrayList<Internship> getInternshipByKeyword(String keyword){
 		ArrayList<Internship> internshipsWithKeyword = new ArrayList<>();
 		for(Internship internship : internships){
-			if(internship.toString().contains(keyword)){
+			if(internship.toString().toUpperCase().contains(keyword.toUpperCase())){
 				internshipsWithKeyword.add(internship);
 			}
 		}

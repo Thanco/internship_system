@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.*;
 import org.json.simple.*;
 
-import Model.UserList;
+@SuppressWarnings("unchecked")
 
 /**
  * Contains methods to write objects to json files 

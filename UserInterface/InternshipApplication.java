@@ -585,7 +585,7 @@ public class InternshipApplication {
             String[] startArray = startDate.split("/");
             String[] endArray = endDate.split("/");
             String[] expiration = expirationDate.split("/");
-            ArrayList<String> skills = new ArrayList(Arrays.asList(requiredSkills.split(",")));
+            ArrayList<String> skills = new ArrayList<String>(Arrays.asList(requiredSkills.split(",")));
             SalaryType salary;
             if (salaryType == null) {
                 salary = new HiddenSalary();

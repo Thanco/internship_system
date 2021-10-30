@@ -8,6 +8,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.time.LocalDate;
 
+@SuppressWarnings("unchecked")
+
 /**
  * Contains methods to load objects from json files
  * 

@@ -129,13 +129,8 @@ public class Resume {
 		extraCirricularList.add(extraCirricular);
 	}
 	
-	public String toStringShort() {
-		
-		UserList user = UserList.getInstance();
-		
-		//user.getUserById(this.uuid);
-		
-		return "Name: " + this.getFirstName() + " " + this.getLastName() + " : " + this.education.getMajor();
+	public String toStringShort() {		
+		return "Name: " + this.getFirstName() + " " + this.getLastName() + " : " + this.getEducation().getMajor();
 	}
 	
 	public String toStringLong() {
