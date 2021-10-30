@@ -28,7 +28,32 @@
                 "data management",
                 "project management"
             ],
-        "extraCurricular":["Code-a-thons"],
-        "currentEmployment":"Chick-Fil-A"
+        "extraCurricular":["Code-a-thons"]
+    },{
+        "id":"376bdcfb-66fe-4feb-a7e9-6c5b3843ca2b",
+        "ownerID":"a7fdeca1-09ff-4042-ac94-3d725794c830",
+        "education":
+            {
+                "schoolTitle":"Ranoa University of Magic",
+                "schoolClass":"senior",
+                "major":"computer science"
+            },
+        "workExperience":
+            [
+                {
+                    "employer":"Kingdom of Asura",
+                    "startDate":"10/2020",
+                    "endDate":"10/2021",
+                    "descriptions":["Tutored the Corwn Prince","Assisted the Kingdom's Knigts to defend against magic"]
+                }
+            ],
+        "studentSkills":
+            [
+                "Java",
+                "JavaScript",
+                "Water Magic",
+                "C++"
+            ],
+        "extraCurricular":["Traveling","Cooking"]
     }
 ]

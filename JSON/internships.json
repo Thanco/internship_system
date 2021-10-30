@@ -4,7 +4,7 @@
         "title":"Software Engineer",
         "employer":"Apple",
         "description":"You're going to program the programs",
-        "requiredSkills":["java","communication","time management","project management"],
+        "requiredSkills":["Java","JavaScript","Communication","Time management","Project management"],
         "startDate":"1/2022",
         "endDate":"4/2022",
         "hoursPerDay":7,
@@ -14,14 +14,13 @@
             {
                 "salaryType":"h"
             },
-        "applications":["0690b59c-7460-4759-b7e6-c8684643f06d"]
+        "applications":["0690b59c-7460-4759-b7e6-c8684643f06d","376bdcfb-66fe-4feb-a7e9-6c5b3843ca2b"]
     },{
         "id":"5d0f2080-3784-4566-9522-9f72b7e7c6c1",
-        "ownerUUID":"840435d5-2a6f-47eb-9869-bc1f9cb2af65",
         "title":"Database Manager",
         "employer":"Apple",
         "description":"You're going to manage the databases",
-        "requiredSkills":["sql","communication","time management","understanding of databases"],
+        "requiredSkills":["SQL","JavaScript","Communication","Time management","Database knowlage"],
         "startDate":"12/2021",
         "endDate":"12/2021",
         "hoursPerDay":7,
@@ -32,6 +31,6 @@
                 "salaryType":"f",
                 "salaryValue":80000
             },
-        "applications":["0690b59c-7460-4759-b7e6-c8684643f06d"]
+        "applications":["0690b59c-7460-4759-b7e6-c8684643f06d","376bdcfb-66fe-4feb-a7e9-6c5b3843ca2b"]
     }
 ]
