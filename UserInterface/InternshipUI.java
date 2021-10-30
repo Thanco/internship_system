@@ -274,12 +274,12 @@ public class InternshipUI {
         System.out.println("Resume Options");
         printDivider();
         Resume resume = application.getResume();
-        resume.toString();
+        resume.toStringLong();
         char entry = Character.toUpperCase(UIOptionsLine("331344200423"));
         if (entry == 'S') enterSkills();
         else if (entry == 'W') enterWork();
-        else if (entry == 'S') enterEducation();
-        else if (entry == 'E') enterExtra();
+        else if (entry == 'E') enterEducation();
+        else if (entry == 'H') enterExtra();
         else if (entry == 'B') studentMain();
         else if (entry == 'L') logout();
         else ResumeOptions();
