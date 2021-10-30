@@ -10,6 +10,16 @@
         "resume":"0690b59c-7460-4759-b7e6-c8684643f06d",
         "formerEmployers":["840435d5-2a6f-47eb-9869-bc1f9cb2af65"]
     },{
+        "id":"a7fdeca1-09ff-4042-ac94-3d725794c830",
+        "userType":"s",
+        "firstName":"Roxy",
+        "lastName":"Greyrat",
+        "email":"rgreyr@email.sc.edu",
+        "password":"Shr1ne",
+        "rating":[5,3],
+        "resume":"376bdcfb-66fe-4feb-a7e9-6c5b3843ca2b",
+        "formerEmployers":[]
+    },{
         "id":"840435d5-2a6f-47eb-9869-bc1f9cb2af65",
         "userType":"e",
         "firstName":"JJ",
@@ -31,5 +41,15 @@
         "lastName":"Master of Files",
         "email":"hancoct@email.sc.edu",
         "password":"JSONOverlord"
+    },{
+        "id":"d79d8205-50c8-4b3a-a757-7246c677897d",
+        "userType":"s",
+        "firstName":"Fizz",
+        "lastName":"Buzz",
+        "email":"fubzz@email.sc.edu",
+        "password":"UnsecurePassword",
+        "rating":[],
+        "resyme":null,
+        "formerEmployers":[]
     }
 ]
