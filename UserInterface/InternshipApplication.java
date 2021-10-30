@@ -41,6 +41,11 @@ public class InternshipApplication {
         return true;
     }
 
+    public void logout() {
+        saveUser();
+        currentUser = null;
+    }
+
     /**
      * Gets the current users UUID
      * 
@@ -54,7 +59,9 @@ public class InternshipApplication {
      * Saves saves all data to jsons
      */
     public void end() {
-
+        DataWriter.saveUsers();
+        DataWriter.saveInternships();
+        System.exit(0);
     }
 
     /**
@@ -491,11 +498,17 @@ public class InternshipApplication {
 
     /**
      * Adds the current users resume to an internship
-     * 
-     * @param Id The UUID of the internship being applied to
+     * @param internshipUUID The UUID of the internship being applied to
      */
-    public boolean apply(UUID Id) {
-        return false;
+    public boolean apply(UUID internshipUUID) {
+        try {
+            InternshipList internships = InternshipList.getInstance();
+            Internship internship = internships.getInternshipById(internshipUUID);
+            internship.addApplication(((Student)currentUser).getResume());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**
@@ -511,10 +524,13 @@ public class InternshipApplication {
      * Accepts Applicant Adds employer to student ratables and employer to students
      * ratables
      * 
-     * @param resume
+     * @param resume the resume for the student to be accepted
      */
     public void acceptApplication(Resume resume) {
-        
+        ((Employer)currentUser).addEmployee(resume.getOwnerUUID());
+        UserList users = UserList.getInstance();
+        Student applicant = (Student)users.getUserById(resume.getOwnerUUID());
+        applicant.addFormerEmployer(currentUser.getId());
     }
 
     /**

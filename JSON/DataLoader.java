@@ -243,6 +243,12 @@ public class DataLoader extends DataConstants {
 		return date;
 	}
 
+	/**
+	 * Converts a date string from json (MM/YYYY) and converts it to a LocalDate object
+	 * @param toLoad the json date to load
+	 * @param object the JSONObject to load the date from
+	 * @return the LocalDate object of the date
+	 */
 	private static LocalDate jsonDateToLocalDate(String toLoad, JSONObject object) {
 		String dateString = (String)object.get(toLoad);
 		String[] startDateArr = dateString.split("/");

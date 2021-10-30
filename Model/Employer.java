@@ -114,6 +114,14 @@ public class Employer extends User {
     }
 
     /**
+     * Adds a student to the employee list by the student's uuid
+     * @param studentUUID the student's uuid
+     */
+    public void addEmployee(UUID studentUUID) {
+        employees.add(studentUUID);
+    }
+
+    /**
 	 * Returns rating list. 
 	 * @return rating list.
 	 */

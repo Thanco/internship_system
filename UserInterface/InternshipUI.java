@@ -94,34 +94,22 @@ public class InternshipUI {
     }
 
     /**
-     * Logs User out
-     */
-    private void logout() {
-        application.saveUser();
-        startUI();
-    }
-
-    /**
-     * Runs shut down code to save all system data
-     */
-    private void exit() {
-        application.end();
-        System.exit(0);
-    }
-
-    /**
      * Entry UI
      * @options (L)ogin, (C)reate Account, (E)xit
      * @options ""
      */
     public void startUI() {
-        clearPage();
-        System.out.print("Start");
-        char entry = Character.toUpperCase(UIOptionsLine("220617"));
-        if (entry == 'L') login();
-        else if (entry == 'C') createAccount();
-        else if (entry == 'E') exit();
-        else startUI();
+        while (true) {
+            clearPage();
+            System.out.print("Start");
+            char entry = Character.toUpperCase(UIOptionsLine("220617"));
+            if (entry == 'L') login();
+            else if (entry == 'C') createAccount();
+            else if (entry == 'E') {
+                in.close(); 
+                application.end();
+            }
+        }
     }
 
     /**
@@ -130,21 +118,19 @@ public class InternshipUI {
      * @else Returns to StartUI()
      */
     public void login() {
-        clearPage();
-        System.out.print("Login");
-        printDivider();
-        System.out.print("Email: ");
-        String email = in.nextLine();
-        System.out.print("Password: ");
-        String password = in.nextLine();
-        boolean attempt = application.login(email, password);
-        if(attempt) {
-            if(application.userType() == 0) studentMain();
-            else if(application.userType() == 1) employerMain();
-            else if(application.userType() == 2) adminMain();
-        } else {
-            startUI();
-        }
+            clearPage();
+            System.out.print("Login");
+            printDivider();
+            System.out.print("Email: ");
+            String email = in.nextLine();
+            System.out.print("Password: ");
+            String password = in.nextLine();
+            boolean attempt = application.login(email, password);
+            if(attempt) {
+                if(application.userType() == 0) studentMain();
+                else if(application.userType() == 1) employerMain();
+                else if(application.userType() == 2) adminMain();
+            }
     }
 
     /**
@@ -153,13 +139,14 @@ public class InternshipUI {
      * @options "391504"
      */
     public void createAccount() {
-        clearPage();
-        System.out.print("Create Account");
-        char entry = Character.toUpperCase(UIOptionsLine("391504"));
-        if(entry == 'S') createUser(0);
-        else if(entry == 'E') createUser(1);
-        else if(entry == 'B') startUI();
-        else createAccount();
+        while (true) {
+            clearPage();
+            System.out.print("Create Account");
+            char entry = Character.toUpperCase(UIOptionsLine("391504"));
+            if(entry == 'S') createUser(0);
+            else if(entry == 'E') createUser(1);
+            else if(entry == 'B') return;
+        }
     }
 
     /**
@@ -173,7 +160,7 @@ public class InternshipUI {
         while(true) {
             System.out.print("First Name: ");
             String first = in.nextLine();
-            System.out.print("Last Name");
+            System.out.print("Last Name: ");
             String last = in.nextLine();
             System.out.print("Email: ");
             String email = in.nextLine();
@@ -190,7 +177,7 @@ public class InternshipUI {
                 break;
             }
         }
-        startUI();
+        return;
     }
 
     /**
@@ -199,14 +186,19 @@ public class InternshipUI {
      * @options "0825020423"
      */
     public void studentMain() {
-        clearPage();
-        System.out.print("Main Menu");
-        char entry = Character.toUpperCase(UIOptionsLine("0825020423"));
-        if (entry == 'C') createResume();
-        else if (entry == 'O') addRating();
-        else if (entry == 'V') viewInternshipMenu();
-        else if (entry == 'L') logout();
-        else studentMain();
+        while (true) {
+            clearPage();
+            System.out.print("Main Menu");
+            char entry = Character.toUpperCase(UIOptionsLine("0825024223"));
+            if (entry == 'C') createResume();
+            else if (entry == 'O') accountOptions();
+            else if (entry == 'A') addRating();
+            else if (entry == 'V') viewInternshipMenu();
+            else if (entry == 'L') {
+                application.logout();
+                return;
+            }
+        }
     }
 
     /**
@@ -221,8 +213,10 @@ public class InternshipUI {
         if (entry == 'C') createInternship();
         else if (entry == 'V') viewInternshipMenu();
         else if (entry == 'E') displayUserList(application.getEmployees(), 0);
-        else if (entry == 'L') logout();
-        else employerMain(); 
+        else if (entry == 'L') {
+            application.logout();
+            return;
+        }
     }
 
     /**
@@ -237,8 +231,10 @@ public class InternshipUI {
         if (entry == 'S') displayUserList(application.getUsers(0), 0);
         else if (entry == 'E') displayUserList(application.getUsers(1), 0);
         else if (entry == 'I') viewInternshipMenu();
-        else if (entry == 'L') logout();
-        else adminMain();
+        else if (entry == 'L') {
+            application.logout();
+            return;
+        }
     }
 
     /**
@@ -248,11 +244,11 @@ public class InternshipUI {
         clearPage();
         System.out.print("Resume Creation");
         printDivider();
-        System.out.println("Enter the name of your school: ");
+        System.out.print("Enter the name of your school: ");
         String school = in.nextLine();
-        System.out.println("Enter your major: ");
+        System.out.print("Enter your major: ");
         String major = in.nextLine();
-        System.out.println("Enter your year (1-4): ");
+        System.out.print("Enter your year (1-4): ");
         int year = in.nextInt();
         in.nextLine();
         boolean attempt = application.createResume(school, year, major);
@@ -260,7 +256,6 @@ public class InternshipUI {
         else {
             System.out.println("Resume could not be created: Press enter to continiue");
             in.nextLine();
-            studentMain();
         }
     }
 
@@ -271,18 +266,16 @@ public class InternshipUI {
      */
     public void ResumeOptions() {
         clearPage();
-        System.out.println("Resume Options");
+        System.out.print("Resume Options");
         printDivider();
         Resume resume = application.getResume();
         resume.toStringLong();
-        char entry = Character.toUpperCase(UIOptionsLine("331344200423"));
+        char entry = Character.toUpperCase(UIOptionsLine("3313442004"));
         if (entry == 'S') enterSkills();
         else if (entry == 'W') enterWork();
         else if (entry == 'E') enterEducation();
         else if (entry == 'H') enterExtra();
-        else if (entry == 'B') studentMain();
-        else if (entry == 'L') logout();
-        else ResumeOptions();
+        else if (entry == 'B') return;
     }
 
     /**
@@ -297,10 +290,9 @@ public class InternshipUI {
         printDivider();
         System.out.print("Skill: ");
         String skill = in.nextLine();
-        if (skill.equalsIgnoreCase("done")) ResumeOptions();
+        if (skill.equalsIgnoreCase("done")) return;
         else {
             application.changeSkills(skill);
-            enterSkills();
         }
     }
 
@@ -318,25 +310,23 @@ public class InternshipUI {
         System.out.println("Enter your year: ");
         String year = in.nextLine();
         application.changeEducation(school, major, year);
-        ResumeOptions();
     }
 
     /**
      * UI for adding/editing extra curricular activities
-     */
+     */ 
     public void enterExtra() {
-        clearPage();
-        System.out.print("Extra-Curricular Entry");
-        printDivider();
-        System.out.println("Activity: " + application.getResume().getExtraCirricularList());
-        System.out.print("Enter an activity or \"done\"");
-        printDivider();
-        System.out.print("Activity: ");
-        String activity = in.nextLine();
-        if (activity.equalsIgnoreCase("done")) ResumeOptions();
-        else {
-            application.changeExtra(activity);
-            enterExtra();
+        while (true) {
+            clearPage();
+            System.out.print("Extra-Curricular Entry");
+            printDivider();
+            System.out.println("Activity: " + application.getResume().getExtraCirricularList());
+            System.out.print("Enter an activity or \"done\"");
+            printDivider();
+            System.out.print("Activity: ");
+            String activity = in.nextLine();
+            if (activity.equalsIgnoreCase("done")) return;
+                application.changeExtra(activity);
         }
     }
 
@@ -354,7 +344,6 @@ public class InternshipUI {
         System.out.print("Enter the end date (MM/YYYY): ");
         String end = in.nextLine();
         application.changeWork(company, start, end);
-        ResumeOptions();
     }
 
     /**
@@ -363,13 +352,13 @@ public class InternshipUI {
      * @options "30340423"
      */
     public void accountOptions() {
-        clearPage();
-        char entry = Character.toUpperCase(UIOptionsLine("30340423"));
-        if (entry == 'P') profileOptions();
-        else if (entry == 'R') ResumeOptions();
-        else if (entry == 'B') studentMain();
-        else if (entry == 'L') logout();
-        else accountOptions();
+        while (true) {
+            clearPage();
+            char entry = Character.toUpperCase(UIOptionsLine("303404"));
+            if (entry == 'P') profileOptions();
+            else if (entry == 'R') ResumeOptions();
+            else if (entry == 'B') return;
+        }
     }
 
     /**
@@ -378,18 +367,18 @@ public class InternshipUI {
      * @options "14260423"
      */
     public void profileOptions() {
-        clearPage();
-        System.out.println("Profile");
-        printDivider();
-        System.out.println(application.getUser().getFirstName() + application.getUser().getLastName());
-        System.out.println(application.getUser().getEmail());
-        System.out.println(application.getRating());
-        char entry = Character.toUpperCase(UIOptionsLine("14260423"));
-        if(entry == 'E') updateEmail();
-        else if (entry == 'P') updatePassword();
-        else if (entry == 'B') accountOptions();
-        else if (entry == 'L') logout();
-        else profileOptions();
+        while (true) {
+            clearPage();
+            System.out.println("Profile");
+            printDivider();
+            System.out.println(application.getUser().getFirstName() + application.getUser().getLastName());
+            System.out.println(application.getUser().getEmail());
+            System.out.println(application.getRating());
+            char entry = Character.toUpperCase(UIOptionsLine("142604"));
+            if(entry == 'E') updateEmail();
+            else if (entry == 'P') updatePassword();
+            else if (entry == 'B') return;
+        }
     }
 
     /**
@@ -410,7 +399,6 @@ public class InternshipUI {
             System.out.println("Name could not be changed: Press \"Enter\" to return to your profile");
         }
         in.nextLine();
-        profileOptions();
     }
 
     /**
@@ -429,7 +417,6 @@ public class InternshipUI {
             System.out.println("Email could not be changed: Press \"Enter\" to return to your profile");
         }
         in.nextLine();
-        profileOptions();
     }
 
     /**
@@ -448,48 +435,46 @@ public class InternshipUI {
             System.out.println("Password could not be changed: Press \"Enter\" to return to your profile");
         }
         in.nextLine();
-        profileOptions();
     }
 
     /**
      * UI for adding a rating
      */
     public void addRating() {
-        clearPage();
-        System.out.print("Rate User");
-        printDivider();
-        ArrayList<UUID> ratables = application.getRatables();
-        System.out.println("#   |Name");
-        System.out.println("____|_______________");
-        for (int i = 0; i < ratables.size(); i++) {
-            System.out.println((i+1) + "   |" + application.getUser(ratables.get(i)).getFirstName() + " " + application.getUser(ratables.get(i)).getFirstName());
-        }
-        printDivider();
-        System.out.println("(#) to Rate   (B)ack   (L)ogout");
-        printDivider();
-        System.out.println("Option: ");
-        String entry = in.nextLine().toUpperCase();
-        if (entry.equals("B") && application.userType() == 0) studentMain();
-        else if (entry.equals("B") && application.userType() == 1) employerMain();
-        else if (entry.equals("L")) logout();
-        else {
-            try {
-                int index = Integer.parseInt(entry) - 1;
-                UUID user = ratables.get(index);
-                clearPage();
-                System.out.println("Enter a rating (1-5)");
-                printDivider();
-                System.out.print("Rating: ");
-                int rating = in.nextInt();
-                in.nextLine();
-                if(rating <= 5 && rating >=1) {
-                    application.addRating(user, rating);
-                }
-                addRating();
-            } catch (Exception e) {
-                addRating();
+        while (true) {
+            clearPage();
+            System.out.print("Rate User");
+            printDivider();
+            ArrayList<UUID> ratables = application.getRatables();
+            System.out.println("#   |Name");
+            System.out.println("____|_______________");
+            for (int i = 0; i < ratables.size(); i++) {
+                System.out.println((i+1) + "   |" + application.getUser(ratables.get(i)).getFirstName() + " " + application.getUser(ratables.get(i)).getFirstName());
             }
-        } 
+            printDivider();
+            System.out.println("(#) to Rate   (B)ack   (L)ogout");
+            printDivider();
+            System.out.println("Option: ");
+            String entry = in.nextLine().toUpperCase();
+            if (entry.equals("B")) return;
+            else {
+                try {
+                    int index = Integer.parseInt(entry) - 1;
+                    UUID user = ratables.get(index);
+                    clearPage();
+                    System.out.println("Enter a rating (1-5)");
+                    printDivider();
+                    System.out.print("Rating: ");
+                    int rating = in.nextInt();
+                    in.nextLine();
+                    if(rating <= 5 && rating >=1) {
+                        application.addRating(user, rating);
+                    }
+                } catch (Exception e) {
+                    System.out.println("");
+                }
+            }
+        }
     }
 
     /**
@@ -498,15 +483,15 @@ public class InternshipUI {
      * @options "19370423"
      */
     public void viewInternshipMenu() {
-        ArrayList<Internship> internships = application.getInternships();
-        clearPage();
-        System.out.println("View Internships");
-        char entry = Character.toUpperCase(UIOptionsLine("19370423"));
-        if (entry == 'F') displayInternshipList(internships, 0);
-        else if (entry == 'S') searchInternships();
-        else if (entry == 'B') studentMain();
-        else if (entry == 'L') logout();
-        else viewInternshipMenu();
+        while (true) {
+            ArrayList<Internship> internships = application.getInternships();
+            clearPage();
+            System.out.println("View Internships");
+            char entry = Character.toUpperCase(UIOptionsLine("193704"));
+            if (entry == 'F') displayInternshipList(internships, 0);
+            else if (entry == 'S') searchInternships();
+            else if (entry == 'B') return;
+        }
     }
 
     /**
@@ -529,32 +514,29 @@ public class InternshipUI {
      * @param back
      */
     public void displayInternshipList(ArrayList<Internship> internships, int page) {
-        int pages = internships.size() / (PAGE_LENGTH - 9);
-        // if (internships.size() % 0 > 0) pages++; 
-        clearPage();
-        System.out.println("Internship List");
-        printDivider();
-        System.out.println("Page: " + (page + 1) + "/" + (pages + 1));
-        System.out.println("#\t| Company\t| Position\t| Salary\t\t| Open Until");
-        System.out.println("________|_______________|_______________|_______________________|___________");
-        for (int i = 0; i < 16 && i < internships.size(); i++) {
-            Internship internship = internships.get((page * (PAGE_LENGTH - 9) + i));
-            System.out.println(i +1 + "\t|" + internship.toStringShort());
-        }
-        printDivider();
-        System.out.println("(#)of Listing   (N)ext   (P)revious   (B)ack   (L)ogout");
-        String entry = in.nextLine().toUpperCase();
-        if (entry.equals("N") && page < pages)  displayInternshipList(internships, page + 1);
-        else if (entry.equals("P") && page > 0) displayInternshipList(internships, page - 1);
-        else if (entry.equals("B"))             viewInternshipMenu();
-        else if (entry.equals("L"))             logout();
-        else {
-            try {
-                int index = Integer.parseInt(entry) - 1;
-                if (index < internships.size() && index <= 0) viewInternship(internships.get(index).getId());
-                else displayInternshipList(internships, page);
-            } catch (Exception e) {
-                displayInternshipList(internships, page);
+        while (true) {
+            int pages = internships.size() / (PAGE_LENGTH - 9);
+            clearPage();
+            System.out.print("Internship List");
+            printDivider();
+            System.out.println("Page: " + (page + 1) + "/" + (pages + 1));
+            System.out.println("#\t| Company\t| Position\t| Salary\t\t| Open Until");
+            System.out.println("________|_______________|_______________|_______________________|___________");
+            for (int i = 0; i < (PAGE_LENGTH - 9) && i < internships.size(); i++) {
+                Internship internship = internships.get((page * (PAGE_LENGTH - 9) + i));
+                System.out.println(i +1 + "\t|" + internship.toStringShort());
+            }
+            printDivider();
+            System.out.println("(#)of Listing   (N)ext   (P)revious   (B)ack   (L)ogout");
+            String entry = in.nextLine().toUpperCase();
+            if (entry.equals("N") && page < pages)  page++;
+            else if (entry.equals("P") && page > 0) page--;
+            else if (entry.equals("B"))             return;
+            else {
+                try {
+                    int index = Integer.parseInt(entry) - 1;
+                    if (index < internships.size() && index >= 0) viewInternship(internships.get(index).getId());
+                } catch (Exception e) {}
             }
         }
     }
@@ -566,12 +548,12 @@ public class InternshipUI {
      */
     public void viewInternship(UUID internship) {
         clearPage();
-        System.out.println("Internship Information");
+        System.out.print("Internship Information");
         printDivider();
         internship.toString();
         //Student Menu
         if(application.userType() == 0) {
-            char entry = Character.toUpperCase(UIOptionsLine("030423"));
+            char entry = Character.toUpperCase(UIOptionsLine("0304"));
             if (entry == 'A') {
                 boolean attempt = application.apply(internship);
                 if (attempt) {
@@ -580,29 +562,24 @@ public class InternshipUI {
                     System.out.println("Application Failed: Press \"Enter\" to return to the menu");
                 }
                 in.nextLine();
-                viewInternshipMenu();
             }
-            else if (entry == 'B') viewInternshipMenu();
-            else if (entry == 'L') logout();
-            else viewInternship(internship);
+            else if (entry == 'B') return;
         } 
         //Employer Menu
         else if (application.userType() == 1) {
-            char entry = Character.toUpperCase(UIOptionsLine("1232410423"));
-            if (entry == 'E')       editInternship(internship);
-            else if (entry == 'R')  application.removeInternship(internship);
-            else if (entry == 'V')  viewApplications(application.getApplications(internship));
-            else if (entry == 'B')  employerMain();
-            else if (entry == 'L')  logout();
-            else viewInternship(internship);
+            while (true) {
+                char entry = Character.toUpperCase(UIOptionsLine("12324104"));
+                if (entry == 'E')       editInternship(internship);
+                else if (entry == 'R')  application.removeInternship(internship);
+                else if (entry == 'V')  viewApplications(application.getApplications(internship));
+                else if (entry == 'B')  return;
+            }
         } 
         //Admin Menu
         else if (application.userType() == 2) {
-            char entry = Character.toUpperCase(UIOptionsLine("320423"));
+            char entry = Character.toUpperCase(UIOptionsLine("3204"));
             if (entry == 'R') application.removeInternship(internship);
-            else if (entry == 'B') adminMain();
-            else if (entry == 'L') logout();
-            else viewInternship(internship);
+            else if (entry == 'B') return;
         }
     }
 
@@ -665,7 +642,7 @@ public class InternshipUI {
         printDivider();
         //Employer View
         if (application.userType() == 1) {
-            char entry = Character.toUpperCase(UIOptionsLine("01100423"));
+            char entry = Character.toUpperCase(UIOptionsLine("011004"));
             if (entry == 'A') application.acceptApplication(resume);
             else if (entry == 'D') application.declineApplication(resume);
             else if (entry == 'B') employerMain();
@@ -674,7 +651,7 @@ public class InternshipUI {
         }
         //Admin View
         else if (application.userType() == 2) {
-            char entry = Character.toUpperCase(UIOptionsLine("320423"));
+            char entry = Character.toUpperCase(UIOptionsLine("3204"));
             if (entry == 'R') application.deleteResume(user);
             else if (entry == 'B') adminMain();
             else if (entry == 'L') logout();
@@ -723,7 +700,7 @@ public class InternshipUI {
     public void editInternship(UUID internship) {
         clearPage();
         System.out.print("Edit Internship");
-        char entry = Character.toUpperCase(UIOptionsLine("0540382736180423"));
+        char entry = Character.toUpperCase(UIOptionsLine("05403827361804"));
         if (entry == 'C')       editCompany(internship);
         else if (entry == 'T')  editTitle(internship);
         else if (entry == 'S')  editSkills(internship);
@@ -743,7 +720,7 @@ public class InternshipUI {
         clearPage();
         System.out.print("Edit Company Name");
         printDivider();
-        System.out.println("Current Name: " + application.getEmployer(internship));
+        System.out.print("Current Name: " + application.getEmployer(internship));
         System.out.print("New Name: ");
         String employer = in.nextLine();
         application.changeEmployer(internship, employer);
@@ -758,7 +735,7 @@ public class InternshipUI {
         clearPage();
         System.out.print("Edit Job Title");
         printDivider();
-        System.out.println("Current Title: " + application.getTitle(internship));
+        System.out.print("Current Title: " + application.getTitle(internship));
         System.out.print("New Title: ");
         String title = in.nextLine();
         application.changeTitle(internship, title);
@@ -815,9 +792,9 @@ public class InternshipUI {
         printDivider();
         System.out.print("Enter a new start date (MM/DD/YYYY): ");
         String start = in.nextLine();
-        System.out.println("Enter a new start date (MM/DD/YYYY): ");
+        System.out.print("Enter a new start date (MM/DD/YYYY): ");
         String end = in.nextLine();
-        System.out.println("Enter new hours per day: ");
+        System.out.print("Enter new hours per day: ");
         int hours = in.nextInt();
         in.nextLine();
         application.changeSchedule(internship, start, end, hours);
@@ -842,7 +819,7 @@ public class InternshipUI {
     public void viewUsersMenu() {
         clearPage();
         System.out.print("View User List Options");
-        char entry = Character.toUpperCase(UIOptionsLine("193915480423"));
+        char entry = Character.toUpperCase(UIOptionsLine("1939154804"));
         if (entry == 'F')       displayUserList(application.getUsers(), 0);
         else if (entry == 'S')  displayUserList(application.getUsers(0), 0);
         else if (entry == 'E')  displayUserList(application.getUsers(1), 0);
@@ -862,7 +839,7 @@ public class InternshipUI {
         String keyword = in.nextLine();
         ArrayList<User> users = application.getUsers(keyword);
         if (users == null) {
-            System.out.println("No Matches Found: Press \"Enter\" to return to the menuu");
+            System.out.println("No Matches Found: Press \"Enter\" to return to the menu");
             in.nextLine();
             viewUsersMenu();
         } else {
@@ -879,17 +856,17 @@ public class InternshipUI {
         int pages = users.size() / (PAGE_LENGTH - 9);
         // if (users.size() % 0 > 0) pages++; 
         clearPage();
-        System.out.println("Internship List");
+        System.out.print("Internship List");
         printDivider();
         System.out.println("Page: " + (page + 1) + "/" + pages);
         System.out.println("#	| Name      | Type      | Rating");
         System.out.println("____|___________|___________|_______");
-        for (int i = 0; i < 16 && i < users.size(); i++) {
+        for (int i = 0; i < (PAGE_LENGTH - 9) && i < users.size(); i++) {
             User user = users.get((page * (PAGE_LENGTH - 9) + i));
             System.out.println(i +1 + "\t|" + user.toStringShort());
         }
         printDivider();
-        System.out.println("(#)of Listing   (N)ext   (P)revious   (B)ack   (L)ogout");
+        System.out.print("(#)of Listing   (N)ext   (P)revious   (B)ack   (L)ogout");
         String entry = in.nextLine().toUpperCase();
         if (entry.equals("N") && page < pages)  displayUserList(users, page + 1);
         else if (entry.equals("P") && page > 0) displayUserList(users, page - 1);
@@ -917,7 +894,7 @@ public class InternshipUI {
         printDivider();
         user.toString();
         if (application.userType(user) == 0) {
-            char entry = Character.toUpperCase(UIOptionsLine("314743340423"));
+            char entry = Character.toUpperCase(UIOptionsLine("3147433404"));
             if (entry == 'P') {
                 application.promoteUser(user);
                 adminMain();
@@ -930,7 +907,7 @@ public class InternshipUI {
             else if (entry == 'L') logout();
             else viewUser(user);
         } else if (application.userType(user) == 1) {
-            char entry = Character.toUpperCase(UIOptionsLine("4716420423"));
+            char entry = Character.toUpperCase(UIOptionsLine("4716420"));
             if (entry == 'D') application.removeUser(user);
             else if (entry == 'E') displayUserList(application.getEmployees(user), 0);
             else if (entry == 'V') displayInternshipList(application.getInternships(user), 0);
@@ -946,7 +923,7 @@ public class InternshipUI {
      */
     public void viewRatings(UUID user) {
         clearPage();
-        System.out.println("User Ratings");
+        System.out.print("User Ratings");
         printDivider();
         int[] ratings = application.getRatings(user);
         System.out.println("#   |Rating");

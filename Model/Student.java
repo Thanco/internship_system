@@ -89,6 +89,14 @@ public class Student extends User {
     }
 
     /**
+     * Adds an employer to the student's former employers list
+     * @param employerUUID the employer to add to the list
+     */
+    public void addFormerEmployer(UUID employerUUID) {
+        formerEmployers.add(employerUUID);
+    }
+
+    /**
      * Sets the ratings of the user.
      * @param ratings to set
      */
