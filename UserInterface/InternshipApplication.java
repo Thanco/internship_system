@@ -165,6 +165,28 @@ public class InternshipApplication {
      */
     public void changeSkills(String skill) {
 
+        User user = userList.getUserById(currentUser.getId());
+        if (user instanceof Student) {
+            Resume resTemp = ((Student) user).getResume();
+            ArrayList<String> skillsTemp = resTemp.getStudentSkills();
+        
+            for(int i = 0; i < skillsTemp.size(); i++) {
+
+                if (skillsTemp.get(i).equalsIgnoreCase(skill)) {
+
+                    skillsTemp.remove(i);
+                }
+
+                else {
+                    
+                    skillsTemp.add(skill);
+                }
+            }
+
+            ((Student) user).getResume().setStudentSkills(skillsTemp);
+        
+        }
+
     }
 
     /**
@@ -176,6 +198,14 @@ public class InternshipApplication {
      */
     public void changeEducation(String school, String major, String year) {
 
+        User user = userList.getUserById(currentUser.getId());
+        if (user instanceof Student) {
+            
+            SchoolYear classEnum = SchoolYear.valueOf(year);
+            Education eduTemp = new Education(school, classEnum, major);
+            ((Student) user).getResume().setEducation(eduTemp);
+        }
+
     }
 
     /**
@@ -185,6 +215,27 @@ public class InternshipApplication {
      */
     public void changeExtra(String activity) {
 
+        User user = userList.getUserById(currentUser.getId());
+        if (user instanceof Student) {
+            Resume resTemp = ((Student) user).getResume();
+            ArrayList<String> extraCirTemp = resTemp.getExtraCirricularList();
+        
+            for(int i = 0; i < extraCirTemp.size(); i++) {
+
+                if (extraCirTemp.get(i).equalsIgnoreCase(activity)) {
+
+                    extraCirTemp.remove(i);
+                }
+
+                else {
+                    
+                    extraCirTemp.add(activity);
+                }
+            }
+
+            ((Student) user).getResume().setExtraCirricularList(extraCirTemp);
+        
+        }
     }
 
     /**
@@ -195,7 +246,13 @@ public class InternshipApplication {
      * @param end
      */
     public void changeWork(String company, String start, String end) {
-
+        
+        User user = userList.getUserById(currentUser.getId());
+        if (user instanceof Student) {
+            
+            WorkExperience workTemp = new WorkExperience(company, start, end);
+            ((Student) user).getResume().addWorkExperience(workTemp);
+        }
     }
 
     /**
@@ -249,7 +306,6 @@ public class InternshipApplication {
      */
     public ArrayList<Internship> getInternships(String keyword) {
         return internshipList.getInternshipByKeyword(keyword);
-
     }
 
     /**
@@ -461,7 +517,6 @@ public class InternshipApplication {
      */
     public void removeUser(UUID userId) {
         userList.removeUserById(userId);
-
     }
 
     /**
@@ -471,7 +526,7 @@ public class InternshipApplication {
      * @param resume
      */
     public void acceptApplication(Resume resume) {
-
+        
     }
 
     /**
@@ -489,6 +544,11 @@ public class InternshipApplication {
      * @param resume
      */
     public void deleteResume(UUID user) {
+       
+        User userTemp = userList.getUserById(user);
+        if(userTemp instanceof Student) {
+            ((Student) userTemp).setResume(null);
+        }
     }
 
     /**
@@ -498,6 +558,9 @@ public class InternshipApplication {
      */
     public void removeInternship(UUID id) {
 
+        InternshipList list = InternshipList.getInstance();
+        list.removeInternshipById(id);
+        
     }
 
     /**
@@ -542,7 +605,6 @@ public class InternshipApplication {
      */
     public String getEmployer(UUID internshipId) {
         return internshipList.getInternshipById(internshipId).getEmployer();
-
     }
 
     /**
@@ -553,7 +615,6 @@ public class InternshipApplication {
      */
     public void changeEmployer(UUID internshipId, String employer) {
         internshipList.getInternshipById(internshipId).setEmployer(employer);
-        ;
     }
 
     /**
@@ -621,7 +682,6 @@ public class InternshipApplication {
             salaryType = new FixedSalary(Integer.parseInt(salary));
         }
         internshipList.getInternshipById(internshipId).setSalaryType(salaryType);
-
     }
 
     /**
@@ -641,7 +701,6 @@ public class InternshipApplication {
                 Integer.parseInt(endArray[1])));
         internship.setStartDate(LocalDate.of(Integer.parseInt(startArray[2]), Integer.parseInt(startArray[0]),
                 Integer.parseInt(startArray[1])));
-
     }
 
     /**
