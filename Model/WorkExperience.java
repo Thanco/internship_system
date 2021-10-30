@@ -2,18 +2,21 @@ package Model;
 
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.ArrayList;
 
 public class WorkExperience {
 
 	private String company;
 	private Calendar start;
 	private Calendar end;
+	private ArrayList<String> descriptions;
 	
 	public WorkExperience(String company, String start, String end) {
 		
 		this.company = company;
 		this.start = createCalendar(start);
 		this.end = createCalendar(end);
+		this.descriptions = new ArrayList<>();
 	}
 	
 	public Calendar createCalendar(String date) {
@@ -33,12 +36,23 @@ public class WorkExperience {
 			return null;
 	}
 	
-	
-	public WorkExperience(String company, Calendar start, Calendar end) throws ParseException {
+	/**
+	 * Constructor for WorkExperience from json
+	 * @param company the company worked at
+	 * @param start the start date of the workExperience
+	 * @param end the end date of the workExperience
+	 * @param descriptions what was completed at that job
+	 */
+	public WorkExperience(String company, Calendar start, Calendar end, ArrayList<String> descriptions) throws ParseException {
 		
 		this.company = company;
 		this.start = start;
 		this.end = end;
+		this.descriptions = descriptions;
+	}
+
+	public void addDescription(String description) {
+		descriptions.add(description);
 	}
 
 	public String getCompany() {
@@ -52,6 +66,10 @@ public class WorkExperience {
 	public Calendar getStart() {
 		
 		return start;
+	}
+
+	public ArrayList<String> getDescriptions() {
+		return descriptions;
 	}
 
 	public void setStart(Calendar start) {

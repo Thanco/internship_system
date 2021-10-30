@@ -47,6 +47,7 @@ public abstract class DataConstants {
 	protected static final String RESUMES_EMPLOYER = "employer";
 	protected static final String RESUMES_START_DATE = "startDate";
 	protected static final String RESUMES_END_DATE = "endDate";
+	protected static final String RESUMES_DESCRIPTIONS = "descriptions";
 	protected static final String RESUMES_STUDENT_SKILLS = "studentSkills";
 	protected static final String RESUMES_EXTRA_CURRICULAR = "extraCurricular";
 	protected static final String RESUMES_OWNER_ID = "ownerID";
