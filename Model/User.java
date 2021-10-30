@@ -129,10 +129,35 @@ public abstract class User {
         this.password = password;
     }
 
-    public String toString() {
-        return "<<User To String>>";
-    }
+    /**
+     * Prints all information of the User.
+     * 
+     * @return the entire information of the user.
+     */
+    public String toString(){
+        String toReturn = "Name: " + this.getFirstName() + " " + this.getLastName();
+        toReturn += "\nEmail: " + this.getEmail(); 
+        String type;
+        String rating;
+        if(this instanceof Employer){
+            type = "Employer";
+            rating = "" + ((Employer) this).getAverageRating();
+        }else if(this instanceof Student){
+            type = "Student";
+            rating = "" + ((Student) this).getAverageRating();
+        }else{
+            type = "Admin";
+            rating = "0.0";
+        }
 
+        toReturn += "\nAccount Type: " + type;
+        toReturn += "\nRating: " + rating;
+        return toReturn;
+    }
+    /**
+     * Returns String with short information about user.
+     * @return String with short information.
+     */
     public String toStringShort() {
         String type;
         String rating;
