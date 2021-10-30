@@ -90,7 +90,8 @@ public class WorkExperience {
 	
 	public String toString() {
 		
-		return "Work Experience: /n" + this.start.get(Calendar.MONTH) + "/" + this.start.get(Calendar.YEAR);
+		return "Work Experience: /n" + this.company + " - " + this.start.get(Calendar.MONTH) + "/" + this.start.get(Calendar.YEAR)
+										+ " - " + this.end.get(Calendar.MONTH) + "/" + this.end.get(Calendar.YEAR);
 	}
 
 }

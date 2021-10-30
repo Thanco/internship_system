@@ -135,7 +135,11 @@ public class Resume {
 	
 	public String toStringLong() {
 		
-		return "needs to be coded";
+		return "Name: " + this.getFirstName() + " " + this.getLastName() + " :/n " 
+							+ this.getEducation().toString() 
+							+ "/n" + this.getStudentSkills().toString()
+							+ " /n" + this.getWorkExperienceList()
+							+ " /n " + this.getExtraCirricularList().toString();
 	}
 
 }
