@@ -535,7 +535,7 @@ public class InternshipUI {
         System.out.println("Internship List");
         printDivider();
         System.out.println("Page: " + (page + 1) + "/" + (pages + 1));
-        System.out.println("#\t| Company\t| Position\t| Salary\t\t| Open Until");
+        System.out.println("#\t| Company\t| Title\t| Salary\t\t| Open Until");
         System.out.println("________|_______________|_______________|_______________________|___________");
         for (int i = 0; i < 16 && i < internships.size(); i++) {
             Internship internship = internships.get((page * (PAGE_LENGTH - 9) + i));

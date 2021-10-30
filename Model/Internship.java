@@ -202,6 +202,6 @@ public class Internship {
     }
 
     public String toStringShort() {
-        return "<<Display Internship Short>>";
+        return "" + this.employer + "\t| " + this.title + "\t| " + this.salaryType.getSalary() + "\t| " + this.expirationDate.toString();
     }
 }

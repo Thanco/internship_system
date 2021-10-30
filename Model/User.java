@@ -171,6 +171,6 @@ public abstract class User {
             type = "Admin";
             rating = "0.0";
         }
-        return "" + this.firstName + " " + this.lastName +"\t|" + type + "\t|" + rating;
+        return "" + this.firstName + " " + this.lastName +"\t| " + type + "\t| " + rating;
     }
 }
