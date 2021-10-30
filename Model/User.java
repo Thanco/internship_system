@@ -134,6 +134,18 @@ public abstract class User {
     }
 
     public String toStringShort() {
-        return "<<User To String Short>>";
+        String type;
+        String rating;
+        if(this instanceof Employer){
+            type = "Employer";
+            rating = "" + ((Employer) this).getAverageRating();
+        }else if(this instanceof Student){
+            type = "Student";
+            rating = "" + ((Student) this).getAverageRating();
+        }else{
+            type = "Admin";
+            rating = "0.0";
+        }
+        return "" + this.firstName + " " + this.lastName +"\t|" + type + "\t|" + rating;
     }
 }
