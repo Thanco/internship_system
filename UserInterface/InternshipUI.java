@@ -530,14 +530,14 @@ public class InternshipUI {
      */
     public void displayInternshipList(ArrayList<Internship> internships, int page) {
         int pages = internships.size() / (PAGE_LENGTH - 9);
-        if (internships.size() % 0 > 0) pages++; 
+        // if (internships.size() % 0 > 0) pages++; 
         clearPage();
         System.out.println("Internship List");
         printDivider();
-        System.out.println("Page: " + page + "/" + pages);
+        System.out.println("Page: " + (page + 1) + "/" + pages);
         System.out.println("#	| Company	| Position	| Salary		| Open Until");
         System.out.println("____|___________|___________|_______________|___________");
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 16 && i < internships.size(); i++) {
             Internship internship = internships.get((page * (PAGE_LENGTH - 9) + i));
             System.out.println(i +1 + "\t|" + internship.toStringShort());
         }
@@ -877,14 +877,14 @@ public class InternshipUI {
      */
     public void displayUserList(ArrayList<User> users, int page) {
         int pages = users.size() / (PAGE_LENGTH - 9);
-        if (users.size() % 0 > 0) pages++; 
+        // if (users.size() % 0 > 0) pages++; 
         clearPage();
         System.out.println("Internship List");
         printDivider();
-        System.out.println("Page: " + page + "/" + pages);
+        System.out.println("Page: " + (page + 1) + "/" + pages);
         System.out.println("#	| Name      | Type      | Rating");
         System.out.println("____|___________|___________|_______");
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 16 && i < users.size(); i++) {
             User user = users.get((page * (PAGE_LENGTH - 9) + i));
             System.out.println(i +1 + "\t|" + user.toStringShort());
         }
