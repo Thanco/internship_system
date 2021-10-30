@@ -37,10 +37,6 @@ public class Education {
 		this.major = major;
 	}
 	
-	public void customize() {
-		
-	}
-	
 	public String toString() {
 		
 		return "Education: /n" + this.schoolTitle + "-" + this.schoolClass + "-" + this.schoolClass;
