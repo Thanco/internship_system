@@ -201,7 +201,11 @@ public class Internship {
         return this.hoursPerDay;
     }
 
+    /**
+     * Returns the employer short string.
+     * @return short string of the employer.
+     */
     public String toStringShort() {
-        return "<<Display Internship Short>>";
+        return "" + this.employer + "\t| " + this.title + "\t| " + this.salaryType.getSalary() + "\t| " + this.expirationDate.toString();
     }
 }

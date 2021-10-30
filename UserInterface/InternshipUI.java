@@ -514,6 +514,7 @@ public class InternshipUI {
      * @param back
      */
     public void displayInternshipList(ArrayList<Internship> internships, int page) {
+<<<<<<< HEAD
         while (true) {
             int pages = internships.size() / (PAGE_LENGTH - 9);
             clearPage();
@@ -537,6 +538,34 @@ public class InternshipUI {
                     int index = Integer.parseInt(entry) - 1;
                     if (index < internships.size() && index >= 0) viewInternship(internships.get(index).getId());
                 } catch (Exception e) {}
+=======
+        int pages = internships.size() / (PAGE_LENGTH - 9);
+        // if (internships.size() % 0 > 0) pages++; 
+        clearPage();
+        System.out.println("Internship List");
+        printDivider();
+        System.out.println("Page: " + (page + 1) + "/" + (pages + 1));
+        System.out.println("#\t| Company\t| Title\t| Salary\t\t| Open Until");
+        System.out.println("________|_______________|_______________|_______________________|___________");
+        for (int i = 0; i < 16 && i < internships.size(); i++) {
+            Internship internship = internships.get((page * (PAGE_LENGTH - 9) + i));
+            System.out.println(i +1 + "\t|" + internship.toStringShort());
+        }
+        printDivider();
+        System.out.println("(#)of Listing   (N)ext   (P)revious   (B)ack   (L)ogout");
+        String entry = in.nextLine().toUpperCase();
+        if (entry.equals("N") && page < pages)  displayInternshipList(internships, page + 1);
+        else if (entry.equals("P") && page > 0) displayInternshipList(internships, page - 1);
+        else if (entry.equals("B"))             viewInternshipMenu();
+        else if (entry.equals("L"))             logout();
+        else {
+            try {
+                int index = Integer.parseInt(entry) - 1;
+                if (index < internships.size() && index <= 0) viewInternship(internships.get(index).getId());
+                else displayInternshipList(internships, page);
+            } catch (Exception e) {
+                displayInternshipList(internships, page);
+>>>>>>> 3c45f4816212cb967f73dfe5271481238d232489
             }
         }
     }
