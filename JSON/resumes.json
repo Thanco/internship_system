@@ -11,11 +11,13 @@
         "workExperience":
             [
                 {
+                    "title":"Service",
                     "employer":"Chick-Fil-A",
                     "startDate":"10/2020",
                     "endDate":"10/2021",
                     "descriptions":["served customers good","mmm chicken"]
                 },{
+                    "title":"Service2",
                     "employer":"Cracker Barrel",
                     "startDate":"10/2016",
                     "endDate":"10/2019",
@@ -41,6 +43,7 @@
         "workExperience":
             [
                 {
+                    "title":"Magic Tutor",
                     "employer":"Kingdom of Asura",
                     "startDate":"10/2020",
                     "endDate":"10/2021",

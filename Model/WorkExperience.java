@@ -5,14 +5,14 @@ import java.util.Calendar;
 import java.util.ArrayList;
 
 public class WorkExperience {
-
+	private String title;
 	private String company;
 	private Calendar start;
 	private Calendar end;
 	private ArrayList<String> descriptions;
 	
 	public WorkExperience(String company, String start, String end) {
-		
+		//TODO implement title and descritpions to front end
 		this.company = company;
 		this.start = createCalendar(start);
 		this.end = createCalendar(end);
@@ -43,8 +43,8 @@ public class WorkExperience {
 	 * @param end the end date of the workExperience
 	 * @param descriptions what was completed at that job
 	 */
-	public WorkExperience(String company, Calendar start, Calendar end, ArrayList<String> descriptions) throws ParseException {
-		
+	public WorkExperience(String title, String company, Calendar start, Calendar end, ArrayList<String> descriptions) throws ParseException {
+		this.title = title;
 		this.company = company;
 		this.start = start;
 		this.end = end;
@@ -53,6 +53,10 @@ public class WorkExperience {
 
 	public void addDescription(String description) {
 		descriptions.add(description);
+	}
+
+	public String getTitle() {
+		return this.title;
 	}
 
 	public String getCompany() {
@@ -87,6 +91,9 @@ public class WorkExperience {
 		this.end = end;
 	}
 	
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	
 	public String toString() {
 		String ret = "\tCompany: " + this.getCompany() +

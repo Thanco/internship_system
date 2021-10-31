@@ -337,6 +337,7 @@ public class InternshipUI {
         clearPage();
         System.out.print("Work Experience Entry");
         printDivider();
+        //TODO job title and descritptions @Mr. Wyatt
         System.out.print("Enter a Company Name: ");
         String company = in.nextLine();
         System.out.print("Enter the start date (MM/YYYY): ");

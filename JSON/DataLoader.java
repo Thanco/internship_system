@@ -116,11 +116,12 @@ public class DataLoader extends DataConstants {
 				ArrayList<WorkExperience> workExperience = new ArrayList<>();
 				for (int j = 0; j < workExperienceArrJSON.size(); j++) {
 					JSONObject workExperienceJSON = (JSONObject)workExperienceArrJSON.get(j);
+					String title = (String)workExperienceJSON.get(RESUMES_WORK_TITLE);
 					String employer = (String)workExperienceJSON.get(RESUMES_EMPLOYER);
 					Calendar startDate = jsonDateToCalender(RESUMES_START_DATE, workExperienceJSON);
 					Calendar endDate = jsonDateToCalender(RESUMES_END_DATE, workExperienceJSON);
 					ArrayList<String> descriptions = (ArrayList<String>)jsonToArr(RESUMES_DESCRIPTIONS, workExperienceJSON, "string");
-					workExperience.add(new WorkExperience(employer, startDate, endDate, descriptions));
+					workExperience.add(new WorkExperience(title, employer, startDate, endDate, descriptions));
 				}
 				ArrayList<String> studentSkills = (ArrayList<String>)jsonToArr(RESUMES_STUDENT_SKILLS, resumeJSON, "string");
 				ArrayList<String> extraCirricular = (ArrayList<String>)jsonToArr(RESUMES_EXTRA_CURRICULAR, resumeJSON, "string");

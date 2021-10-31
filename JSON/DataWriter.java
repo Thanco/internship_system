@@ -153,6 +153,7 @@ public class DataWriter extends DataConstants {
 		JSONArray workExperienceJSONs = new JSONArray();
 		for (int i = 0; i < workExperienceArr.size(); i++) {
 			JSONObject workExperienceJSON = new JSONObject();
+			workExperienceJSON.put(RESUMES_WORK_TITLE, workExperienceArr.get(i).getTitle());
 			workExperienceJSON.put(RESUMES_EMPLOYER, workExperienceArr.get(i).getCompany());
 			workExperienceJSON.put(RESUMES_START_DATE, calendarToJsonDate(workExperienceArr.get(i).getStart()));
 			workExperienceJSON.put(RESUMES_END_DATE, calendarToJsonDate(workExperienceArr.get(i).getEnd()));
