@@ -114,6 +114,5 @@ public class Student extends User {
             sum += num;
         }
         return sum/this.ratings.size();
-
     }
 }

@@ -16,7 +16,7 @@ import java.time.LocalDate;
  * @author Terry Hancock
  */
 public class DataLoader extends DataConstants {
-	
+
 	/**
 	 * Loads an ArrayList of Users from the users json file
 	 * @return An ArrayList of Users

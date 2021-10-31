@@ -129,7 +129,6 @@ public class Employer extends User {
         return this.ratings;
     }
 
-    
     /**
 	 * Returns internship list. 
 	 * @return internship list.
