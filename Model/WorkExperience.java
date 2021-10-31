@@ -26,7 +26,7 @@ public class WorkExperience {
 			Calendar c = Calendar.getInstance();
 			String[] dateArr = date.split("/");
 			
-			c.set(Calendar.MONTH, Integer.parseInt(dateArr[0]));
+			c.set(Calendar.MONTH, Integer.parseInt(dateArr[0]) - 1);
 			c.set(Calendar.YEAR, Integer.parseInt(dateArr[1]));
 
 			return c;
@@ -38,6 +38,7 @@ public class WorkExperience {
 	
 	/**
 	 * Constructor for WorkExperience from json
+	 * @param title the title they held
 	 * @param company the company worked at
 	 * @param start the start date of the workExperience
 	 * @param end the end date of the workExperience
@@ -51,6 +52,10 @@ public class WorkExperience {
 		this.descriptions = descriptions;
 	}
 
+	/**
+	 * Adds a description to the descriptions list
+	 * @param description the description to add
+	 */
 	public void addDescription(String description) {
 		descriptions.add(description);
 	}
@@ -97,8 +102,8 @@ public class WorkExperience {
 	
 	public String toString() {
 		String ret = "\tCompany: " + this.getCompany() +
-					"\n\tStart Date: " + this.start.get(Calendar.MONTH) + "/" + this.start.get(Calendar.YEAR) + 
-					"\n\tEnd Date: " + this.end.get(Calendar.MONTH) + "/" + this.end.get(Calendar.YEAR) +
+					"\n\tStart Date: " + (this.start.get(Calendar.MONTH) + 1) + "/" + this.start.get(Calendar.YEAR) + 
+					"\n\tEnd Date: " + (this.end.get(Calendar.MONTH) + 1) + "/" + this.end.get(Calendar.YEAR) +
 					"\n\tDdescriptions:\n";
 		for (String description : this.getDescriptions()) {
 			ret += "\t\t" + description + "\n";

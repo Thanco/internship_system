@@ -135,22 +135,28 @@ public class Resume {
 	
 	public String toStringLong() {
 		String ret = "Name: " + this.getFirstName() + " " + this.getLastName() + 
-					"\nEducation:\n" + this.getEducation().toString() +
-					"\nSkills:\n\t";
-		for (String skill : this.getStudentSkills()) {
-			ret += skill + ", ";
+					"\nEducation:\n" + this.getEducation().toString();
+		if (this.getStudentSkills().size() > 0) {
+			ret += "\nSkills:\n\t";
+			for (String skill : this.getStudentSkills()) {
+				ret += skill + ", ";
+			}
+			ret = ret.substring(0, ret.length()-2);
+		}	
+		if (this.getWorkExperienceList().size() > 0) {
+			ret += "\nWork Experience:\n";
+			for (WorkExperience experiece : this.getWorkExperienceList()) {
+				ret += experiece.toString() + "\n";
+			}
+			ret = ret.substring(0, ret.length()-1);
 		}
-		ret = ret.substring(0, ret.length()-2);
-		ret += "\nWork Experience:\n";
-		for (WorkExperience experiece : this.getWorkExperienceList()) {
-			ret += experiece.toString() + "\n";
+		if (this.getExtraCirricularList().size() > 0) {
+			ret += "Extra Curricular Activities:\n";
+			for (String extraCiccicular : this.getExtraCirricularList()) {
+				ret += "\t" + extraCiccicular + "\n";
+			}
+			ret = ret.substring(0, ret.length()-1);
 		}
-		ret = ret.substring(0, ret.length()-1);
-		ret += "Extra Curricular Activities:\n";
-		for (String extraCiccicular : this.getExtraCirricularList()) {
-			ret += "\t" + extraCiccicular + "\n";
-		}
-		ret = ret.substring(0, ret.length()-1);
 		return ret;
 	}
 
