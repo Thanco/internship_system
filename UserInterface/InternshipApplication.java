@@ -41,6 +41,9 @@ public class InternshipApplication {
         return true;
     }
 
+    /**
+     * Saves current user and then sets currentUser to null
+     */
     public void logout() {
         saveUser();
         currentUser = null;
@@ -803,5 +806,12 @@ public class InternshipApplication {
         } else if (user instanceof Employer) {
             ((Employer) user).setRatings(new ArrayList<>());
         }
+    }
+
+    /**
+     * Updates the experation date for an internship
+     */
+    public void changeExperation(UUID internship, String date) {
+
     }
 }
