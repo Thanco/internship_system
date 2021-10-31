@@ -249,8 +249,7 @@ public class InternshipUI {
         System.out.print("Enter your major: ");
         String major = in.nextLine();
         System.out.print("Enter your year (1-4): ");
-        int year = in.nextInt();
-        in.nextLine();
+        String year = in.nextLine();
         boolean attempt = application.createResume(school, year, major);
         if (attempt) resumeOptions();
         else {
@@ -265,17 +264,21 @@ public class InternshipUI {
      * @options ""
      */
     public void resumeOptions() {
-        clearPage();
-        System.out.print("Resume Options");
-        printDivider();
-        Resume resume = application.getResume();
-        System.out.println(resume.toStringLong());
-        char entry = UIOptionsLine("3313442004");
-        if (entry == 'S') enterSkills();
-        else if (entry == 'W') enterWork();
-        else if (entry == 'E') enterEducation();
-        else if (entry == 'H') enterExtra();
-        else if (entry == 'B') return;
+        while (true) {
+            clearPage();
+            System.out.print("Resume Options");
+            printDivider();
+            Resume resume = application.getResume();
+            System.out.println(resume.toStringLong());
+            // TODO current options line is: (R)eset   (E)ducation   (W)ork Experience   (H)obbies   (B)ack
+            // needs to be what's shown in javadoc
+            char entry = UIOptionsLine("3313442004");
+            if (entry == 'S') enterSkills();
+            else if (entry == 'W') enterWork();
+            else if (entry == 'E') enterEducation();
+            else if (entry == 'H') enterExtra();
+            else if (entry == 'B') return;
+        }
     }
 
     /**
@@ -326,7 +329,7 @@ public class InternshipUI {
             System.out.print("Activity: ");
             String activity = in.nextLine();
             if (activity.equalsIgnoreCase("done")) return;
-                application.changeExtra(activity);
+            application.changeExtra(activity);
         }
     }
 

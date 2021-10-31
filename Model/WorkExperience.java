@@ -101,7 +101,8 @@ public class WorkExperience {
 	}
 	
 	public String toString() {
-		String ret = "\tCompany: " + this.getCompany() +
+		String ret = "\tTitle: " + this.getTitle() +
+					"\n\tCompany: " + this.getCompany() +
 					"\n\tStart Date: " + (this.start.get(Calendar.MONTH) + 1) + "/" + this.start.get(Calendar.YEAR) + 
 					"\n\tEnd Date: " + (this.end.get(Calendar.MONTH) + 1) + "/" + this.end.get(Calendar.YEAR) +
 					"\n\tDdescriptions:\n";

@@ -126,27 +126,38 @@ public class InternshipApplication {
      * 
      * @params String schoolTitle, int schoolClass, String major of user
      */
-    public boolean createResume(String schoolTitle, int schoolClass, String major) {
+    public boolean createResume(String schoolTitle, String schoolClassStr, String major) {
         if (schoolTitle == null) {
             return false;
         }
         else {
+            int schoolClass = 0;
+            if (schoolClassStr.equals("1") ||
+                schoolClassStr.equals("2") ||
+                schoolClassStr.equals("3") ||
+                schoolClassStr.equals("4")) {
+                schoolClass = Integer.parseInt(schoolClassStr);
+            } else {
+                return false;
+            }
+            schoolClass--;
             SchoolYear classEnum = null;
             switch (schoolClass) {
-            case 0:
-                classEnum = SchoolYear.FRESHMAN;
-                break;
-            case 1:
-                classEnum = SchoolYear.SOPHOMORE;
-                break;
-            case 2:
-                classEnum = SchoolYear.JUNIOR;
-                break;
-            case 3:
-                classEnum = SchoolYear.SENIOR;
-                break;
-            default:
-                return false;
+                case 0:
+                    classEnum = SchoolYear.FRESHMAN;
+                    break;
+                case 1:
+                    classEnum = SchoolYear.SOPHOMORE;
+                    break;
+                case 2:
+                    classEnum = SchoolYear.JUNIOR;
+                    break;
+                case 3:
+                    classEnum = SchoolYear.SENIOR;
+                    break;
+                default:
+                    classEnum = SchoolYear.FRESHMAN;
+                    return false;
             }
             Education newEducation = new Education(schoolTitle, classEnum, major);
             ((Student)currentUser).setResume(new Resume(currentUser.getId(), currentUser.getFirstName(), currentUser.getLastName(),
@@ -195,15 +206,35 @@ public class InternshipApplication {
      * @param year
      */
     public void changeEducation(String school, String major, String year) {
-
         User user = userList.getUserById(currentUser.getId());
-        if (user instanceof Student) {
-            
-            SchoolYear classEnum = SchoolYear.valueOf(year);
-            Education eduTemp = new Education(school, classEnum, major);
-            ((Student) user).getResume().setEducation(eduTemp);
-        }
-
+        int schoolClass = 0;
+            if (year.equals("1") ||
+                year.equals("2") ||
+                year.equals("3") ||
+                year.equals("4")) {
+                schoolClass = Integer.parseInt(year);
+            }
+        schoolClass--;
+        SchoolYear classEnum = null;
+            switch (schoolClass) {
+                case 0:
+                    classEnum = SchoolYear.FRESHMAN;
+                    break;
+                case 1:
+                    classEnum = SchoolYear.SOPHOMORE;
+                    break;
+                case 2:
+                    classEnum = SchoolYear.JUNIOR;
+                    break;
+                case 3:
+                    classEnum = SchoolYear.SENIOR;
+                    break;
+                default:
+                    classEnum = SchoolYear.FRESHMAN;
+                    break;
+            }
+        Education eduTemp = new Education(school, classEnum, major);
+        ((Student) user).getResume().setEducation(eduTemp);
     }
 
     /**
@@ -212,27 +243,24 @@ public class InternshipApplication {
      * @param activity the activity to add/remove
      */
     public void changeExtra(String activity) {
-
         User user = userList.getUserById(currentUser.getId());
         if (user instanceof Student) {
             Resume resTemp = ((Student) user).getResume();
             ArrayList<String> extraCirTemp = resTemp.getExtraCirricularList();
-        
-            for(int i = 0; i < extraCirTemp.size(); i++) {
-
-                if (extraCirTemp.get(i).equalsIgnoreCase(activity)) {
-
-                    extraCirTemp.remove(i);
+            if (extraCirTemp.size() == 0) {
+                extraCirTemp.add(activity);
+            } 
+            else {
+                for(int i = 0; i < extraCirTemp.size(); i++) {
+                    if (extraCirTemp.get(i).equalsIgnoreCase(activity)) {
+                        extraCirTemp.remove(i);
+                        ((Student) user).getResume().setExtraCirricularList(extraCirTemp);
+                        return;
+                    }
                 }
-
-                else {
-                    
-                    extraCirTemp.add(activity);
-                }
+                extraCirTemp.add(activity);
             }
-
             ((Student) user).getResume().setExtraCirricularList(extraCirTemp);
-        
         }
     }
 

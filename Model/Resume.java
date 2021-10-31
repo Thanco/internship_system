@@ -142,16 +142,16 @@ public class Resume {
 				ret += skill + ", ";
 			}
 			ret = ret.substring(0, ret.length()-2);
-		}	
+		}
 		if (this.getWorkExperienceList().size() > 0) {
 			ret += "\nWork Experience:\n";
 			for (WorkExperience experiece : this.getWorkExperienceList()) {
 				ret += experiece.toString() + "\n";
 			}
-			ret = ret.substring(0, ret.length()-1);
+			ret = ret.substring(0, ret.length()-2);
 		}
 		if (this.getExtraCirricularList().size() > 0) {
-			ret += "Extra Curricular Activities:\n";
+			ret += "\nExtra Curricular Activities:\n";
 			for (String extraCiccicular : this.getExtraCirricularList()) {
 				ret += "\t" + extraCiccicular + "\n";
 			}
