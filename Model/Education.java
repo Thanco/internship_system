@@ -36,10 +36,26 @@ public class Education {
 	public void setMajor(String major) {
 		this.major = major;
 	}
+
+	public String getSchoolClassString() {
+		switch (this.getSchoolClass()) {
+			case FRESHMAN:
+				return "Freshman";
+			case SOPHOMORE:
+				return "Sophomore";
+			case JUNIOR:
+				return "Junior";
+			case SENIOR:
+				return "Senior";
+			default:
+				return "None";
+		}
+	}
 	
 	public String toString() {
-		
-		return "Education: /n" + this.schoolTitle + "-" + this.schoolClass + "-" + this.schoolClass;
+		return "\tSchool: " + this.getSchoolTitle() + 
+				"\n\tYear: " + this.getSchoolClassString() + 
+				"\n\tMajor: " + this.getMajor();
 	}
 	
 }

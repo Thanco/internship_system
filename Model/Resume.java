@@ -134,12 +134,24 @@ public class Resume {
 	}
 	
 	public String toStringLong() {
-		
-		return "Name: " + this.getFirstName() + " " + this.getLastName() + " :/n " 
-							+ this.getEducation().toString() 
-							+ "/n" + this.getStudentSkills().toString()
-							+ " /n" + this.getWorkExperienceList()
-							+ " /n " + this.getExtraCirricularList().toString();
+		String ret = "Name: " + this.getFirstName() + " " + this.getLastName() + 
+					"\nEducation:\n" + this.getEducation().toString() +
+					"\nSkills:\n\t";
+		for (String skill : this.getStudentSkills()) {
+			ret += skill + ", ";
+		}
+		ret = ret.substring(0, ret.length()-2);
+		ret += "\nWork Experience:\n";
+		for (WorkExperience experiece : this.getWorkExperienceList()) {
+			ret += experiece.toString() + "\n";
+		}
+		ret = ret.substring(0, ret.length()-1);
+		ret += "Extra Curricular Activities:\n";
+		for (String extraCiccicular : this.getExtraCirricularList()) {
+			ret += "\t" + extraCiccicular + "\n";
+		}
+		ret = ret.substring(0, ret.length()-1);
+		return ret;
 	}
 
 }

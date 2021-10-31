@@ -89,9 +89,14 @@ public class WorkExperience {
 	
 	
 	public String toString() {
-		
-		return "Work Experience: /n" + this.company + " - " + this.start.get(Calendar.MONTH) + "/" + this.start.get(Calendar.YEAR)
-										+ " - " + this.end.get(Calendar.MONTH) + "/" + this.end.get(Calendar.YEAR);
+		String ret = "\tCompany: " + this.getCompany() +
+					"\n\tStart Date: " + this.start.get(Calendar.MONTH) + "/" + this.start.get(Calendar.YEAR) + 
+					"\n\tEnd Date: " + this.end.get(Calendar.MONTH) + "/" + this.end.get(Calendar.YEAR) +
+					"\n\tDdescriptions:\n";
+		for (String description : this.getDescriptions()) {
+			ret += "\t\t" + description + "\n";
+		}
+		return ret;
 	}
 
 }

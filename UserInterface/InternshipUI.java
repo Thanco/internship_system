@@ -269,7 +269,7 @@ public class InternshipUI {
         System.out.print("Resume Options");
         printDivider();
         Resume resume = application.getResume();
-        resume.toString();
+        System.out.println(resume.toStringLong());
         char entry = UIOptionsLine("3313442004");
         if (entry == 'S') enterSkills();
         else if (entry == 'W') enterWork();
@@ -595,10 +595,10 @@ public class InternshipUI {
             clearPage();
             System.out.print("Applications");
             printDivider();
-            System.out.println("#   |Name");
-            System.out.println("____|_______________");
+            System.out.println("#\t|Name");
+            System.out.println("________|_______________");
             for(int i = 0; i < applications.size(); i++) {
-                System.out.println(i + "\t|" + applications.get(i).getFirstName() + " " + applications.get(i).getLastName());
+                System.out.println((i + 1) + "\t|" + applications.get(i).getFirstName() + " " + applications.get(i).getLastName());
             }
             printDivider();
             System.out.println("(#)of Listing   (B)ack   (L)ogout");
@@ -607,7 +607,7 @@ public class InternshipUI {
             else {
                 try {
                     int index = Integer.parseInt(entry) - 1;
-                    viewResume(applications.get(index).getUuid());
+                    viewResume(applications.get(index).getOwnerUUID());
                 } catch (Exception e) {
                     System.out.println("Resume could not be opened: Press \"enter\" to continiue");
                     in.nextLine();
@@ -645,8 +645,7 @@ public class InternshipUI {
             clearPage();
             System.out.print("Resume");
             printDivider();
-            resume.toString();
-            printDivider();
+            System.out.println(resume.toStringLong());
             //Employer View
             if (application.userType() == 1) {
                 char entry = UIOptionsLine("011004");
