@@ -66,10 +66,10 @@ public class UserList {
 	 */
 	public Student getStudentByResumeId(UUID resumeId) {
 		for (User user : users) {
-			if (user instanceof Student) {
-				if ((((Student)user).getResume().getUuid()).equals(resumeId)) {
-					return (Student)user;
-				}
+			if (user instanceof Student && 
+				((Student)user).getResume() != null && 
+				(((Student)user).getResume().getUuid()).equals(resumeId)) {
+				return (Student)user;
 			}
 		}
 		return null;
