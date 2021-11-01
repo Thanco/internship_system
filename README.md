@@ -1,6 +1,7 @@
 # internship_system
 
 System preloaded accounts:
+	
 	Student:
 	pplante@email.sc.edu
 	A12345
