@@ -15,7 +15,7 @@ import java.time.LocalDate;
  * 
  * @author Terry Hancock
  */
-public class DataLoader extends DataConstants {
+public abstract class DataLoader extends DataConstants {
 
 	/**
 	 * Loads an ArrayList of Users from the users json file
@@ -81,7 +81,7 @@ public class DataLoader extends DataConstants {
 	 * Loads an ArrayList of Resumes from the resumes json file
 	 * @return An ArrayList of Resumes
 	 */
-	public static ArrayList<Resume> getResumes() {
+	private static ArrayList<Resume> getResumes() {
 		ArrayList<Resume> resumes = new ArrayList<>();
 		try {
 			FileReader reader = new FileReader(RESUMES_FILE_NAME);

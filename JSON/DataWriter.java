@@ -13,7 +13,7 @@ import org.json.simple.*;
  * 
  * @author Terry Hancock
  */
-public class DataWriter extends DataConstants {
+public abstract class DataWriter extends DataConstants {
 	
 	/**
 	 * Writes the users in the UserList to users.json
