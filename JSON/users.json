@@ -5,7 +5,7 @@
         "firstName":"Portia",
         "lastName":"Portia",
         "email":"pplante@email.sc.edu",
-        "password":"A12345",
+        "password":"]defgh",
         "rating":[5,3],
         "resume":"0690b59c-7460-4759-b7e6-c8684643f06d",
         "formerEmployers":["840435d5-2a6f-47eb-9869-bc1f9cb2af65"]
@@ -15,7 +15,7 @@
         "firstName":"Roxy",
         "lastName":"Greyrat",
         "email":"greyrr@email.sc.edu",
-        "password":"Shr1ne",
+        "password":"]ÌÖdÒÉ",
         "rating":[5,3],
         "resume":"376bdcfb-66fe-4feb-a7e9-6c5b3843ca2b",
         "formerEmployers":[]
@@ -24,8 +24,8 @@
         "userType":"e",
         "firstName":"Orsted",
         "lastName":"Dragon",
-        "email":"orsted@orstedcorperation.com",
-        "password":"P@ssword1!",
+        "email":"orsted@orstedcorporation.com",
+        "password":"]r××ÛÓÖÈdS",
         "rating":[5,4],
         "verificationStatus":true,
         "internshipList":
@@ -40,14 +40,14 @@
         "firstName":"Terry",
         "lastName":"Master of Files",
         "email":"hancoct@email.sc.edu",
-        "password":"JSONOverlord"
+        "password":"]ĜĘėĘÚÉÖÐÓÖÈ"
     },{
         "id":"d79d8205-50c8-4b3a-a757-7246c677897d",
         "userType":"s",
         "firstName":"Fizz",
         "lastName":"Buzz",
         "email":"buzzf@email.sc.edu",
-        "password":"UnsecurePassword",
+        "password":"]Ò×ÉÇÙÖÉęÅ××ÛÓÖÈ",
         "rating":[],
         "resume":null,
         "formerEmployers":[]

@@ -42,7 +42,7 @@ public abstract class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+        this.password = encryptPassword(password);
 
     }
 
@@ -53,7 +53,7 @@ public abstract class User {
      * @return true if password matches, false if not
      */
     public boolean validatePassword(String password) {
-        return this.password.equals(password);
+        return this.password.equals(encryptPassword(password));
     }
 
     /**
@@ -70,7 +70,7 @@ public abstract class User {
      * @param newPassword the new password.
      */
     public void changePassword(String newPassword){
-        this.password = newPassword;
+        this.password = encryptPassword(newPassword);
     }
 
     /**
@@ -126,8 +126,43 @@ public abstract class User {
      * @param password to set.
      */
     public void setPassword(String password){
-        this.password = password;
+        this.password = encryptPassword(password);
     }
+
+    /**
+     * Encripts the user's password with a SUPER STRONG encription algorithm
+     * @param password the password to encrypt
+     * @return the encrypted password
+     */
+    private static String encryptPassword(String password) {
+		if (password.isEmpty()) {
+			return "";
+		}
+		char[] passwordArr = password.toCharArray();
+		passwordArr[0] = ']';
+		for (int i = 1; i < passwordArr.length; i++) {
+			switch (Character.getType(passwordArr[i])) {
+				case 1:
+					passwordArr[i] += 150;
+				case 9:
+					passwordArr[i] += 51;
+					break;
+				case 20:
+					passwordArr[i] += 32;
+					break;
+				case 24:
+					passwordArr[i] += 50;
+					break;
+				case 26:
+					passwordArr[i] += 80;
+					break;
+				default:
+					passwordArr[i] += 100;
+					break;
+			}
+		}
+		return new String(passwordArr);
+	}
 
     /**
      * Prints all information of the User.

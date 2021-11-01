@@ -62,7 +62,7 @@ public abstract class DataLoader extends DataConstants {
 						break;
 					}
 					case "a": {
-						users.add(new Admin(firstName, lastName, email, password));
+						users.add(new Admin(id, firstName, lastName, email, password));
 						break;
 					}
 					default:
