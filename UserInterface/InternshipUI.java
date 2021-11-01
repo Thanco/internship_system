@@ -271,7 +271,7 @@ public class InternshipUI {
             Resume resume = application.getResume();
             System.out.println(resume.toStringLong());
             // TODO current options line is: (R)eset   (E)ducation   (W)ork Experience   (H)obbies   (B)ack
-            // needs to be what's shown in javadoc
+            // needs to be what's shown in javadoc (with print to file added as an option (somehow :3))
             char entry = UIOptionsLine("3313442004");
             if (entry == 'S') enterSkills();
             else if (entry == 'W') enterWork();
@@ -340,7 +340,7 @@ public class InternshipUI {
         clearPage();
         System.out.print("Work Experience Entry");
         printDivider();
-        //TODO job title and descritptions @Mr. Wyatt
+        //TODO job title and descritptions @Mr. Wyatt :3
         System.out.print("Enter a Company Name: ");
         String company = in.nextLine();
         System.out.print("Enter the start date (MM/YYYY): ");
