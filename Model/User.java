@@ -139,7 +139,6 @@ public abstract class User {
 			return "";
 		}
 		char[] passwordArr = password.toCharArray();
-		passwordArr[0] = ']';
 		for (int i = 1; i < passwordArr.length; i++) {
 			switch (Character.getType(passwordArr[i])) {
 				case 1:
