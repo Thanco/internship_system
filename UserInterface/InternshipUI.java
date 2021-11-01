@@ -556,7 +556,7 @@ public class InternshipUI {
         clearPage();
         System.out.print("Internship Information");
         printDivider();
-        internship.toString();
+        System.out.println(application.getInternship(internship).toString());
         //Student Menu
         if(application.userType() == 0) {
             char entry = UIOptionsLine("0304");

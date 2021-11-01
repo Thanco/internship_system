@@ -95,14 +95,14 @@ public class Internship {
      */
     public String toString() {
         String output = employer;
-        output += "\n	" + title;
+        output += "\n\t" + title;
 
         output += "\nRequired Skills: ";
         for (String skill : requiredSkills) {
-            output += skill;
+            output += skill + ", ";
         }
-
-        output += "\nDescription:";
+        output = output.substring(0, output.length() - 2);
+        output += "\nDescription: ";
         output += description;
         output += "\nPay: " + salaryType.getSalary();
         output += "\nSchedule:";

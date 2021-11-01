@@ -355,6 +355,10 @@ public class InternshipApplication {
         return null;
     }
 
+    public Internship getInternship(UUID internshipId) {
+        return internshipList.getInternshipById(internshipId);
+    }
+
     /**
      * Gets the full user list
      * 
