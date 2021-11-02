@@ -2,6 +2,11 @@ package Model;
 
 import java.util.UUID;
 
+/**
+ * Class that contains all information and functionality about admin user.
+ * 
+ * @author Bjorn Sauter
+ */
 public class Admin extends User {
 
     /**
