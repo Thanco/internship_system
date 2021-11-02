@@ -18,8 +18,8 @@ public class WorkExperience {
      * @param start       		the start date as a string.
 	 * @param end       		the end date as a string.
      */
-	public WorkExperience(String company, String start, String end) {
-		//TODO implement title and descritpions to front end
+	public WorkExperience(String title, String company, String start, String end) {
+		this.title = title;
 		this.company = company;
 		this.start = createCalendar(start);
 		this.end = createCalendar(end);
@@ -65,6 +65,10 @@ public class WorkExperience {
 	 */
 	public void addDescription(String description) {
 		descriptions.add(description);
+	}
+
+	public void setDescriptions(ArrayList<String> descriptions) {
+		this.descriptions = descriptions;
 	}
 
 	public String getTitle() {

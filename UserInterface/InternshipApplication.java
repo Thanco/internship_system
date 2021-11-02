@@ -180,24 +180,21 @@ public class InternshipApplication {
         if (user instanceof Student) {
             Resume resTemp = ((Student) user).getResume();
             ArrayList<String> skillsTemp = resTemp.getStudentSkills();
-        
-            for(int i = 0; i < skillsTemp.size(); i++) {
-
-                if (skillsTemp.get(i).equalsIgnoreCase(skill)) {
-
-                    skillsTemp.remove(i);
-                }
-
-                else {
-                    
-                    skillsTemp.add(skill);
-                }
+            if (skillsTemp.size() == 0) {
+                skillsTemp.add(skill);
             }
-
+            else {
+                for(int i = 0; i < skillsTemp.size(); i++) {
+                    if (skillsTemp.get(i).equalsIgnoreCase(skill)) {
+                        skillsTemp.remove(i);
+                        ((Student) user).getResume().setStudentSkills(skillsTemp);
+                        return;
+                    }
+                }
+                skillsTemp.add(skill);
+            }
             ((Student) user).getResume().setStudentSkills(skillsTemp);
-        
         }
-
     }
 
     /**
@@ -278,15 +275,17 @@ public class InternshipApplication {
      * @param start Their start date at the company
      * @param end Their end date at the company
      */
-    public void changeWork(String company, String title, String description, String start, String end) {
+    public WorkExperience changeWork(String company, String title, String start, String end) {
         // TODO Change method to modify the current users resume not the actual user in the array list
         // The changes are saved to user list on logout
         // Add Title and description
         User user = userList.getUserById(currentUser.getId());
+        WorkExperience workTemp = null;
         if (user instanceof Student) {
-            WorkExperience workTemp = new WorkExperience(company, start, end);
+            workTemp = new WorkExperience(title, company, start, end);
             ((Student) user).getResume().addWorkExperience(workTemp);
         }
+        return workTemp;
     }
 
     /**
@@ -862,6 +861,6 @@ public class InternshipApplication {
      * Prints the current users resume to a text file
      */
     public void exportResume() {
-
+        DataWriter.printResumeToFile((Student)currentUser);
     }
 }

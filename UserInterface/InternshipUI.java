@@ -7,6 +7,7 @@ import java.util.UUID;
 import Model.Internship;
 import Model.Resume;
 import Model.User;
+import Model.WorkExperience;
 
 /**
  * Contains all user interfaces.
@@ -203,15 +204,17 @@ public class InternshipUI {
      * @options "07421623"
      */
     public void employerMain() {
-        clearPage();
-        System.out.print("Main Menu");
-        char entry = UIOptionsLine("07421623");
-        if (entry == 'C') createInternship();
-        else if (entry == 'V') viewInternshipMenu();
-        else if (entry == 'E') displayUserList(application.getEmployees(), 0);
-        else if (entry == 'L') {
-            application.logout();
-            return;
+        while (true) {
+            clearPage();
+            System.out.print("Main Menu");
+            char entry = UIOptionsLine("07421623");
+            if (entry == 'C') createInternship();
+            else if (entry == 'V') viewInternshipMenu();
+            else if (entry == 'E') displayUserList(application.getEmployees(), 0);
+            else if (entry == 'L') {
+                application.logout();
+                return;
+            }
         }
     }
 
@@ -271,7 +274,7 @@ public class InternshipUI {
             else if (entry == 'W') enterWork();
             else if (entry == 'E') enterEducation();
             else if (entry == 'H') enterExtra();
-            else if (entry == 'P') application.exportResume();
+            else if (entry == 'P') printResume();
             else if (entry == 'B') return;
         }
     }
@@ -280,17 +283,19 @@ public class InternshipUI {
      * UI for entering/editing skills
      */
     public void enterSkills() {
-        clearPage();
-        System.out.println("Skills Entry");
-        printDivider();
-        System.out.println("Skills: " + application.getResume().getStudentSkills());
-        System.out.print("Enter a skill or \"done\"");
-        printDivider();
-        System.out.print("Skill: ");
-        String skill = in.nextLine();
-        if (skill.equalsIgnoreCase("done")) return;
-        else {
-            application.changeSkills(skill);
+        while (true) {
+            clearPage();
+            System.out.println("Skills Entry");
+            printDivider();
+            System.out.println("Skills: " + application.getResume().getStudentSkills());
+            System.out.print("Enter a skill or \"done\"");
+            printDivider();
+            System.out.print("Skill: ");
+            String skill = in.nextLine();
+            if (skill.equalsIgnoreCase("done")) return;
+            else {
+                application.changeSkills(skill);
+            }
         }
     }
 
@@ -339,13 +344,33 @@ public class InternshipUI {
         String company = in.nextLine();
         System.out.print("Enter a job title: ");
         String title = in.nextLine();
-        System.out.println("Enter a description: ");
-        String description = in.nextLine();
         System.out.print("Enter the start date (MM/YYYY): ");
         String start = in.nextLine();
         System.out.print("Enter the end date (MM/YYYY): ");
         String end = in.nextLine();
-        application.changeWork(company, title, description, start, end);
+        WorkExperience workTemp =  application.changeWork(company, title, start, end);
+        editWorkDescriptions(workTemp);
+    }
+
+    public void editWorkDescriptions(WorkExperience work) {
+        while (true) {
+            clearPage();
+            System.out.print("Work Description Entry");
+            printDivider();
+            System.out.println("Descriptions: " + application.getResume().getWorkExperienceList().get(application.getResume().getWorkExperienceList().indexOf(work)).getDescriptions());
+            System.out.print("Enter an description or \"done\"");
+            printDivider();
+            System.out.print("Description: ");
+            String description = in.nextLine();
+            if (description.equalsIgnoreCase("done")) return;
+            application.getResume().getWorkExperienceList().get(application.getResume().getWorkExperienceList().indexOf(work)).addDescription(description);
+        }
+    }
+
+    public void printResume() {
+        application.exportResume();
+        System.out.println("Resume Printed: Press \"Enter\" to return to the menu");
+        in.nextLine();
     }
 
     /**
