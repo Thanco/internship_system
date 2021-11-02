@@ -46,7 +46,9 @@ public class InternshipUI {
         }
         printDivider();
         System.out.print("Options: ");
-        return Character.toUpperCase(in.nextLine().charAt(0));
+        String entry = in.nextLine();
+        if (entry.length() <= 0) return '\0';
+        return Character.toUpperCase(entry.charAt(0));
     }
 
     /**
@@ -351,6 +353,10 @@ public class InternshipUI {
         System.out.print("Enter the end date (MM/YYYY): ");
         String end = in.nextLine();
         WorkExperience workTemp =  application.changeWork(company, title, start, end);
+        if (workTemp == null) {
+            System.out.println("Work Experience could not creaeted: Press enter to continue.");
+            return;
+        }
         editWorkDescriptions(workTemp);
     }
 
