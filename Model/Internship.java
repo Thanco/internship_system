@@ -4,6 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * Class that contains all information about the internship.
+ * 
+ * @author Bjorn Sauter
+ */
 public class Internship {
     private UUID id;
     private String title;
