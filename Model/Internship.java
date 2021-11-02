@@ -125,86 +125,170 @@ public class Internship {
 
     }
 
+    /**
+     * Gets the id.
+     * @return the id.
+     */
     public UUID getId() {
         return this.id;
     }
 
+    /**
+     * Sets the id.
+     * @param id to set
+     */
     public void setId(UUID id) {
         this.id = id;
     }
 
+    /**
+     * Gets the title.
+     * @return the title to set
+     */
     public String getTitle() {
         return this.title;
     }
 
+    /**
+     * Sets the title.
+     * @param title to set
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * Gets the employer.
+     * @return the employer
+     */
     public String getEmployer() {
         return this.employer;
     }
 
+    /**
+     * Sets the employer.
+     * @param employer to set.
+     */
     public void setEmployer(String employer) {
         this.employer = employer;
     }
 
+    /**
+     * Gets the description.
+     * @return the description.
+     */
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * Sets the description.
+     * @param description the description to set
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Gets the required skills.
+     * @return the required skills.
+     */
     public ArrayList<String> getRequiredSkills() {
         return this.requiredSkills;
     }
 
+    /**
+     * Sets the required skills.
+     * @param requiredSkills the required skills to set
+     */
     public void setRequiredSkills(ArrayList<String> requiredSkills) {
         this.requiredSkills = requiredSkills;
     }
 
+    /**
+     * Sets the start date.
+     * @param startDate to set
+     */
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
+    /**
+     * Gets the start date. 
+     * @return the start date
+     */
     public LocalDate getStartDate() {
         return this.startDate;
     }
 
+    /**
+     * Gets the end date.
+     * @return the end date
+     */
     public LocalDate getEndDate() {
         return this.endDate;
     }
 
+    /**
+     * Sets the end date.
+     * @param endDate to set
+     */
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
+    /**
+     * Sets the hours per day.
+     * @param hoursPerDay to set
+     */
     public void setHoursPerDay(int hoursPerDay) {
         this.hoursPerDay = hoursPerDay;
     }
 
+    /**
+     * Gets expiration date.
+     * @return the expiration date
+     */
     public LocalDate getExpirationDate() {
         return this.expirationDate;
     }
 
+    /**
+     * Sets thte expiration date.
+     * @param expirationDate to set
+     */
     public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
     }
 
+    /**
+     * Gets the salary.
+     * @return the salary.
+     */
     public String getSalary() {
         return this.salaryType.getSalary();
     }
 
+    /**
+     * Sets the salary type.
+     * @param salaryType to set.
+     */
     public void setSalaryType(SalaryType salaryType) {
         this.salaryType = salaryType;
     }
 
+    /**
+     * Gets the applications.
+     * @return the application
+     */
     public ArrayList<Resume> getApplications() {
         return this.applications;
     }
 
+    /**
+     * Gets the hours per day.
+     * @return the hours per day
+     */
     public int getHoursPerDay() {
         return this.hoursPerDay;
     }
