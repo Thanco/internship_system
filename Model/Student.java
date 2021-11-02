@@ -57,33 +57,43 @@ public class Student extends User {
     }
 
     /**
-     * Creates a resume and adds it to the student
-     * @param school of the student
-     * @param schoolClass of the student
-     * @param major of the student
-     * @param company of the student
-     * @param length 
-     * @param start
-     * @param end
-     * @param studentSkills
-     * @param extraCirricular
+     * Creates a resume and adds it to the student.
+     * @param firstName of the student.
+     * @param lastName of the student.
+     * @param education of the student.
      */
     public void createResume(String firstName, String lastName, Education education){
         this.resume = new Resume(this.getId(), this.getFirstName(), this.getLastName(), education);
     }
 
+    /**
+     * Gets the resume.
+     * @return the resume
+     */
     public Resume getResume() {
         return this.resume;
     }
 
+    /**
+     * Sets the resume.
+     * @param resume the resume to set.
+     */
     public void setResume(Resume resume) {
         this.resume = resume;
     }
 
+    /**
+     * Gets the ratings.
+     * @return the ratings
+     */
     public ArrayList<Integer> getRatings() {
         return this.ratings;
     }
 
+    /**
+     * Gets the former employers.
+     * @return the former employers
+     */
     public ArrayList<UUID> getFormerEmployers(){
         return this.formerEmployers;
     }

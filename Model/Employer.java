@@ -4,6 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * Class that contains all user information of type employer.
+ * 
+ * @author Bjorn Sauter
+ */
 public class Employer extends User {
     private boolean verificationStatus;
     private ArrayList<UUID> internshipList;
