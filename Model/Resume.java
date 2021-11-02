@@ -14,6 +14,20 @@ public class Resume {
 	private ArrayList<WorkExperience> workExperienceList;
 	private ArrayList<String> extraCirricularList;
 	
+	/**
+     * Instantiates a Resume object with given resume uuid, owner uuid, first name, last name, education, student skills array, 
+	 * work experience array, and extra cirricular list array from JSON
+     * 
+     * @param uuid             the uuid of the internship offer.
+     * @param ownerUUID          the title as string.
+     * @param firstName       the employer name as a string.
+     * @param lastName    the description of the internship offer.
+     * @param education the skills required for the internship
+     * @param studentSkills      the date when the internship is supposed to start.
+     * @param workExperienceList        the date when the internship is supposed to end.
+     * @param extraCirricularList    the hours the student is supposed to work.
+	 * 
+     */
 	public Resume(UUID uuid, UUID ownerUuid, String firstName, String lastName, Education education, ArrayList<String> studentSkills, 
 			ArrayList<WorkExperience> workExperienceList, ArrayList<String> extraCirricularList ) {
 		this.ownerUuid = ownerUuid;
@@ -26,6 +40,15 @@ public class Resume {
 		this.extraCirricularList = extraCirricularList;	
 	}
 	
+	/**
+     * Instantiates a Resume object with given params for a new student
+     * 
+     * @param ownerUuid          	the ownerUuid as uuid.
+     * @param firstName       		the first name as a string.
+	 * @param lastName       		the last name as a string.
+	 * @param education       		the user's education as an education object.
+	 * 
+     */
 	public Resume(UUID ownerUuid, String firstName, String lastName, Education education) {
 		
 		this.uuid = UUID.randomUUID();

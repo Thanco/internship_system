@@ -11,6 +11,13 @@ public class WorkExperience {
 	private Calendar end;
 	private ArrayList<String> descriptions;
 	
+	 /**
+     * Instantiates a workExperience object with given company name, start date and end date
+     * 
+     * @param company          	the company name as string.
+     * @param start       		the start date as a string.
+	 * @param end       		the end date as a string.
+     */
 	public WorkExperience(String company, String start, String end) {
 		//TODO implement title and descritpions to front end
 		this.company = company;

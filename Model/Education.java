@@ -6,6 +6,13 @@ public class Education {
 	private SchoolYear schoolClass;
 	private String major;
 	
+	/**
+     * Instantiates an Education object with given school name, school year and user major
+     * 
+     * @param schoolTitle          	the title of the school as string.
+     * @param schoolClass       	the school classing as a schoolyear enumeration.
+	 * @param major       			the user major as a string.
+     */
 	public Education(String schoolTitle, SchoolYear schoolClass, String major)
 	{
 		this.schoolTitle = schoolTitle;

@@ -571,10 +571,11 @@ public class InternshipApplication {
     /**
      * Decline Applicant
      * 
-     * @param resume
+     * @param internshipUUID
+     * @param resumeUUID
      */
-    public void declineApplication(Resume resume) {
-
+    public void declineApplication(UUID internshipId, UUID resumeId) {
+        
     }
 
     /**
@@ -843,7 +844,9 @@ public class InternshipApplication {
     /**
      * Updates the experation date for an internship
      */
-    public void changeExperation(UUID internship, String date) {
-
+    public void changeExperation(UUID internshipId, String date) {
+        Internship internship = internshipList.getInternshipById(internshipId);
+        String[] expiration = date.split("/");
+        internship.setExpirationDate(LocalDate.of(Integer.parseInt(expiration[2]), Integer.parseInt(expiration[0]),Integer.parseInt(expiration[1])));
     }
 }
