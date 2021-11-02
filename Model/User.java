@@ -81,18 +81,34 @@ public abstract class User {
         return this.id;
     }
 
+    /**
+     * Gets the first name.
+     * @return the first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Gets the last name.
+     * @return the last name
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Gets the email.
+     * @return the email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Gets the password.
+     * @return the password
+     */
     public String getPassword() {
         return password;
     }
