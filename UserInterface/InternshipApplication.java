@@ -11,6 +11,7 @@ import Model.*;
 
 /**
  * Used by UI to acces other classes
+ * @author 
  */
 public class InternshipApplication {
     private User currentUser;
@@ -173,7 +174,8 @@ public class InternshipApplication {
      * @param skill the skill to add/remove
      */
     public void changeSkills(String skill) {
-
+        // TODO Change method to modify the current users resume not the actual user in the array list
+        // The changes are saved to user list on logout
         User user = userList.getUserById(currentUser.getId());
         if (user instanceof Student) {
             Resume resTemp = ((Student) user).getResume();
@@ -206,6 +208,8 @@ public class InternshipApplication {
      * @param year
      */
     public void changeEducation(String school, String major, String year) {
+        // TODO Change method to modify the current users resume not the actual user in the array list
+        // The changes are saved to user list on logout
         User user = userList.getUserById(currentUser.getId());
         int schoolClass = 0;
             if (year.equals("1") ||
@@ -243,6 +247,8 @@ public class InternshipApplication {
      * @param activity the activity to add/remove
      */
     public void changeExtra(String activity) {
+        // TODO Change method to modify the current users resume not the actual user in the array list
+        // The changes are saved to user list on logout
         User user = userList.getUserById(currentUser.getId());
         if (user instanceof Student) {
             Resume resTemp = ((Student) user).getResume();
@@ -265,17 +271,19 @@ public class InternshipApplication {
     }
 
     /**
-     * Adds a work experience to a resume
-     * 
-     * @param company
-     * @param start
-     * @param end
+     * Adds a work experience to the resume of current user
+     * @param company The name of a company
+     * @param title The users job title at the company
+     * @param description A description of their position
+     * @param start Their start date at the company
+     * @param end Their end date at the company
      */
-    public void changeWork(String company, String start, String end) {
-        
+    public void changeWork(String company, String title, String description, String start, String end) {
+        // TODO Change method to modify the current users resume not the actual user in the array list
+        // The changes are saved to user list on logout
+        // Add Title and description
         User user = userList.getUserById(currentUser.getId());
         if (user instanceof Student) {
-            
             WorkExperience workTemp = new WorkExperience(company, start, end);
             ((Student) user).getResume().addWorkExperience(workTemp);
         }
@@ -848,5 +856,12 @@ public class InternshipApplication {
         Internship internship = internshipList.getInternshipById(internshipId);
         String[] expiration = date.split("/");
         internship.setExpirationDate(LocalDate.of(Integer.parseInt(expiration[2]), Integer.parseInt(expiration[0]),Integer.parseInt(expiration[1])));
+    }
+
+    /**
+     * Prints the current users resume to a text file
+     */
+    public void exportResume() {
+
     }
 }

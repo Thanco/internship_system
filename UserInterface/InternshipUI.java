@@ -13,25 +13,21 @@ import Model.User;
  * @author Wyatt Wilgus
  */
 public class InternshipUI {
-    public static void main(String args[]) {
-        InternshipUI UI = new InternshipUI();
-        UI.run();
-    }
 
     private final int LINE_LENGTH = 80;
     private final int PAGE_LENGTH = 25;
     private final String OPTIONS = "UserInterface/Options.txt";
     private InternshipApplication application;
-    private Scanner in = new Scanner(System.in);
+    private Scanner in;
     private String[] Options;
 
     /**
-     * Runs initialization for UI
+     * Initializes UI instance variables
      */
-    public void run() {
+    public InternshipUI() {
         fillOptions();
         application = new InternshipApplication();
-        startUI();
+        in = new Scanner(System.in);
     }
 
     /**
@@ -270,13 +266,12 @@ public class InternshipUI {
             printDivider();
             Resume resume = application.getResume();
             System.out.println(resume.toStringLong());
-            // TODO current options line is: (R)eset   (E)ducation   (W)ork Experience   (H)obbies   (B)ack
-            // needs to be what's shown in javadoc (with print to file added as an option (somehow :3))
-            char entry = UIOptionsLine("3313442004");
+            char entry = UIOptionsLine("38331344204904");
             if (entry == 'S') enterSkills();
             else if (entry == 'W') enterWork();
             else if (entry == 'E') enterEducation();
             else if (entry == 'H') enterExtra();
+            else if (entry == 'P') application.exportResume();
             else if (entry == 'B') return;
         }
     }
@@ -340,14 +335,17 @@ public class InternshipUI {
         clearPage();
         System.out.print("Work Experience Entry");
         printDivider();
-        //TODO job title and descritptions @Mr. Wyatt :3
         System.out.print("Enter a Company Name: ");
         String company = in.nextLine();
+        System.out.print("Enter a job title: ");
+        String title = in.nextLine();
+        System.out.println("Enter a description: ");
+        String description = in.nextLine();
         System.out.print("Enter the start date (MM/YYYY): ");
         String start = in.nextLine();
         System.out.print("Enter the end date (MM/YYYY): ");
         String end = in.nextLine();
-        application.changeWork(company, start, end);
+        application.changeWork(company, title, description, start, end);
     }
 
     /**
@@ -577,7 +575,7 @@ public class InternshipUI {
                 char entry = UIOptionsLine("12324104");
                 if (entry == 'E')       editInternship(internship);
                 else if (entry == 'R')  application.removeInternship(internship);
-                else if (entry == 'V')  viewApplications(application.getApplications(internship));
+                else if (entry == 'V')  viewApplications(application.getApplications(internship), internship);
                 else if (entry == 'B')  return;
             }
         } 
@@ -594,7 +592,7 @@ public class InternshipUI {
      * @options (#)of Listing, (N)ext, (P)revious, (B)ack, (L)ogout
      * @options ""
      */
-    public void viewApplications(ArrayList<Resume> applications) {
+    public void viewApplications(ArrayList<Resume> applications, UUID internship) {
         while (true) {
             clearPage();
             System.out.print("Applications");
@@ -611,7 +609,7 @@ public class InternshipUI {
             else {
                 try {
                     int index = Integer.parseInt(entry) - 1;
-                    viewResume(applications.get(index).getOwnerUUID());
+                    viewResume(applications.get(index).getOwnerUUID(), internship);
                 } catch (Exception e) {
                     System.out.println("Resume could not be opened: Press \"enter\" to continiue");
                     in.nextLine();
@@ -624,7 +622,7 @@ public class InternshipUI {
      * UI for searching resumes by a keyword
      * @param resumes
      */
-    public void searchResumes(ArrayList<Resume> resumes) {
+    public void searchResumes(ArrayList<Resume> resumes, UUID internship) {
         clearPage();
         System.out.print("Search Applicants");
         printDivider();
@@ -635,7 +633,7 @@ public class InternshipUI {
             System.out.println("No applications contain that keyword: Press \"enter\" to continiue");
             in.nextLine();
         }
-        else viewApplications(newResumes);
+        else viewApplications(newResumes, internship);
     }
 
     /**
@@ -643,7 +641,7 @@ public class InternshipUI {
      * @options (A)ccept Applicant, (D)ecline Applicant, (B)ack, (L)ogout
      * @options ""
      */
-    public void viewResume(UUID user) {
+    public void viewResume(UUID user, UUID internship) {
         while (true) {
             Resume resume = application.getResume(user);
             clearPage();
@@ -654,7 +652,7 @@ public class InternshipUI {
             if (application.userType() == 1) {
                 char entry = UIOptionsLine("011004");
                 if (entry == 'A') application.acceptApplication(resume);
-                else if (entry == 'D') application.declineApplication(resume);
+                else if (entry == 'D') application.declineApplication(internship, resume.getUuid());
                 else if (entry == 'B') return;
             }
             //Admin View
@@ -905,7 +903,7 @@ public class InternshipUI {
                     application.removeUser(user);
                     return;
                 } else if (entry == 'V') viewRatings(user);
-                else if (entry == 'R') viewResume(user);
+                else if (entry == 'R') viewResume(user, null);
                 else if (entry == 'B') return;
             } else if (application.userType(user) == 1) {
                 char entry = UIOptionsLine("47164204");

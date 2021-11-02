@@ -46,3 +46,4 @@
 (#) to Remove
 (D)elete
 (K)eyword
+(P)rint
