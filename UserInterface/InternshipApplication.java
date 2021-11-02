@@ -200,9 +200,9 @@ public class InternshipApplication {
     /**
      * Overwrites the existing education for a resume
      * 
-     * @param school
-     * @param major
-     * @param year
+     * @param school the name of the school
+     * @param major the student's major
+     * @param year the year the student is in school (1-4)
      */
     public void changeEducation(String school, String major, String year) {
         // TODO Change method to modify the current users resume not the actual user in the array list
@@ -362,6 +362,12 @@ public class InternshipApplication {
         return null;
     }
 
+
+    /**
+     * Gets an internship by the given intership UUID
+     * @param internshipId the UUID of the internship to get
+     * @return the internship with the specified UUID
+     */
     public Internship getInternship(UUID internshipId) {
         return internshipList.getInternshipById(internshipId);
     }
@@ -576,19 +582,19 @@ public class InternshipApplication {
     }
 
     /**
-     * Decline Applicant
+     * Declines the applicant and removes them from the applicants list for that internship
      * 
-     * @param internshipUUID
-     * @param resumeUUID
+     * @param internshipUUID the interhsip to remove the applicant from
+     * @param resumeUUID the resume to remove
      */
     public void declineApplication(UUID internshipId, UUID resumeId) {
-        
+        internshipList.getInternshipById(internshipId).removeApplication(userList.getStudentByResumeId(resumeId).getResume());
     }
 
     /**
      * delets a users resume
      * 
-     * @param resume
+     * @param user to delete the resume from
      */
     public void deleteResume(UUID user) {
        
@@ -771,7 +777,7 @@ public class InternshipApplication {
     /**
      * Promotes given user to admin
      * 
-     * @param user
+     * @param user the user to promote
      */
     public void promoteUser(UUID user) {
         return;

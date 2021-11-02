@@ -224,15 +224,17 @@ public class InternshipUI {
      * @options "39142022"
      */
     public void adminMain() {
-        clearPage();
-        System.out.print("Admin Main");
-        char entry = UIOptionsLine("39152123");
-        if (entry == 'S') displayUserList(application.getUsers(0), 0);
-        else if (entry == 'E') displayUserList(application.getUsers(1), 0);
-        else if (entry == 'I') viewInternshipMenu();
-        else if (entry == 'L') {
-            application.logout();
-            return;
+        while (true) {
+            clearPage();
+            System.out.print("Admin Main");
+            char entry = UIOptionsLine("39152123");
+            if (entry == 'S') displayUserList(application.getUsers(0), 0);
+            else if (entry == 'E') displayUserList(application.getUsers(1), 0);
+            else if (entry == 'I') viewInternshipMenu();
+            else if (entry == 'L') {
+                application.logout();
+                return;
+            }
         }
     }
 
@@ -352,6 +354,10 @@ public class InternshipUI {
         editWorkDescriptions(workTemp);
     }
 
+    /**
+     * UI for editing work descriptions, also used when creating a new work experience
+     * @param work the wor experiece to edit the descritpions of
+     */
     public void editWorkDescriptions(WorkExperience work) {
         while (true) {
             clearPage();
@@ -367,6 +373,9 @@ public class InternshipUI {
         }
     }
 
+    /**
+     * Prints the current user's resume to a text file
+     */
     public void printResume() {
         application.exportResume();
         System.out.println("Resume Printed: Press \"Enter\" to return to the menu");
@@ -522,8 +531,7 @@ public class InternshipUI {
     }
 
     /**
-     * 
-     * @param internships
+     * UI for searching for an internship by a keyword
      */
     public void searchInternships() {
         clearPage();
@@ -676,8 +684,14 @@ public class InternshipUI {
             //Employer View
             if (application.userType() == 1) {
                 char entry = UIOptionsLine("011004");
-                if (entry == 'A') application.acceptApplication(resume);
-                else if (entry == 'D') application.declineApplication(internship, resume.getUuid());
+                if (entry == 'A') {
+                    acceptApplication(resume);;
+                    return;
+                }
+                else if (entry == 'D') {
+                    declineApplication(internship, resume);;
+                    return;
+                }
                 else if (entry == 'B') return;
             }
             //Admin View
@@ -908,6 +922,27 @@ public class InternshipUI {
         }
     }
 
+    /**
+     * Accepts an application for an internship
+     * @param resume the resume to accept
+     */
+    public void acceptApplication(Resume resume) {
+        application.acceptApplication(resume);
+        System.out.println("Application Accepted! Press \"Enter\" to return to applicants");
+        in.nextLine();
+    }
+
+    /**
+     * Declines an application for an internhsip
+     * @param internshipId the internship to decline a resume from
+     * @param resume the resume to decline
+     */
+    public void declineApplication(UUID internshipId, Resume resume) {
+        application.declineApplication(internshipId, resume.getUuid());
+        System.out.println("Application Declined. Press \"Enter\" to return to applicants");
+        in.nextLine();
+    }
+    
     /**
      * Displays a User profile
      * @options (P)romote, (R)emove, (V)iew Ratings, (B)ack, (L)ogout

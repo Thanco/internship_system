@@ -80,12 +80,20 @@ public class Internship {
     }
 
     /**
-     * Adds an application the the application list.
+     * Adds an application to the application list.
      * 
      * @param resume the application to add.
      */
     public void addApplication(Resume resume) {
         applications.add(resume);
+    }
+
+    /**
+     * Removes an application from the application list
+     * @param resume the application to remove
+     */
+    public void removeApplication(Resume resume) {
+        applications.remove(resume);
     }
 
     /**
