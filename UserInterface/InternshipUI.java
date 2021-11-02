@@ -584,39 +584,39 @@ public class InternshipUI {
      * @options (E)dit, (R)emove, (V)iew Applicants, (B)ack, (L)ogout
      */
     public void viewInternship(UUID internship) {
-        clearPage();
-        System.out.print("Internship Information");
-        printDivider();
-        System.out.println(application.getInternship(internship).toString());
-        //Student Menu
-        if(application.userType() == 0) {
-            char entry = UIOptionsLine("0304");
-            if (entry == 'A') {
-                boolean attempt = application.apply(internship);
-                if (attempt) {
-                    System.out.println("Application Succesful: Press \"Enter\" to return to the menu");
-                } else {
-                    System.out.println("Application Failed: Press \"Enter\" to return to the menu");
+        while (true) {
+            clearPage();
+            System.out.print("Internship Information");
+            printDivider();
+            System.out.println(application.getInternship(internship).toString());
+            //Student Menu
+            if(application.userType() == 0) {
+                char entry = UIOptionsLine("0304");
+                if (entry == 'A') {
+                    boolean attempt = application.apply(internship);
+                    if (attempt) {
+                        System.out.println("Application Succesful: Press \"Enter\" to return to the menu");
+                    } else {
+                        System.out.println("Application Failed: Press \"Enter\" to return to the menu");
+                    }
+                    in.nextLine();
                 }
-                in.nextLine();
+                else if (entry == 'B') return;
+            } 
+            //Employer Menu
+            else if (application.userType() == 1) {
+                    char entry = UIOptionsLine("12324104");
+                    if (entry == 'E')       editInternship(internship);
+                    else if (entry == 'R')  application.removeInternship(internship);
+                    else if (entry == 'V')  viewApplications(application.getApplications(internship), internship);
+                    else if (entry == 'B')  return;
+            } 
+            //Admin Menu
+            else if (application.userType() == 2) {
+                char entry = UIOptionsLine("3204");
+                if (entry == 'R') application.removeInternship(internship);
+                else if (entry == 'B') return;
             }
-            else if (entry == 'B') return;
-        } 
-        //Employer Menu
-        else if (application.userType() == 1) {
-            while (true) {
-                char entry = UIOptionsLine("12324104");
-                if (entry == 'E')       editInternship(internship);
-                else if (entry == 'R')  application.removeInternship(internship);
-                else if (entry == 'V')  viewApplications(application.getApplications(internship), internship);
-                else if (entry == 'B')  return;
-            }
-        } 
-        //Admin Menu
-        else if (application.userType() == 2) {
-            char entry = UIOptionsLine("3204");
-            if (entry == 'R') application.removeInternship(internship);
-            else if (entry == 'B') return;
         }
     }
 
