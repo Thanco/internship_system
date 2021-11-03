@@ -26,6 +26,10 @@ public class WorkExperience {
 		this.descriptions = new ArrayList<>();
 	}
 	
+	/**
+	 * creates a calendar object from string
+	 * @param string date
+	 */
 	public Calendar createCalendar(String date) {
 		
 		if (date.contains("/")) {
@@ -67,50 +71,93 @@ public class WorkExperience {
 		descriptions.add(description);
 	}
 
+	/**
+	 * sets descriptions in the descriptions list
+	 * @param ArrayList<String> descriptions the description to add
+	 */
 	public void setDescriptions(ArrayList<String> descriptions) {
 		this.descriptions = descriptions;
 	}
 
+	/**
+	 * gets the title of the work experience
+	 * @returns string title
+	 */
 	public String getTitle() {
 		return this.title;
 	}
 
+	/**
+	 * gets the company of the work experience
+	 * @returns string company
+	 */
 	public String getCompany() {
 		return company;
 	}
 
+	/**
+	 * sets a company name to the work experience object
+	 * @param company name
+	 */
 	public void setCompany(String company) {
 		this.company = company;
 	}
 
+	/**
+	 * gets the start date of the work experience
+	 * @return calendar Start
+	 */
 	public Calendar getStart() {
 		
 		return start;
 	}
 
+	/**
+	 * gets descriptions array list
+	 * @return arraylist of strings of descriptions
+	 */
 	public ArrayList<String> getDescriptions() {
 		return descriptions;
 	}
 
+	/**
+	 * sets start date to education
+	 * @param Calendar start
+	 */
 	public void setStart(Calendar start) {
 		
 		this.start = start;
 	}
 
+	/**
+	 * gets end date
+	 * @return Calendar end
+	 */
 	public Calendar getEnd() {
-		
 		return end;
 	}
 
+	/**
+	 * sets end date to education
+	 * @param Calendar end
+	 */
 	public void setEnd(Calendar end) {
 		
 		this.end = end;
 	}
 	
+	/**
+	 * sets title to education
+	 * @param String title
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
 	
+	/**
+	 * used to make work experience a string
+	 * @returns work experience as strings
+	 */
 	public String toString() {
 		String ret = "\tTitle: " + this.getTitle() +
 					"\n\t\tCompany: " + this.getCompany() +
