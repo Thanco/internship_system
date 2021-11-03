@@ -19,7 +19,7 @@ public class InternshipApplication {
     private UserList userList;
 
     /**
-     * Constructor
+     * Initializes the Internship and User list
      */
     public InternshipApplication() {
         this.internshipList = InternshipList.getInstance();
@@ -29,7 +29,6 @@ public class InternshipApplication {
     /**
      * Checks user list for matching email/password and saves that user to the
      * instance variable
-     * 
      * @param email    Entered email
      * @param password Entered Password
      * @return True/False if login is succesful
@@ -52,7 +51,6 @@ public class InternshipApplication {
 
     /**
      * Gets the current users UUID
-     * 
      * @return current users UUID
      */
     public UUID getCurrent() {
@@ -71,7 +69,6 @@ public class InternshipApplication {
     /**
      * Adds a new user to the arraylist of users Checks for valid entries (No white
      * space, valid email, etc..)
-     * 
      * @param first    Users first name
      * @param last     Users last name
      * @param email    Users email
@@ -124,7 +121,6 @@ public class InternshipApplication {
 
     /**
      * Creates resume for current user
-     * 
      * @params String schoolTitle, int schoolClass, String major of user
      */
     public boolean createResume(String schoolTitle, String schoolClassStr, String major) {
@@ -170,7 +166,6 @@ public class InternshipApplication {
 
     /**
      * Add a new skill to the resume or removes if it is already there
-     * 
      * @param skill the skill to add/remove
      */
     public void changeSkills(String skill) {
@@ -199,7 +194,6 @@ public class InternshipApplication {
 
     /**
      * Overwrites the existing education for a resume
-     * 
      * @param school the name of the school
      * @param major the student's major
      * @param year the year the student is in school (1-4)
@@ -240,7 +234,6 @@ public class InternshipApplication {
 
     /**
      * Add a new extra-curricular to the resume or removes if it is already there
-     * 
      * @param activity the activity to add/remove
      */
     public void changeExtra(String activity) {
@@ -290,7 +283,6 @@ public class InternshipApplication {
 
     /**
      * Gets a list of UUIDs that the current user can add a rating to
-     * 
      * @return for student return an array list of past employer UUIDs
      * @return for employer return an array list of past employee UUIDs
      */
@@ -300,13 +292,11 @@ public class InternshipApplication {
         } else if (currentUser instanceof Employer) {
             return ((Employer) currentUser).getEmployees();
         }
-
         return null;
     }
 
     /**
      * Adds rating to a users array list of ratings
-     * 
      * @param user   The UUID of a user
      * @param rating the entered rating
      */
@@ -323,7 +313,6 @@ public class InternshipApplication {
 
     /**
      * gets a full list of internships
-     * 
      * @return The full list of Internships
      */
     public ArrayList<Internship> getInternships() {
@@ -332,7 +321,6 @@ public class InternshipApplication {
 
     /**
      * Searches the internship list using a specified keyword
-     * 
      * @param entry A search criteria ented by the user
      * @return An array list that contains any internships with info that matches
      *         the entry (Company, Position, or Skill)
@@ -343,7 +331,6 @@ public class InternshipApplication {
 
     /**
      * Gets an all of the internships created by a specific user
-     * 
      * @param user The users UUID
      * @return An array list of internships
      */
@@ -356,7 +343,6 @@ public class InternshipApplication {
             for (UUID internship : internshipIds) {
                 internships.add(internshipList.getInternshipById(internship));
             }
-
             return internships;
         }
         return null;
@@ -374,7 +360,6 @@ public class InternshipApplication {
 
     /**
      * Gets the full user list
-     * 
      * @return The user ArrayList
      */
     public ArrayList<User> getUsers() {
@@ -383,7 +368,6 @@ public class InternshipApplication {
 
     /**
      * Gets all users of specific type
-     * 
      * @param type 0 = Sudent, 1 = Employer
      * @return An array list of users
      */
@@ -393,7 +377,6 @@ public class InternshipApplication {
 
     /**
      * Searches for users with profiles containing a given keyword
-     * 
      * @param keyword word to search for
      * @return an array list of users
      */
@@ -404,7 +387,6 @@ public class InternshipApplication {
     /**
      * creates an array list of users from the array list of UUIDs returns null if
      * array list is empty or current user is not an employer
-     * 
      * @return An array list of an employers employees
      */
     public ArrayList<User> getEmployees() {
@@ -413,7 +395,6 @@ public class InternshipApplication {
 
     /**
      * Returns an array list of employees for a given employer
-     * 
      * @param user The uuid of the user to get employees of
      * @return an array list of users
      * @return null if given user is not an employer or has no employees
@@ -425,18 +406,15 @@ public class InternshipApplication {
         }
         Employer employer = (Employer) user;
         ArrayList<UUID> employeeIds = employer.getEmployees();
-
         ArrayList<User> employees = new ArrayList<>();
         for (UUID employeeId : employeeIds) {
             employees.add(userList.getUserById(employeeId));
         }
-
         return employees;
     }
 
     /**
      * Gets the current user
-     * 
      * @return The current User
      */
     public User getUser() {
@@ -445,7 +423,6 @@ public class InternshipApplication {
 
     /**
      * Finds a user by UUID
-     * 
      * @param user The UUID of the user to be returned
      * @return A User
      */
@@ -463,7 +440,6 @@ public class InternshipApplication {
 
     /**
      * Saves updates to given user object in user list
-     * 
      * @param user The modified User
      */
     public void saveUser(User user) {
@@ -473,7 +449,6 @@ public class InternshipApplication {
     /**
      * Changes current users email checks if email is valid and if email is already
      * used
-     * 
      * @param email The new email
      * @return true if email is changed
      */
@@ -488,7 +463,6 @@ public class InternshipApplication {
 
     /**
      * Changes current users password check for valid password
-     * 
      * @param password new password
      * @return true if password is changed
      */
@@ -499,7 +473,6 @@ public class InternshipApplication {
 
     /**
      * Changes current users name
-     * 
      * @param first New first name
      * @param last  New last name
      * @return true if name is changed
@@ -508,7 +481,6 @@ public class InternshipApplication {
         if (first.isEmpty() || last.isEmpty()) {
             return false;
         }
-
         this.currentUser.setFirstName(first);
         this.currentUser.setlastName(last);
         return true;
@@ -516,7 +488,6 @@ public class InternshipApplication {
 
     /**
      * gets a list of resumes from an internship
-     * 
      * @param internship
      * @return
      */
@@ -526,7 +497,6 @@ public class InternshipApplication {
 
     /**
      * returns the current users resume
-     * 
      * @return current users resume
      */
     public Resume getResume() {
@@ -561,7 +531,6 @@ public class InternshipApplication {
 
     /**
      * Removes a User from the UserList
-     * 
      * @param user The UUID of the user to be removed
      */
     public void removeUser(UUID userId) {
@@ -571,7 +540,6 @@ public class InternshipApplication {
     /**
      * Accepts Applicant Adds employer to student ratables and employer to students
      * ratables
-     * 
      * @param resume the resume for the student to be accepted
      */
     public void acceptApplication(Resume resume) {
@@ -583,7 +551,6 @@ public class InternshipApplication {
 
     /**
      * Declines the applicant and removes them from the applicants list for that internship
-     * 
      * @param internshipUUID the interhsip to remove the applicant from
      * @param resumeUUID the resume to remove
      */
@@ -593,11 +560,9 @@ public class InternshipApplication {
 
     /**
      * delets a users resume
-     * 
      * @param user to delete the resume from
      */
     public void deleteResume(UUID user) {
-       
         User userTemp = userList.getUserById(user);
         if(userTemp instanceof Student) {
             ((Student) userTemp).setResume(null);
@@ -606,11 +571,9 @@ public class InternshipApplication {
 
     /**
      * Removes an internship from the internship list
-     * 
      * @param id The internships UUID
      */
     public void removeInternship(UUID id) {
-
         InternshipList list = InternshipList.getInstance();
         list.removeInternshipById(id);
         
@@ -618,7 +581,6 @@ public class InternshipApplication {
 
     /**
      * Creates an internship using given values
-     * 
      * @param title of the internship
      * @param employer of the internship
      * @param description of the internship
@@ -632,7 +594,6 @@ public class InternshipApplication {
      */
     public void createInternship(String title, String employer, String description, String requiredSkills,
             String startDate, String endDate, int hoursPerDay, int endHour, String expirationDate, String salaryType) {
-
         if (this.currentUser instanceof Employer) {
             Employer user = (Employer) this.currentUser;
             String[] startArray = startDate.split("/");
@@ -645,14 +606,15 @@ public class InternshipApplication {
             } else {
                 salary = new FixedSalary(Integer.parseInt(salaryType));
             }
-            user.createNewInternship(title, employer, description, skills, LocalDate.of(Integer.parseInt(startArray[2]), Integer.parseInt(startArray[0]),Integer.parseInt(startArray[1])), LocalDate.of(Integer.parseInt(endArray[2]), Integer.parseInt(endArray[0]),Integer.parseInt(endArray[1])), hoursPerDay, endHour, LocalDate.of(Integer.parseInt(expiration[2]), Integer.parseInt(expiration[0]),Integer.parseInt(expiration[1])), salary);
-
+            user.createNewInternship(title, employer, description, skills, LocalDate.of(Integer.parseInt(startArray[2]),
+                Integer.parseInt(startArray[0]),Integer.parseInt(startArray[1])), LocalDate.of(Integer.parseInt(endArray[2]),
+                Integer.parseInt(endArray[0]),Integer.parseInt(endArray[1])), hoursPerDay, endHour,
+                LocalDate.of(Integer.parseInt(expiration[2]), Integer.parseInt(expiration[0]),Integer.parseInt(expiration[1])), salary);
         }
     }
 
     /**
      * Returns the employer string for an internship
-     * 
      * @param internshipId The internships UUID
      * @return Employer String
      */
@@ -662,7 +624,6 @@ public class InternshipApplication {
 
     /**
      * Modifies an Internships employer object
-     * 
      * @param internship The internship being modified
      * @param employer   The new employer string
      */
@@ -672,7 +633,6 @@ public class InternshipApplication {
 
     /**
      * Gets the job title from an internship
-     * 
      * @param internshipId the id of the internship
      * @return title of the internsip
      */
@@ -682,7 +642,6 @@ public class InternshipApplication {
 
     /**
      * Changes the job title of an internship
-     * 
      * @param internshipId the id of the internship
      * @param title        the new title
      */
@@ -692,7 +651,6 @@ public class InternshipApplication {
 
     /**
      * Returns an internships arraylist of required skills
-     * 
      * @param internshipId
      * @return
      */
@@ -703,7 +661,6 @@ public class InternshipApplication {
     /**
      * changes an internships required skills Adds entry if it is not included,
      * removes if it is
-     * 
      * @param internship
      * @return
      */
@@ -718,13 +675,11 @@ public class InternshipApplication {
                 skills.remove(modifySkills[i]);
             }
         }
-
         skills.addAll(toAdd);
     }
 
     /**
      * Converts string to int and stores, if param is null set to hidden
-     * 
      * @param salary to change to.
      */
     public void changeSalary(UUID internshipId, String salary) {
@@ -739,7 +694,6 @@ public class InternshipApplication {
 
     /**
      * Changes the schedule details of the internship.
-     * 
      * @param internshipId the id of the internship to modify.
      * @param start        the new start date.
      * @param end          the new end date.
@@ -758,7 +712,6 @@ public class InternshipApplication {
 
     /**
      * Searches an array of Resumes for a key word
-     * 
      * @param resumes List to be searched
      * @param keyword The word to search for
      * @return An array list of containing they key word
@@ -770,13 +723,11 @@ public class InternshipApplication {
                 resumesWithKeyword.add(resume);
             }
         }
-
         return resumesWithKeyword;
     }
 
     /**
      * Promotes given user to admin
-     * 
      * @param user the user to promote
      */
     public void promoteUser(UUID user) {
@@ -785,7 +736,6 @@ public class InternshipApplication {
 
     /**
      * Gets the average overall rating of the current user
-     * 
      * @return Avg rating
      */
     public double getRating() {
@@ -794,7 +744,6 @@ public class InternshipApplication {
 
     /**
      * Gets the average overall rating of a given user
-     * 
      * @return Avg rating
      */
     public double getRating(UUID userId) {
@@ -810,7 +759,6 @@ public class InternshipApplication {
 
     /**
      * Gets a users list of ratings
-     * 
      * @param user The user to get ratings of
      * @return The users ratings
      */
@@ -827,7 +775,6 @@ public class InternshipApplication {
 
     /**
      * Removes a specific rating from the users profile
-     * 
      * @param userId The user whos rating is being modified
      * @param index  The index of the rating to be removed
      */
@@ -842,7 +789,6 @@ public class InternshipApplication {
 
     /**
      * Clears a users ratings.
-     * 
      * @param userid is the id of the user whose ratings to clear
      */
     public void resetRating(UUID userId) {
