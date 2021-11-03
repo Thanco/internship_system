@@ -102,7 +102,7 @@ public class InternshipUI {
     public void startUI() {
         while (true) {
             clearPage();
-            System.out.print("Start");
+            System.out.print("Welcome to Portia's Resume Plante!");
             char entry = UIOptionsLine("220617");
             if (entry == 'L') login();
             else if (entry == 'C') createAccount();
