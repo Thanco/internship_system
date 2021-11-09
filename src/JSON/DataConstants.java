@@ -6,11 +6,11 @@ package JSON;
  * @author Terry Hancock
  */
 public abstract class DataConstants {
-	
+
 	/**
 	 * User definitions
 	 */
-	protected static final String USERS_FILE_NAME = "JSON/users.json";
+	protected static final String USERS_FILE_NAME = "src/JSON/users.json";
 	protected static final String USERS_TYPE = "userType";
 	protected static final String USERS_ID = "id";
 	protected static final String USERS_FIRST_NAME = "firstName";
@@ -18,7 +18,7 @@ public abstract class DataConstants {
 	protected static final String USERS_EMAIL = "email";
 	protected static final String USERS_PASSWORD = "password";
 	protected static final String USERS_RATINGS = "rating";
-	
+
 	/**
 	 * Student definitions
 	 */
@@ -31,11 +31,11 @@ public abstract class DataConstants {
 	protected static final String EMPLOYERS_VERIFICATION_STATUS = "verificationStatus";
 	protected static final String EMPLOYERS_INTERNSHIP_LIST = "internshipList";
 	protected static final String EMPLOYERS_EMPLOYEES = "employees";
-	
+
 	/**
 	 * Resume definitions
 	 */
-	protected static final String RESUMES_FILE_NAME = "JSON/resumes.json";
+	protected static final String RESUMES_FILE_NAME = "src/JSON/resumes.json";
 	protected static final String RESUMES_ID = "id";
 	protected static final String RESUMES_FIRST_NAME = "firstName";
 	protected static final String RESUMES_LAST_NAME = "lastName";
@@ -56,7 +56,7 @@ public abstract class DataConstants {
 	/**
 	 * Internship definitions
 	 */
-	protected static final String INTERNSHIPS_FILE_NAME = "JSON/internships.json";
+	protected static final String INTERNSHIPS_FILE_NAME = "src/JSON/internships.json";
 	protected static final String INTERNSHIPS_ID = "id";
 	protected static final String INTERNSHIPS_TITLE = "title";
 	protected static final String INTERNSHIPS_EMPLOYER = "employer";
