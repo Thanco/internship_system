@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-import JSON.DataWriter;
 import Model.*;
+import JSON.DataWriter;
 
 /**
  * Used by UI to acces other classes

@@ -18,7 +18,7 @@ public class InternshipUI {
 
     private final int LINE_LENGTH = 80;
     private final int PAGE_LENGTH = 25;
-    private final String OPTIONS = "UserInterface/Options.txt";
+    private final String OPTIONS = "src/UserInterface/Options.txt";
     private InternshipApplication application;
     private Scanner in;
     private String[] options;
