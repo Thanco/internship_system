@@ -175,6 +175,7 @@ public class Employer extends User {
         for(int num : this.ratings){
             sum += num;
         }
+        if (this.ratings.size() == 0) return 0.0;
         return sum/this.ratings.size();
 
     }
