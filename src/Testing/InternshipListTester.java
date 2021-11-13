@@ -90,9 +90,34 @@ public class InternshipListTester {
     }
 
     @Test
-    public void addInternshipIfInternshipIsNull(){
+    public void testAddInternshipIfInternshipIsNull(){
         InternshipList.getInstance().setInternshipList(internships);
         InternshipList.getInstance().addInternship(null);
         assertEquals(internships.get(internships.size()-1), InternshipList.getInstance().getInternships().get(InternshipList.getInstance().getInternships().size()-1));
+    }
+
+    @Test
+    public void testGetInternshipByKeywordIfKeywordExists(){
+        InternshipList.getInstance().setInternshipList(internships);
+        ArrayList<Internship> expected = new ArrayList<>(Arrays.asList(internships.get(0)));
+        assertEquals(expected, InternshipList.getInstance().getInternshipByKeyword("Mustermann"));
+    }
+
+    @Test
+    public void testGetInternshipByKeywordIfKeywordExistsInSeveral(){
+        InternshipList.getInstance().setInternshipList(internships);
+        assertEquals(internships, InternshipList.getInstance().getInternshipByKeyword("python"));
+    }
+
+    @Test
+    public void testGetInternshipByKeywordIfKeywordNotExists(){
+        InternshipList.getInstance().setInternshipList(internships);
+        assertEquals(new ArrayList<>(), InternshipList.getInstance().getInternshipByKeyword("Nope"));
+    }
+
+    @Test
+    public void testGetInternshipByKeywordIfKeywordIsNull(){
+        InternshipList.getInstance().setInternshipList(internships);
+        assertEquals(new ArrayList<>(), InternshipList.getInstance().getInternshipByKeyword(null));
     }
 }
