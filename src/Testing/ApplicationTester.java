@@ -457,8 +457,128 @@ public class ApplicationTester {
     }
 
     @Test
-    public void changeEmployer()
+    public void changeEmployerIfInternshipExists(){
+        application.changeEmployer(internships.get(0).getId(), "NewName");
+        assertEquals(internships.get(0).getEmployer(), "NewName");
+    }
 
+    @Test
+    public void testChangeEmployerIfInternshipNotExists(){
+        application.changeEmployer(UUID.randomUUID(), "NewName");
+        assertTrue(application.getInternships("NewName").size() == 0);
+    }
 
+    @Test
+    public void testChangeEmployerIfEmployerNameNull(){
+        application.changeEmployer(internships.get(0).getId(), null);
+        assertEquals(internships.get(0).getEmployer(), null);
+    }
 
+    @Test
+    public void testGetTitleIfInternshipExists(){
+        assertEquals(internships.get(0).getTitle(), application.getTitle(internships.get(0).getId()));
+    }
+
+    @Test
+    public void testGetTitleIfInternshipDoesNotExists(){
+        assertEquals("", application.getTitle(UUID.randomUUID()));
+    }
+
+    @Test
+    public void testGetTitleIfInternshipIDIsNull(){
+        assertEquals("", application.getTitle(null));
+    }
+
+    @Test
+    public void testChangeTitleIfInternshipExists(){
+        application.changeTitle(internships.get(0).getId(), "NewName");
+        assertEquals(internships.get(0).getTitle(), "NewName");
+    }
+
+    @Test
+    public void testChangeTitleIfInternshipNotExists(){
+        application.changeTitle(UUID.randomUUID(), "NewName");
+        assertTrue(application.getInternships("NewName").size() == 0);
+    }
+
+    @Test
+    public void testChangeTitleIfEmployerNameNull(){
+        application.changeTitle(internships.get(0).getId(), null);
+        assertEquals(internships.get(0).getTitle(), null);
+    }
+
+    @Test
+    public void testGetRequiredSkillsIfInternshipExists(){
+        assertEquals(internships.get(0).getRequiredSkills(), application.getRequiredSkills(internships.get(0).getId()));
+    }
+
+    @Test
+    public void testGetRequiredSkillsIfInternshipNotExists(){
+        assertEquals(new ArrayList<>(), application.getRequiredSkills(UUID.randomUUID()));
+    }
+
+    @Test
+    public void testGetRequiredSkillsIfInternshipIDIsNull(){
+        assertEquals(new ArrayList<>(), application.getRequiredSkills(null));
+    }
+
+    @Test
+    public void testChangeRequiredSkillsIfInternshipExists(){
+        application.changeRequiredSkills(internships.get(0).getId(), "ChangeSkill");
+        assertEquals(internships.get(0).getRequiredSkills().get(0), "ChangeSkill");
+    }
+
+    @Test
+    public void testChangeRequiredSkillsIfInternshipNotExists(){
+        application.changeRequiredSkills(UUID.randomUUID(), "ChangeSkill");
+        assertTrue(application.getInternships("ChangeSkill").size() == 0);
+    }
+
+    @Test
+    public void testChangeRequiredSkillsIfEmployerNameNull(){
+        application.changeRequiredSkills(internships.get(0).getId(), null);
+        assertEquals(internships.get(0).getRequiredSkills().get(0), null);
+    }
+
+    @Test
+    public void testChangeSalaryTypeIfInternshipExists(){
+        application.changeSalary(internships.get(0).getId(), "9999");
+        assertEquals("9999", internships.get(0).getSalary());
+    }
+
+    @Test
+    public void testChangeSalaryTypeIfInternshipNotExists(){
+        application.changeSalary(UUID.randomUUID(), "9999");
+        assertEquals("9999", internships.get(0).getSalary());
+    }
+
+    @Test
+    public void testChangeSalaryTypeIfSalaryNull(){
+        application.changeSalary(internships.get(0).getId(), null);
+        assertEquals("To be determined", internships.get(0).getSalary());
+    }
+
+    @Test
+    public void testChangeSalaryTypeIfSalaryNotNumber(){
+        application.changeSalary(internships.get(0).getId(), "aaa");
+        assertEquals("To be determined", internships.get(0).getSalary());
+    }
+
+    @Test
+    public void testChangeExperationIfInternshipExistsAndDateValid(){
+        application.changeExperation(internships.get(0).getId(), "10/10/2020");
+        assertEquals("2020-10-10", internships.get(0).getExpirationDate().toString());
+    }
+
+    @Test
+    public void testChangeExperationIfInternshipNotExistsAndDateValid(){
+        application.changeExperation(UUID.randomUUID(), "10/10/2020");
+        assertEquals(null, internships.get(0).getExpirationDate().toString());
+    }
+
+    @Test
+    public void testChangeExperationIfInternshipExistsAndDateInValid(){
+        application.changeExperation(internships.get(0).getId(), "99/99/2020");
+        assertEquals(null, internships.get(0).getExpirationDate().toString());
+    }
 }
