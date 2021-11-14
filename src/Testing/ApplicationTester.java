@@ -25,14 +25,13 @@ public class ApplicationTester {
     Employer employer;
     Admin admin;
     ArrayList<Internship> internships;
-    
 
     /**
      * Initializes the application object
      */
     @BeforeEach
     public void setup() {
-         internships = new ArrayList<>(Arrays.asList(
+        internships = new ArrayList<>(Arrays.asList(
                 new Internship("Test intern", "Frau Mustermann", "Test",
                         new ArrayList<>(Arrays.asList("python", "java")), LocalDate.now(), LocalDate.now().plusDays(1),
                         1, 15, LocalDate.now().plusDays(3), new FixedSalary(44)),
@@ -52,8 +51,8 @@ public class ApplicationTester {
      */
     @AfterEach
     public void tearDown() {
-      UserList.getInstance().getUsers().clear();
-      InternshipList.getInstance().getInternships().clear();
+        UserList.getInstance().getUsers().clear();
+        InternshipList.getInstance().getInternships().clear();
     }
 
     @Test
@@ -237,49 +236,113 @@ public class ApplicationTester {
     }
 
     @Test
-    public void testGetInternshipsIfListContainsInternships(){
+    public void testGetInternshipsIfListContainsInternships() {
 
         assertEquals(internships, application.getInternships());
 
     }
 
     @Test
-    public void testGetInternshipIfListIsEmpty(){
+    public void testGetInternshipIfListIsEmpty() {
         InternshipList.getInstance().setInternshipList(new ArrayList<>());
         assertEquals(new ArrayList<>(), application.getInternships());
     }
 
     @Test
-    public void testGetInternshipsIfKeywordExists(){
+    public void testGetInternshipsIfKeywordExists() {
         assertEquals(internships, application.getInternships("python"));
     }
 
     @Test
-    public void testGetInternshipsIfKeywordNotExists(){
+    public void testGetInternshipsIfKeywordNotExists() {
         assertEquals(new ArrayList<>(), application.getInternships("Does not exist"));
     }
 
     @Test
-    public void testGetInternshipIfKeywordIsEmpty(){
+    public void testGetInternshipIfKeywordIsEmpty() {
         assertEquals(new ArrayList<>(), application.getInternships(""));
     }
 
     @Test
-    public void testGetInternshipIfEmployerHasInternhsip(){
+    public void testGetInternshipIfEmployerHasInternhsip() {
         Employer employerTest = new Employer("Pete", "Yo", "pete@yo.com", "123");
         Internship toTest = new Internship("Petes", "Frau Mustermann", "Pete",
-        new ArrayList<>(Arrays.asList("python", "java")), LocalDate.now(), LocalDate.now().plusDays(1),
-        1, 15, LocalDate.now().plusDays(3), new FixedSalary(44));
+                new ArrayList<>(Arrays.asList("python", "java")), LocalDate.now(), LocalDate.now().plusDays(1), 1, 15,
+                LocalDate.now().plusDays(3), new FixedSalary(44));
         employerTest.createNewInternship("Petes", "Frau Mustermann", "Pete",
-        new ArrayList<>(Arrays.asList("python", "java")), LocalDate.now(), LocalDate.now().plusDays(1),
-        1, 15, LocalDate.now().plusDays(3), new FixedSalary(44));
+                new ArrayList<>(Arrays.asList("python", "java")), LocalDate.now(), LocalDate.now().plusDays(1), 1, 15,
+                LocalDate.now().plusDays(3), new FixedSalary(44));
 
         assertEquals(toTest, application.getInternships(employerTest.getId()));
     }
 
     @Test
-    public void testGetinternshipIfEmployerHasNoInternships(){
-        assertEquals(null, application.getInternship(employer.getId()));
+    public void testGetinternshipIfEmployerHasNoInternships() {
+        assertEquals(new ArrayList<>(), application.getInternships(employer.getId()));
+    }
+
+    @Test
+    public void testGetInternshipIfNoneEmployerIdGiven() {
+        assertEquals(null, application.getInternships(student.getId()));
+    }
+
+    @Test
+    public void testGetInternshipIfIdIsInList() {
+        assertEquals(internships.get(0), application.getInternship(internships.get(0).getId()));
+    }
+
+    @Test
+    public void testGetInternshipIfIdIsNotInList() {
+        assertEquals(null, application.getInternship(UUID.randomUUID()));
+    }
+
+    @Test
+    public void testGetInternshipIfIdIsNull() {
+        assertEquals(null, application.getInternship(null));
+    }
+
+    @Test
+    public void testGetApplicationsIfInternshipHasApplication() {
+        WorkExperience workExperience = new WorkExperience("Test", "TestCompany", "02/10/2021", "03/10/2011");
+        Education education = new Education("Test School", SchoolYear.FRESHMAN, "CS");
+        Resume applicationResume = new Resume(UUID.randomUUID(), UUID.randomUUID(), "Max", "Mustermann", education,
+                new ArrayList<>(Arrays.asList("python", "java")), new ArrayList<>(Arrays.asList(workExperience)),
+                new ArrayList<>(Arrays.asList("baseball", "social work")));
+
+        internships.get(0).addApplication(applicationResume);
+
+        assertEquals(new ArrayList<>(Arrays.asList(applicationResume)),
+                application.getApplications(internships.get(0).getId()));
+    }
+
+    @Test
+    public void testGetApplicationsIfInternshipHasMultipleApplication() {
+        WorkExperience workExperience = new WorkExperience("Test", "TestCompany", "02/10/2021", "03/10/2011");
+        Education education = new Education("Test School", SchoolYear.FRESHMAN, "CS");
+        Resume applicationResumeOne = new Resume(UUID.randomUUID(), UUID.randomUUID(), "Max", "Mustermann", education,
+                new ArrayList<>(Arrays.asList("python", "java")), new ArrayList<>(Arrays.asList(workExperience)),
+                new ArrayList<>(Arrays.asList("baseball", "social work")));
+        Resume applicationResumeTwo = new Resume(UUID.randomUUID(), UUID.randomUUID(), "Pete", "Mustermann", education,
+                new ArrayList<>(Arrays.asList("python", "java")), new ArrayList<>(Arrays.asList(workExperience)),
+                new ArrayList<>(Arrays.asList("baseball", "social work")));
+
+        internships.get(0).addApplication(applicationResumeOne);
+        internships.get(0).addApplication(applicationResumeTwo);
+
+        assertEquals(new ArrayList<>(Arrays.asList(applicationResumeOne, applicationResumeTwo)),
+                application.getApplications(internships.get(0).getId()));
+    }
+
+    @Test
+    public void testGetApplicationIfInternshipHasNoApplications() {
+        assertEquals(new ArrayList<>(), application.getApplications(internships.get(0).getId()));
+
+    }
+
+    
+    @Test
+    public void testGetApplicationIfInternshipIdIsNull() {
+        assertEquals(new ArrayList<>(), application.getApplications(null));
     }
 
 }
