@@ -3,6 +3,9 @@ package Testing;
 import org.junit.Test;
 
 import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 
 import UserInterface.*;
@@ -18,14 +21,14 @@ public class ResumeTester {
     public void testCreateResume() {
         application.createResume("not clemson","freshman","computer science");
         Resume testResume = application.getResume(testStudent.getId());
-        assertEquals(testStudent.getResume, testResume);
+        assertEquals(testStudent.getResume(), testResume);
     }
 
     @Test
     public void testChangeSkills() {
         testStudent.changeSkills("voodoo");
         boolean skillTrue = false;
-        for(int i = 0; i < testStudent.getStudentSkills.size();i++)
+        for(int i = 0; i < testStudent.getStudentSkills().size();i++)
         {
             if(testStudent.getStudentSkills(i).equalsIgnoreCase("voodoo"))
             {

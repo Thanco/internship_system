@@ -441,4 +441,24 @@ public class ApplicationTester {
         assertEquals(new ArrayList<>(), application.getInternships("Search for this"));
     }
 
+    @Test
+    public void testGetEmployerIfInternshipIdExists(){
+        employer.createNewInternship("Petes", "Frau Mustermann", "Pete",
+                new ArrayList<>(Arrays.asList("python", "java")), LocalDate.now(), LocalDate.now().plusDays(1), 1, 15,
+                LocalDate.now().plusDays(3), new FixedSalary(44));
+        assertEquals("Frau Mustermann", application.getEmployer(employer.getInternshipList().get(0)));
+
+    }
+
+    @Test
+    public void testGetEmployerIfInternshipNotExists(){
+        assertEquals("", application.getEmployer(UUID.randomUUID()));
+
+    }
+
+    @Test
+    public void changeEmployer()
+
+
+
 }
