@@ -339,10 +339,88 @@ public class ApplicationTester {
 
     }
 
-    
     @Test
     public void testGetApplicationIfInternshipIdIsNull() {
         assertEquals(new ArrayList<>(), application.getApplications(null));
+    }
+
+    @Test
+    public void testApplyIfCurrentUserIsStudentAndIdExists(){
+        application.login("JohnDoe@email.sc.edu", "Password1");
+        Education education = new Education("Test School", SchoolYear.FRESHMAN, "CS");
+        student.createResume("Pete", "Musterman", education);
+        Resume resume = student.getResume();
+        application.apply(internships.get(0).getId());
+        assertTrue(internships.get(0).getApplications().contains(resume));
+    }
+
+    @Test
+    public void testApplyIfCurrentUserIsEmployerAndIdExists(){
+        application.login("JaneDoe@email.sc.edu", "Password2");
+        application.apply(internships.get(0).getId());
+        assertTrue(internships.get(0).getApplications().size() == 0);
+    }
+
+    @Test
+    public void testApplyIfCurrentUserIsStudentButInternshipIdNull(){
+        application.login("JohnDoe@email.sc.edu", "Password1");
+        Education education = new Education("Test School", SchoolYear.FRESHMAN, "CS");
+        student.createResume("Pete", "Musterman", education);
+        application.apply(null);
+        assertTrue(internships.get(0).getApplications().size() == 0);
+    }
+
+    @Test
+    public void testAcceptApplication(){
+        application.login("JaneDoe@email.sc.edu", "Password2");
+        Internship toTest = new Internship("Petes", "Frau Mustermann", "Pete",
+                new ArrayList<>(Arrays.asList("python", "java")), LocalDate.now(), LocalDate.now().plusDays(1), 1, 15,
+                LocalDate.now().plusDays(3), new FixedSalary(44));
+        Education education = new Education("Test School", SchoolYear.FRESHMAN, "CS");
+        student.createResume("Pete", "Musterman", education);
+
+
+        application.acceptApplication(student.getResume());
+        assertTrue(employer.getEmployees().contains(student.getId()));
+
+    }
+
+    @Test
+    public void testAcceptApplicationIfResumeNull(){
+        application.login("JaneDoe@email.sc.edu", "Password2");
+        application.acceptApplication(null);
+        assertTrue(employer.getEmployees().size() == 0);
+    }
+
+    @Test
+    public void testdeclineApplication(){
+        application.login("JaneDoe@email.sc.edu", "Password2");
+        Education education = new Education("Test School", SchoolYear.FRESHMAN, "CS");
+        student.createResume("Pete", "Musterman", education);
+        application.declineApplication(internships.get(0).getId(), student.getResume().getUuid());
+        assertTrue(!employer.getEmployees().contains(student.getId()));
+
+    }
+
+    @Test
+    public void testRemoveInternshipIfIsInList(){
+        Internship toRemove = internships.get(0);
+        application.removeInternship(toRemove.getId());
+        assertTrue(!InternshipList.getInstance().getInternships().contains(toRemove));
+    }
+
+    @Test
+    public void testRemoveInternshipIfNotInList(){
+        int listSize = InternshipList.getInstance().getInternships().size();
+        application.removeInternship(UUID.randomUUID());
+        assertTrue(listSize == InternshipList.getInstance().getInternships().size());
+    }
+
+    @Test
+    public void testRemoveInternshipIfInternshipNull(){
+        int listSize = InternshipList.getInstance().getInternships().size();
+        application.removeInternship(null);
+        assertTrue(listSize == InternshipList.getInstance().getInternships().size());
     }
 
 }
