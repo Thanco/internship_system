@@ -1,20 +1,23 @@
 package Testing;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.Test;
 
 import java.util.UUID;
+import java.util.ArrayList;
+
+import UserInterface.*;
+import Model.*;
 
 public class ResumeTester {
 
-    InternshipApplication application;
+    InternshipApplication application = new InternshipApplication();
     Student testStudent =  new Student("user","test","test@email.com","testUser1");
     UUID testUUID = testStudent.getId();
 
     @Test
     public void testCreateResume() {
-        testStudent.createResume("not clemson","freshman","computer science");
-        Resume testResume = application.getResume(testStudent.getId);
+        application.createResume("not clemson","freshman","computer science");
+        Resume testResume = application.getResume(testStudent.getId());
         assertEquals(testStudent.getResume, testResume);
     }
 
@@ -68,9 +71,7 @@ public class ResumeTester {
         WorkExperience wrkExpTest = new WorkExperience("should be first","Amazon","12/1/2032","12/1/2045"); 
         testStudent.changeWork("should be first","Amazon","12/1/2032","12/1/2045");
         WorkExperience wrkExp = testStudent.getWorkExperienceList.get(0);
-
         assertEquals(wrkExpTest, wrkExp);
-    
     }
 
     @Test
@@ -87,12 +88,9 @@ public class ResumeTester {
     @Test
     public void testSearchResumes() {
 
-        ArrayList<Resume> resumes = new ArrayList<>();
+        ArrayList<Resume> resumes = new ArrayList<Resume>();
         resumes.add(testStudent.getResume());
         assertEquals(0, application.searchResumes(resumes, "java"));
     }
-
-
-
 
 }
