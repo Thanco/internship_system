@@ -423,4 +423,22 @@ public class ApplicationTester {
         assertTrue(listSize == InternshipList.getInstance().getInternships().size());
     }
 
+    @Test
+    public void testCreateInternshipIfUserIsEmployer(){
+        application.login("JaneDoe@email.sc.edu", "Password2");
+        application.createInternship("Petes", "Frau Mustermann", "Pete",
+       "python,Java", "10/10/2020", "11/10/2021", 1, 15,
+        "12/10/2021", "44");
+        assertTrue(employer.getInternshipList().size() == 1);
+    }
+
+    @Test
+    public void testCreateInternshipIfUserIsNotEmployer(){
+        application.login("JohnDoe@email.sc.edu", "Password1");
+        application.createInternship("Search for this", "Frau Mustermann", "Pete",
+       "python,Java", "10/10/2020", "11/10/2021", 1, 15,
+        "12/10/2021", "44");
+        assertEquals(new ArrayList<>(), application.getInternships("Search for this"));
+    }
+
 }
