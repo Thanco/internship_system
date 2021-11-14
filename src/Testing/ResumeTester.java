@@ -1,6 +1,8 @@
 package Testing;
 
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.UUID;
 
@@ -19,6 +21,7 @@ public class ResumeTester {
 
     @Test
     public void testCreateResume() {
+        application.login("test@email.com","testUser1");
         application.createResume("not clemson","freshman","computer science");
         Resume testResume = application.getResume(testStudent.getId());
         assertEquals(testStudent.getResume(), testResume);
@@ -26,11 +29,13 @@ public class ResumeTester {
 
     @Test
     public void testChangeSkills() {
-        testStudent.changeSkills("voodoo");
+        application.login("test@email.com","testUser1");
+        application.changeSkills("voodoo");
         boolean skillTrue = false;
-        for(int i = 0; i < testStudent.getStudentSkills().size();i++)
+
+        for(int i = 0; i < testStudent.getResume().getStudentSkills().size(); i++)
         {
-            if(testStudent.getStudentSkills(i).equalsIgnoreCase("voodoo"))
+            if(testStudent.getResume().getStudentSkills().get(i).equalsIgnoreCase("voodoo"))
             {
                 skillTrue = true;
             }
@@ -41,11 +46,12 @@ public class ResumeTester {
 
     @Test
     public void testChangeEducation() {
-        testStudent.changeEducation("USC","CIS","junior");
-        Resume testRes = testStudent.getResume;
+        application.login("test@email.com","testUser1");
+        application.changeEducation("USC","CIS","junior");
+        Resume testRes = testStudent.getResume();
         boolean eduTrue = false;
 
-        if(testRes.getEducation.getMajor.equalsIgnoreCase("CIS"))
+        if(testRes.getEducation().getMajor().equalsIgnoreCase("CIS"))
         {
             eduTrue = true;
         }
@@ -55,11 +61,12 @@ public class ResumeTester {
 
     @Test
     public void testChangeExtra() {
-        testStudent.changeExtra("Garnet Game Jammers");
+        application.login("test@email.com","testUser1");
+        application.changeExtra("Garnet Game Jammers");
         boolean extraTrue = false;
-        for(int i = 0; i < testStudent.getExtraCirricularList.size();i++)
+        for(int i = 0; i < testStudent.getResume().getExtraCirricularList().size();i++)
         {
-            if(testStudent.getExtraCirricularList(i).equalsIgnoreCase("Garnet Game Jammers"))
+            if(testStudent.getResume().getExtraCirricularList().get(i).equalsIgnoreCase("Garnet Game Jammers"))
             {
                 extraTrue = true;
             }
@@ -70,27 +77,28 @@ public class ResumeTester {
 
     @Test
     public void testChangeWork() {
-
         WorkExperience wrkExpTest = new WorkExperience("should be first","Amazon","12/1/2032","12/1/2045"); 
-        testStudent.changeWork("should be first","Amazon","12/1/2032","12/1/2045");
-        WorkExperience wrkExp = testStudent.getWorkExperienceList.get(0);
+        application.login("test@email.com","testUser1");
+        application.changeWork("should be first","Amazon","12/1/2032","12/1/2045");
+        WorkExperience wrkExp = testStudent.getResume().getWorkExperienceList().get(0);
         assertEquals(wrkExpTest, wrkExp);
     }
 
     @Test
     public void testGetResume() {
-        assertEquals(application.getResume(testStudent.getId), testStudent.getResume);
+        application.login("test@email.com","testUser1");
+        assertEquals(application.getResume(testStudent.getId()), testStudent.getResume());
     }
 
     @Test
     public void testDeleteResume() {
-        application.deleteResume(testStudent.getId);
-        assertEquals(null, testStudent.getResume);
+        application.login("test@email.com","testUser1");
+        application.deleteResume(testStudent.getId());
+        assertEquals(null, testStudent.getResume());
     }
     
     @Test
     public void testSearchResumes() {
-
         ArrayList<Resume> resumes = new ArrayList<Resume>();
         resumes.add(testStudent.getResume());
         assertEquals(0, application.searchResumes(resumes, "java"));
