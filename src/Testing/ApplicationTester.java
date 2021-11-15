@@ -51,188 +51,192 @@ public class ApplicationTester {
      */
     @AfterEach
     public void tearDown() {
+        student = null;
+        employer = null;
         UserList.getInstance().getUsers().clear();
         InternshipList.getInstance().getInternships().clear();
     }
 
     @Test
     public void testLoginValidReturn() {
-
+        assertTrue(application.login("JohnDoe@email.sc.edu", "Password1"));
     }
 
     @Test
     public void testLoginInValidReturn() {
-
+        assertFalse(application.login("JohnDoe@email.sc.edu", "Password2"));
     }
 
     @Test
     public void testLoginSuccesful() {
-
+        application.login("JohnDoe@email.sc.edu", "Password1");
+        assertNotEquals(null, application.getCurrent());    
     }
 
     @Test
     public void testLoginUnsuccesful() {
-
+        application.login("JohnDoe@email.sc.edu", "Password2");
+        assertEquals(null, application.getCurrent()); 
     }
 
     @Test
     public void testLogoutSuccesful() {
-
+        if (application.login("JohnDoe@email.sc.edu", "Password1")) {
+            application.logout();
+            assertEquals(null, application.getCurrent());
+        }
     }
 
     @Test
     public void testGetCurrentWhenNull() {
-
+        assertEquals(null, application.getCurrent());
     }
 
     @Test
     public void testCreateUserValid() {
-
+        assertTrue(application.createUser("Portia", "Portia", "PPlante@email.sc.edu", "Password3", 1));
     }
 
     @Test
     public void testCreateUserInValid() {
-
+        assertFalse(application.createUser("Portia", "Portia", "PPlanteATemail.sc.edu", "pwrd", 1));
     }
 
     @Test
     public void testUserTypeValid() {
-
+        application.login("JohnDoe@email.sc.edu", "Password1");
+        assertEquals(0, application.userType());
     }
 
     @Test
     public void testUserTypeWhenNull() {
-
+        assertEquals(-1, application.userType());
     }
 
     @Test
     public void testUserTypeByIDValid() {
-
+        assertEquals(1, application.userType(employer.getId()));
     }
 
     @Test
     public void testUserTypeByIDWhenNull() {
-
+        assertEquals(-1, application.userType(null));
     }
 
     @Test
     public void testGetRatablesValid() {
-
-    }
-
-    @Test
-    public void testGetRatablesInValid() {
-
+        application.login("JohnDoe@email.sc.edu", "Password1");
+        student.addFormerEmployer(employer.getId());
+        assertEquals(employer.getId(), application.getRatables().get(0));
     }
 
     @Test
     public void testAddRatingValid() {
-
-    }
-
-    @Test
-    public void testAddRatingInValid() {
-
+        boolean test = true;
+        application.addRating(student.getId(), 5);
+        application.addRating(student.getId(), 4);
+        application.addRating(student.getId(), 3);
+        application.addRating(student.getId(), 2);
+        application.addRating(student.getId(), 1);
+        for (int i = 0; i < student.getRatings().size(); i++) {
+            if (!student.getRatings().contains(i + 1)) {
+                test = false;
+            }
+        }
+        assertEquals(true, test);
     }
 
     @Test
     public void testGetUsersValidType() {
-
+        assertTrue(application.getUsers(0).get(0) == student); 
     }
 
     @Test
     public void testGetUsersInValidType() {
-
+        assertEquals(null, application.getUsers(5));
     }
 
     @Test
     public void testGetUsersValidString() {
-
+        assertEquals(student, application.getUsers("John").get(0));
     }
 
     @Test
     public void testGetUsersInValidString() {
-
+        assertEquals(null, application.getUsers(""));
     }
 
     @Test
     public void testGetEmployeesValidUUID() {
-
+        employer.addEmployee(student.getId());
+        assertEquals(employer.getEmployees(), application.getEmployees(employer.getId()));
     }
 
     @Test
     public void testGetEmployeesInValidUUID() {
-
+        assertEquals(null, application.getEmployees(student.getId()));
     }
 
     @Test
     public void testUpdateEmailValid() {
-
+        application.login("JohnDoe@email.sc.edu", "Password1");
+        application.updateEmail("DoeJohn@email.sc.edu");
+        assertEquals("DoeJohn@email.sc.edu", student.getEmail());
     }
 
     @Test
     public void testUpdateEmailInValid() {
-
+        application.login("JohnDoe@email.sc.edu", "Password1");
+        application.updateEmail("DoeJohnATemail.sc.edu");
+        assertEquals("JohnDoe@email.sc.edu", student.getEmail());
     }
 
     @Test
     public void testUpdatePasswordValid() {
-
+        String old = student.getPassword();
+        application.login("JohnDoe@email.sc.edu", "Password1");
+        application.updatePassword("Password3");
+        assertNotEquals(old, application.getUser().getPassword());
     }
 
     @Test
     public void testUpdatePasswordInValid() {
-
+        String old = student.getPassword();
+        application.login("JohnDoe@email.sc.edu", "Password1");
+        application.updatePassword("");
+        assertEquals(old, application.getUser().getPassword());
     }
 
     @Test
     public void testUpdateNameValid() {
-
+        String oldF = student.getFirstName();
+        String oldL = student.getLastName();
+        application.login("JohnDoe@email.sc.edu", "Password1");
+        application.updateName("Jimmy", "Johns");
+        assertFalse(student.getFirstName() == oldF && student.getLastName() == oldL);
     }
 
     @Test
-    public void testUpdateNameInValid() {
-
+    public void testRemoveUserValid() {
+        application.removeUser(student.getId());
+        assertEquals(null, application.getUser(student.getId()));
     }
 
     @Test
-    public void testUpdateRemoveUserValid() {
-
+    public void testGetRatingValid() {
+        for (int i = 0; i < 5; i++) {
+            student.addRating(i + 1);
+        }
+        assertEquals(0.0, application.getRating());
     }
 
     @Test
-    public void testUpdateRemoveUserInValid() {
-
-    }
-
-    @Test
-    public void testUpdateGetRatingValid() {
-
-    }
-
-    @Test
-    public void testUpdateGetRatingInValid() {
-
-    }
-
-    @Test
-    public void testUpdateGetRatingsValid() {
-
-    }
-
-    @Test
-    public void testUpdateGetRatingsInValid() {
-
-    }
-
-    @Test
-    public void testUpdateResetRatingValid() {
-
-    }
-
-    @Test
-    public void testUpdateResetRatingInValid() {
-
+    public void testResetRatingValid() {
+        for (int i = 0; i < 5; i++) {
+            student.addRating(i + 1);
+        }
+        application.resetRating(student.getId());
+        assertEquals(0.0, application.getRating());
     }
 
     @Test
