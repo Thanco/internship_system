@@ -22,29 +22,29 @@ import Model.WorkExperience;
 public class InternshipTester {
 
     Internship internship = new Internship("Test intern", "Frau Mustermann", "Test",
-            new ArrayList<>(Arrays.asList("python", "java")), LocalDate.now(), LocalDate.now().plusDays(1), 1, 15,
-            LocalDate.now().plusDays(3), new FixedSalary(44));
+            new ArrayList<>(Arrays.asList("python", "java")), LocalDate.of(2020, 10, 10), LocalDate.of(2020, 10, 11), 1, 15,
+            LocalDate.of(2020, 10, 13), new FixedSalary(44));
 
     @Test
     public void testToStringWithFixedSalary() {
-        assertEquals("Frau Mustermann\n\tTest intern\nRequired Skills: python, java\nDescription: Test\nPay: 44\nSchedule:\n   Start Day: 11/12/2021\n   End Day: 11/13/2021\n   Hours per Day: 1\nOpen Until: 11/15/2021", internship.toString());
+        assertEquals("Frau Mustermann\n\tTest intern\nRequired Skills: python, java\nDescription: Test\nPay: 44\nSchedule:\n   Start Day: 10/10/2020\n   End Day: 10/11/2020\n   Hours per Day: 1\nOpen Until: 10/13/2020", internship.toString());
     }
 
     @Test
     public void testToStringWithRangeSalary() {
         this.internship.setSalaryType(new RangeSalary(1, 2));
-        assertEquals("Frau Mustermann\n\tTest intern\nRequired Skills: python, java\nDescription: Test\nPay: 1 - 2\nSchedule:\n   Start Day: 11/12/2021\n   End Day: 11/13/2021\n   Hours per Day: 1\nOpen Until: 11/15/2021", internship.toString());
+        assertEquals("Frau Mustermann\n\tTest intern\nRequired Skills: python, java\nDescription: Test\nPay: 1 - 2\nSchedule:\n   Start Day: 10/10/2020\n   End Day: 10/11/2020\n   Hours per Day: 1\nOpen Until: 10/13/2020", internship.toString());
     }
 
     @Test
     public void testToStringWithHiddenSalary() {
         this.internship.setSalaryType(new HiddenSalary());
-        assertEquals("Frau Mustermann\n\tTest intern\nRequired Skills: python, java\nDescription: Test\nPay: To be determined\nSchedule:\n   Start Day: 11/12/2021\n   End Day: 11/13/2021\n   Hours per Day: 1\nOpen Until: 11/15/2021", internship.toString());
+        assertEquals("Frau Mustermann\n\tTest intern\nRequired Skills: python, java\nDescription: Test\nPay: To be determined\nSchedule:\n   Start Day: 10/10/2020\n   End Day: 10/11/2020\n   Hours per Day: 1\nOpen Until: 10/13/2020", internship.toString());
     }
 
     @Test
     public void testToShortString(){
-        assertEquals("Frau Mustermann	| Test intern	| 44	| 2021-11-15", internship.toStringShort());
+        assertEquals("Frau Mustermann	| Test intern	| 44	| 2020-10-13", internship.toStringShort());
     }
 
     @Test
