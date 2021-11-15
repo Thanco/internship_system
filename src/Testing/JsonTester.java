@@ -93,11 +93,12 @@ public class JsonTester {
 	@Test
 	public void testReadingWritingStudentNullAttributes() {
 		ArrayList<User> testUsers = new ArrayList<>();
-		users.add(new Student(null, "", "", "", "",
-		new Resume(UUID.randomUUID(), null, "", "",
-				new Education("", null, ""), null,
-				null, null),
-				null, null));
+		Student templateStudent = new Student(null, "", "", "", "",
+				new Resume(null, null, "", "",
+						new Education("", null, ""), null,
+						null, null),
+				null, null);
+		users.add(templateStudent);
 		DataWriter.saveUsers();
 		testUsers = DataLoader.getUsers();
 		Student testStudent = (Student) testUsers.get(0);
@@ -129,7 +130,7 @@ public class JsonTester {
 				new ArrayList<>(), new ArrayList<>());
 		users.add(templateStudent);
 		DataWriter.saveUsers();
-		assertEquals(null, DataLoader.getUsers().get(0));
+		assertEquals(templateStudent.toString(), DataLoader.getUsers().get(0).toString());
 	}
 
 	@Test
@@ -333,5 +334,73 @@ public class JsonTester {
 		users.add(templateAdmin);
 		DataWriter.saveUsers();
 		assertEquals(3, DataLoader.getUsers().size());
+	}
+
+	@Test 
+	public void testReadingWritingGoodInternship() {
+		LocalDate date = LocalDate.of(2000, 1, 1);
+		Internship templateInternship = new Internship(UUID.randomUUID(), "employer", "title", "description", new ArrayList<>(), 
+														date, date, 1, date, new HiddenSalary(), new ArrayList<>());
+		internships.add(templateInternship);
+		DataWriter.saveInternships();
+		assertEquals(templateInternship.toString(), DataLoader.getInternships().get(0).toString());
+	}
+
+	@Test
+	public void testReadingWritingBlankInternship() {
+		Internship templateInternship = new Internship(null, "", "", "", null, 
+														null, null, 0, null, null, null);
+		internships.add(templateInternship);
+		DataWriter.saveInternships();
+		assertEquals(templateInternship.toString(), DataLoader.getInternships().get(0).toString());
+	}
+
+	@Test 
+	public void testReadingWritingNullIdInternship() {
+		LocalDate date = LocalDate.of(2000, 1, 1);
+		Internship templateInternship = new Internship(null, "employer", "title", "description", new ArrayList<>(), 
+														date, date, 1, date, new HiddenSalary(), new ArrayList<>());
+		internships.add(templateInternship);
+		DataWriter.saveInternships();
+		assertEquals(templateInternship.toString(), DataLoader.getInternships().get(0).toString());
+	}
+
+	@Test
+	public void testReadingWritingNullSalaryInternship() {
+		LocalDate date = LocalDate.of(2000, 1, 1);
+		Internship templateInternship = new Internship(UUID.randomUUID(), "employer", "title", "description", new ArrayList<>(), 
+														date, date, 1, date, null, new ArrayList<>());
+		internships.add(templateInternship);
+		DataWriter.saveInternships();
+		assertEquals(templateInternship.toString(), DataLoader.getInternships().get(0).toString());
+	}
+
+	@Test
+	public void testReadingWritingNullDatesInternship() {
+		LocalDate date = null;
+		Internship templateInternship = new Internship(UUID.randomUUID(), "employer", "title", "description", new ArrayList<>(), 
+														date, date, 1, date, new HiddenSalary(), new ArrayList<>());
+		internships.add(templateInternship);
+		DataWriter.saveInternships();
+		assertEquals(templateInternship.toString(), DataLoader.getInternships().get(0).toString());
+	}
+
+	@Test
+	public void testReadingWritingFourGoodInternships() {
+		LocalDate date = LocalDate.of(2000, 1, 1);
+		Internship templateInternship = new Internship(UUID.randomUUID(), "employer", "title", "description", new ArrayList<>(), 
+														date, date, 1, date, new HiddenSalary(), new ArrayList<>());
+		internships.add(templateInternship);
+		DataWriter.saveInternships();
+		internships = InternshipList.getInstance().getInternships();
+		internships.add(templateInternship);
+		DataWriter.saveInternships();
+		internships = InternshipList.getInstance().getInternships();
+		internships.add(templateInternship);
+		DataWriter.saveInternships();
+		internships = InternshipList.getInstance().getInternships();
+		internships.add(templateInternship);
+		DataWriter.saveInternships();
+		assertEquals(4, DataLoader.getInternships().size());
 	}
 }
