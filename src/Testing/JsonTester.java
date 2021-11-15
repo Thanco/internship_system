@@ -1,10 +1,8 @@
 package Testing;
-/**
- * @author Terry Hancock 2021
- */
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.BeforeClass;
+import org.junit.AfterClass;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,16 +15,16 @@ import java.io.File;
 import java.time.LocalDate;
 
 /**
- * I wasn't sure how to split up the DataWriter and DataLoader, 
+ * I wasn't sure how to split up the DataWriter and DataLoader, So I made this "json" tester to test writing and loading.
+ *
+ * @author Terry Hancock 2021
  */
 public class JsonTester {
 	ArrayList<Internship> internships = InternshipList.getInstance().getInternships();
 	ArrayList<User> users = UserList.getInstance().getUsers();
-	/**Internship templaInternship = new Internship(uuid, "employer", "title", "description", new ArrayList<>(), LocalDate.of(1, 1, 1), 
-										LocalDate.of(1, 1, 1), 1, LocalDate.of(1, 1, 1), new HiddenSalary(), new ArrayList<>()); */
 
 	@BeforeClass
-	public static void jsonTestingSetup() {
+	public void jsonTestingSetup() {
 		new File("src/JSON").mkdirs();
 	}
 
@@ -86,7 +84,7 @@ public class JsonTester {
 	}
 
 	@Test
-	public void testReadingWritingNullStudent() {
+	public void testReadingWritingNullUser() {
 		users.add(null);
 		DataWriter.saveUsers();
 		assertEquals(null, DataLoader.getUsers().get(0));
@@ -182,7 +180,7 @@ public class JsonTester {
 	@Test
 	public void testReadingWritingNullRatingsStudent() {
 		UUID uuid = UUID.randomUUID();
-		Student templateStudent = new Student(uuid, "firstName", "lastName", "email", "",
+		Student templateStudent = new Student(uuid, "firstName", "lastName", "email", "password",
 				new Resume(UUID.randomUUID(), uuid, "firstName", "lastName",
 						new Education("schoolTitle", SchoolYear.FRESHMAN, "major"), new ArrayList<>(),
 						new ArrayList<>(), new ArrayList<>()),
@@ -218,24 +216,122 @@ public class JsonTester {
 				new ArrayList<>(), new ArrayList<>());
 		users.add(templateStudent);
 		DataWriter.saveUsers();
+		users = UserList.getInstance().getUsers();
 		users.add(templateStudent);
 		DataWriter.saveUsers();
+		users = UserList.getInstance().getUsers();
 		users.add(templateStudent);
 		DataWriter.saveUsers();
+		users = UserList.getInstance().getUsers();
 		users.add(templateStudent);
 		DataWriter.saveUsers();
+		users = UserList.getInstance().getUsers();
 		assertEquals(4, DataLoader.getUsers().size());
 	}
 
 	@Test
 	public void testReadingWritingGoodEmployer() {
 		UUID uuid = UUID.randomUUID();
-		Employer templateEmployer = new Employer(uuid, "firstName", "lastName", "email", "password", 
+		Employer templateEmployer = new Employer(uuid, "firstName", "lastName", "email", "password",
 												true, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
 		users.add(templateEmployer);
 		DataWriter.saveUsers();
 		assertEquals(templateEmployer.toString(), DataLoader.getUsers().get(0).toString());
 	}
 
+	@Test
+	public void testReadingWritingBlankEmployer() {
+		Employer templateEmployer = new Employer(null, "", "", "", "",
+												true, null, null, null);
+		users.add(templateEmployer);
+		DataWriter.saveUsers();
+		assertEquals(templateEmployer.toString(), DataLoader.getUsers().get(0).toString());
+	}
 
+	@Test
+	public void testReadingWritingEmployerWithOnlyId() {
+		Employer templateEmployer = new Employer(UUID.randomUUID(), "", "", "", "",
+												true, null, null, null);
+		users.add(templateEmployer);
+		DataWriter.saveUsers();
+		assertEquals(templateEmployer.toString(), DataLoader.getUsers().get(0).toString());
+	}
+
+	@Test
+	public void testReadingWritingEmplyStringsEmployer() {
+		Employer templateEmployer = new Employer(UUID.randomUUID(), "", "", "", "",
+												true, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+		users.add(templateEmployer);
+		DataWriter.saveUsers();
+		assertEquals(templateEmployer.toString(), DataLoader.getUsers().get(0).toString());
+	}
+
+	@Test
+	public void testReadingWritingNullEmployer() {
+		users.add(null);
+		DataWriter.saveUsers();
+		assertEquals(null, DataLoader.getUsers().get(0).toString());
+	}
+
+	@Test
+	public void testReadingWritingFourEmployers() {
+		UUID uuid = UUID.randomUUID();
+		Employer templateEmployer = new Employer(uuid, "firstName", "lastName", "email", "password",
+												true, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+		users.add(templateEmployer);
+		DataWriter.saveUsers();
+		users = UserList.getInstance().getUsers();
+		users.add(templateEmployer);
+		DataWriter.saveUsers();
+		users = UserList.getInstance().getUsers();
+		users.add(templateEmployer);
+		DataWriter.saveUsers();
+		users = UserList.getInstance().getUsers();
+		users.add(templateEmployer);
+		DataWriter.saveUsers();
+		users = UserList.getInstance().getUsers();
+		assertEquals(4, DataLoader.getUsers().size());
+	}
+
+	@Test
+	public void testReadingWritingGoodAdmin() {
+		Admin templateAdmin = new Admin(UUID.randomUUID(), "firstName", "lastName", "email", "password");
+		users.add(templateAdmin);
+		DataWriter.saveUsers();
+		assertEquals(templateAdmin.toString(), DataLoader.getUsers().get(0).toString());
+	}
+
+	@Test
+	public void testReadingWritingBlankAdmin() {
+		Admin templateAdmin = new Admin(null, "", "", "", "");
+		users.add(templateAdmin);
+		DataWriter.saveUsers();
+		assertEquals(templateAdmin.toString(), DataLoader.getUsers().get(0).toString());
+	}
+
+	@Test
+	public void testReadingWritingAdminOnlyId() {
+		Admin templateAdmin = new Admin(UUID.randomUUID(), "", "", "", "");
+		users.add(templateAdmin);
+		DataWriter.saveUsers();
+		assertEquals(templateAdmin.toString(), DataLoader.getUsers().get(0).toString());
+	}
+
+	@Test
+	public void testReadingWritingUsersWithDifferentTypes() {
+		UUID uuid = UUID.randomUUID();
+		Student templateStudent = new Student(uuid, "firstName", "lastName", "email", "password",
+				new Resume(UUID.randomUUID(), uuid, "firstName", "lastName",
+						new Education("schoolTitle", SchoolYear.FRESHMAN, "major"), new ArrayList<>(),
+						new ArrayList<>(), new ArrayList<>()),
+				new ArrayList<>(), new ArrayList<>());
+		Employer templateEmployer = new Employer(UUID.randomUUID(), "", "", "", "",
+												true, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+		Admin templateAdmin = new Admin(UUID.randomUUID(), "firstName", "lastName", "email", "password");
+		users.add(templateStudent);
+		users.add(templateEmployer);
+		users.add(templateAdmin);
+		DataWriter.saveUsers();
+		assertEquals(3, DataLoader.getUsers().size());
+	}
 }
